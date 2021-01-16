@@ -1,0 +1,9 @@
+# Ignore everything in vytex main folder
+/*
+# Except
+!.gitignore
+!src/
+!styles/
+!assets/
+!README.md
+!index.html
