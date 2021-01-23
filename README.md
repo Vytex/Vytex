@@ -21,10 +21,10 @@ Iterm, VSCode, Homebrew
 
 ## Authors
 
-**Phillip (Smeggins) Chadwick** - Main Author, Primary Programmer
-**julian borderas** - Main Author, Primary Programmer
-**JoaquinBorderas** - Main Author, Primary Programmer
-**Muskan** - Main Author, Primary Programmer
+* **Phillip (Smeggins) Chadwick** - Main Author, Primary Programmer
+* **julian borderas** - Main Author, Primary Programmer
+* **JoaquinBorderas** - Main Author, Primary Programmer
+* **Muskan** - Main Author, Primary Programmer
 
 
 ## License
