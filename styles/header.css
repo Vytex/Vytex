@@ -1,0 +1,58 @@
+header {
+    width: 100%;
+    height: 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hContainer {
+    box-sizing: border-box;
+    width: 95%;
+    height: 100%;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 3px solid var(--vyGrey);
+}
+
+.hamburgerMenuBContainer {
+    display: flex;
+    align-items: center;
+}
+
+.placeholder {
+    width: 10%;
+    height: 100%;
+}
+
+.profileBContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.profileB {
+    width: 10%;
+    height: 100%;
+    border-radius: 100%;
+    contain: content;
+}
+
+.profileB img {
+    width: 100%;
+    height: 100%;
+}
+
+.logoBContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoB {
+    color: var(--vyWhite);
+    font-size: 3vw;
+}
