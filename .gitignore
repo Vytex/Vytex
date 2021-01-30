@@ -2,11 +2,9 @@
 /*
 # Except
 !.gitignore
-!src/
-!styles/
-!assets/
 !README.md
 !index.html
 !TEMPLATE/
 !static/
 !app.py
+!template
