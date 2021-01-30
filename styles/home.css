@@ -46,3 +46,7 @@ form, input, .searchInput, .searchInputF {
     background-color: black;
     opacity: .5;
 }
+
+.normwidth {
+    color: black;
+}
