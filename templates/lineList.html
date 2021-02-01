@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang='en-us'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>Vytex</title>
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/reset.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/variables.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/breakPoints.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/global.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/header.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/lineList.css') }}">
+    </head>
+    <body>
+        <div class="heroImg"></div>
+        <div class="heroImgShadowbox"></div>
+        <div id="HamburgerMenu">
+            <div id="HMContainer">
+                <div id="CloseWindowX">X</div>
+                <div id="LinkContainer">
+                    <a>Join a Line</a>
+                    <a>Check your lines</a>
+                    <a>Contact Us</a>
+                    <a>Logout</a>
+                </div>
+            </div>
+            <a id="HMOffscreen"></a>
+        </div>
+        <header>
+            <div class="hContainer">
+                <div class="hamburgerMenuBContainer">
+                    <div id="hamburgerB" style="background-color: green;"></div>
+                </div>
+                <div class="logoBContainer">
+                    <h1 class="logoB">Vytex</h1>
+                </div>
+                <div class="profileBContainer">
+                    <div class="profileB">
+                        <img src="{{ url_for('static',    filename='./assets/profileButtonPlaceholder.jpg') }}">
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <h1>LINE-UP NOW:</h1>
+            <form>
+                <input type="text" placeholder="ENTER VENUE NAME OR LOCATION HERE">
+            </form>
+            <div id="lineListHeader">
+                <div></div>
+                <h2>Venue</h2>
+                <h2>Todays Hours</h2>
+                <h2>Select Line</h2>
+                <div></div>
+            </div>
+            <div id="lineListContainer">
+                {% for x in results %}
+                <div class="lineListItemContainer">
+                    <div class="venueImg"></div>
+                    <h2 class="venueName">{{x[0]}}</h2>
+                    <h2 class="venueHours">{{x[1]}}</h2>
+                    <form class="lineTimesF">
+                        <select class="lineTimes">
+                            {% for y in x[2] %}
+                            <option value="9:15-9:45">{{y}}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                    <div class="lineUpButtonContainer"><a class="lineUpButton">LINE UP</a></div>
+                </div>
+                {% endfor %}
+            </div>
+        </main>
+        <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
+        <script type='text/javascript' src="{{ url_for('static',    filename='./src/lineList.js') }}"></script>
+
+    </body>
+</html>
