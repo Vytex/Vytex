@@ -1,8 +1,16 @@
-main>h1 {
+#mainheaderContainer {
+ height: 15vw;
+}
+
+#mainheaderContainer>h1 {
     margin-top: 2vw;
     margin-left: 2.5vw;
     font-size: 2.5vw;
     color: var(--vyWhite);
+}
+
+main {
+    height: calc(100% - 5vw);
 }
 
 input {
@@ -20,6 +28,22 @@ input {
     color: var(--vyWhite);
 }
 
+#topListContainer {
+    height: calc(100% - 17vw);
+    overflow: scroll;
+}
+
+.lineListItemContainer {
+    padding: 1vw 0vw;
+}
+
+.lineListItemContainer:nth-child(even) {
+    background-color: rgba(0, 0, 0, .5);
+}
+.lineListItemContainer:nth-child(odd) {
+    background-color: rgba(0, 0, 0, .2);
+}
+
 .venueName, .venueHours, .lineTimesF, .lineUpButtonContainer, #lineListHeader h2{
     display: flex;
     justify-content: center;
@@ -32,4 +56,12 @@ input {
     width: 50%;
     border-radius: 100%;
     margin-left: 2.5vw;
+}
+
+.heroImg {
+    background-image: url("../assets/453169\ from\ Pixabay.jpg");
+}
+
+#lineListHeader {
+    background-color: rgba(0, 0, 0, .7);
 }

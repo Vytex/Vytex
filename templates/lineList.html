@@ -18,7 +18,7 @@
             <div id="HMContainer">
                 <div id="CloseWindowX">X</div>
                 <div id="LinkContainer">
-                    <a>Join a Line</a>
+                    <a href="/">Join a Line</a>
                     <a>Check your lines</a>
                     <a>Contact Us</a>
                     <a>Logout</a>
@@ -42,37 +42,48 @@
             </div>
         </header>
         <main>
-            <h1>LINE-UP NOW:</h1>
-            <form>
-                <input type="text" placeholder="ENTER VENUE NAME OR LOCATION HERE">
-            </form>
-            <div id="lineListHeader">
-                <div></div>
-                <h2>Venue</h2>
-                <h2>Todays Hours</h2>
-                <h2>Select Line</h2>
-                <div></div>
-            </div>
-            <div id="lineListContainer">
-                {% for x in results %}
-                <div class="lineListItemContainer">
-                    <div class="venueImg"></div>
-                    <h2 class="venueName">{{x[0]}}</h2>
-                    <h2 class="venueHours">{{x[1]}}</h2>
-                    <form class="lineTimesF">
-                        <select class="lineTimes">
-                            {% for y in x[2] %}
-                            <option value="9:15-9:45">{{y}}</option>
-                            {% endfor %}
-                        </select>
-                    </form>
-                    <div class="lineUpButtonContainer"><a class="lineUpButton">LINE UP</a></div>
+            <div id="mainheaderContainer">
+                <h1>LINE-UP NOW:</h1>
+                <form>
+                    <input type="text" placeholder="ENTER VENUE NAME OR LOCATION HERE">
+                </form>
+                <div id="lineListHeader">
+                    <div></div>
+                    <h2>Venue</h2>
+                    <h2>Todays Hours</h2>
+                    <h2>Select Line</h2>
+                    <div></div>
                 </div>
-                {% endfor %}
+            </div>
+            <div id="topListContainer">
+                <div id="lineListContainer">
+                    {% for x in results %}
+                    <div class="lineListItemContainer">
+                        <div class="venueImg"></div>
+                        <h2 class="venueName">{{x[0]}}</h2>
+                        <h2 class="venueHours">{{x[1]}}</h2>
+                        <form class="lineTimesF">
+                            <select class="lineTimes">
+                                {% for y in x[2] %}
+                                <option value={{y}}>{{y}}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                        <div class="lineUpButtonContainer"><a class="lineUpButton">LINE UP</a></div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
         </main>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/lineList.js') }}"></script>
+        <script>
+            // Venues = { 
+            //     {% for z in x %}
+            //         {{z}} }
+            //     {% endfor %}
+
+        </script>
 
     </body>
 </html>
