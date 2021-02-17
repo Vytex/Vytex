@@ -13,6 +13,10 @@ main {
     height: calc(100% - 5vw);
 }
 
+body {
+    justify-content: center;
+}
+
 input {
     margin: 2.5vw;
     width: 22vw;
@@ -64,4 +68,81 @@ input {
 
 #lineListHeader {
     background-color: rgba(0, 0, 0, .7);
+}
+
+#venueCardContainer {
+    display: none;
+    position: absolute;
+    width: 60vw;
+    height: 25vw;
+    background-color: var(--vyGrey);
+    grid-template-rows: 1fr 1fr .3fr;
+    border-radius: 20px;
+}
+#venueCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#venueCardImg {
+    width: 15%;
+    height: 70%;
+    background-color: brown;
+    margin-left: 2vw;
+}
+
+#venueCardShadowbox {
+    display: none;
+    position: absolute;
+    width: 100vw;
+    height: 100vw;
+    opacity: .5;
+    background-color: black;
+}
+
+#venueCardInfoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 70%;
+    height: 90%;
+    font-size: 1.5vw;
+    color: var(--vyWhite);
+}
+
+#venueCardDescription {
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    overflow: auto;
+    font-size: 1vw;
+    color: var(--vyWhite);
+}
+
+#venueCardButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#venueCardButton>a {
+    background-color: var(--vyWhite);
+    color: black;
+    padding: .4vw;
+    margin-bottom: .5vw;
+    border-radius: 7px;
+}
+
+#CloseWindowXVenue {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: 1px solid black;
+    border-radius: 100%;
+    width: 1vw;
+    height: 1.2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
