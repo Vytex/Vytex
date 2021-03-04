@@ -21,15 +21,9 @@ class Venue(db.Model):
     #CREATE
     def save(self):
         # saving shoe
-        print('--------------------------------------------------->')
-        print('in save')
         db.session.add(self)
-        print('--------------------------------------------------->')
-        print('completed save')
         # commit transaction
         db.session.commit()
-        print('--------------------------------------------------->')
-        print('committed save')
 
         return self.venueID
 

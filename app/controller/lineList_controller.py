@@ -22,17 +22,16 @@ class LineListController(object):
                     # TODO add relevant Venue info base on table columns
                     "venue" : venue.venue,
                     "desc" : venue.description,
-                    "mon" : venue.mon,
-                    "tue" : venue.tue,
-                    "wed" : venue.wed,
-                    "thu" : venue.thu,
-                    "fri" : venue.fri,
-                    "sat" : venue.sat,
-                    "sun" : venue.sun
+                    "mon" : venue.mon.strftime("%H|%M"),
+                    "tue" : venue.tue.strftime("%H|%M"),
+                    "wed" : venue.wed.strftime("%H|%M"),
+                    "thu" : venue.thu.strftime("%H|%M"),
+                    "fri" : venue.fri.strftime("%H|%M"),
+                    "sat" : venue.sat.strftime("%H|%M"),
+                    "sun" : venue.sun.strftime("%H|%M"),
+                    "venueID" : venue.venueID
                 }
             )
-        print('------------------------------results--------------------------------------------')
-        print(output[0]['venue'])
         return render_template("lineList/index.html", results=output)
 
 lineList_controller = LineListController()
