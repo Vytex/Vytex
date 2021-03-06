@@ -38,7 +38,7 @@ class Venue(db.Model):
         return db.session.query(Venue).filter(Venue.venue.like(venueN)).all()
 
     def getByID(id):
-        return db.session.query(Venue).filter(Venue.id == id).first()
+        return db.session.query(Venue).filter(Venue.venueID == id).first()
 
     #UPDATE
     def update(self):
