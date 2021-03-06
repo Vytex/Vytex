@@ -37,6 +37,8 @@ class Venue(db.Model):
         venueN = '%{}%'.format(venueName)
         return db.session.query(Venue).filter(Venue.venue.like(venueN)).all()
 
+    def getByID(id):
+        return db.session.query(Venue).filter(Venue.id == id).first()
 
     #UPDATE
     def update(self):
@@ -45,6 +47,6 @@ class Venue(db.Model):
 
     #DELETE
     def delete(id):
-        venue = Venue.get(id=id)
+        venue = Venue.getByID(id=id)
         db.session.delete(venue)
         db.session.commit()

@@ -22,13 +22,13 @@ class LineListController(object):
                     # TODO add relevant Venue info base on table columns
                     "venue" : venue.venue,
                     "desc" : venue.description,
-                    "mon" : venue.mon.strftime("%H|%M"),
-                    "tue" : venue.tue.strftime("%H|%M"),
-                    "wed" : venue.wed.strftime("%H|%M"),
-                    "thu" : venue.thu.strftime("%H|%M"),
-                    "fri" : venue.fri.strftime("%H|%M"),
-                    "sat" : venue.sat.strftime("%H|%M"),
-                    "sun" : venue.sun.strftime("%H|%M"),
+                    "mon" : venue.mon.strftime("%H:%M"),
+                    "tue" : venue.tue.strftime("%H:%M"),
+                    "wed" : venue.wed.strftime("%H:%M"),
+                    "thu" : venue.thu.strftime("%H:%M"),
+                    "fri" : venue.fri.strftime("%H:%M"),
+                    "sat" : venue.sat.strftime("%H:%M"),
+                    "sun" : venue.sun.strftime("%H:%M"),
                     "venueID" : venue.venueID
                 }
             )

@@ -28,33 +28,33 @@
 //     )
 // }
 
-function getVenues() {
-    // farms.school, farms.shchool/shoe-api
-    console.log('mofo dene got clicked and searched')
-    const data = {
-        "venue": document.getElementById('si').value
-    };
-    return fetch("/home-api", 
-    {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    }
-)
-    .then(
-        (response) => {
-            return response.json();
-        }
-    ).then(
-        (json) => {
-            window.location.href = "lineList";
-            // location.assign("localhost:5000/lineList")
-            console.log("got som mofo data bra \n", json);
-        }
-    )
-}
+// function getVenues() {
+//     // farms.school, farms.shchool/shoe-api
+//     console.log('mofo dene got clicked and searched')
+//     const data = {
+//         "venue": document.getElementById('si').value
+//     };
+//     return fetch("/home-api", 
+//     {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(data)
+//     }
+// )
+//     .then(
+//         (response) => {
+//             return response.json();
+//         }
+//     ).then(
+//         (json) => {
+//             window.location.href = "lineList";
+//             // location.assign("localhost:5000/lineList")
+//             console.log("got som mofo data bra \n", json);
+//         }
+//     )
+// }
 
 const HamburgerMenu = document.getElementById("HamburgerMenu");
 
