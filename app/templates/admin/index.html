@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang='en-us'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>Vytex</title>
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/reset.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/variables.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/breakPoints.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/global.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/header.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/admin.css') }}">
+    </head>
+    <body>
+        <header>
+        </header>
+        <main>
+            <form id="addVenue" action="#" method="POST">
+                <input id="venueName" type="text" name="venueName" placeholder="venueName"/>
+                <input id="description" type="text" name="description" placeholder="description"/>
+                <input id="monS" type="text" name="monS" placeholder="Mon Opening Time"/>
+                <input id="monE" type="text" name="monE" placeholder="mon Closing Time"/>
+
+                <input id="tuesS" type="text" name="tuesS" placeholder="tues Opening Time"/>
+                <input id="tuesE" type="text" name="tuesE" placeholder="tues Closing Time"/>
+
+                <input id="wedS" type="text" name="wedS" placeholder="wed Opening Time"/>
+                <input id="wedE" type="text" name="wedE" placeholder="wed Closing Time"/>
+
+                <input id="thurS" type="text" name="thurS" placeholder="thur Opening Time"/>
+                <input id="thurE" type="text" name="thurE" placeholder="thur Closing Time"/>
+
+                <input id="friS" type="text" name="friS" placeholder="fri Opening Time"/>
+                <input id="friE" type="text" name="friE" placeholder="fri Closing Time"/>
+
+                <input id="satS" type="text" name="satS" placeholder="sat Opening Time"/>
+                <input id="satE" type="text" name="satE" placeholder="sat Closing Time"/>
+
+                <input id="sunS" type="text" name="sunS" placeholder="sun Opening Time"/>
+                <input id="sunE" type="text" name="sunE" placeholder="sun Closing Time"/>
+
+                
+                <input type="submit" value="Create New Venue"/>
+            </form>
+            <form id="deleteVenue" action="/admin-api" method="DELETE">
+                <input id="venueID" type="text" name="venueID" placeholder="Venue ID You Want To Delete"/>
+                <input type="submit" value="Delete Above"/>
+            </form>
+            <form id="returnAll" action="/admin-api" method="GET">
+                <input type="submit" value="Return All"/>
+            </form>
+        </main>
+        <script type='text/javascript' src="{{ url_for('static',    filename='./src/admin.js') }}"></script>
+    </body>
+</html>
