@@ -6,12 +6,9 @@ from app import app
 from app.controller.lineList_controller import lineList_controller
 from app.models import Venue
 
-# @app.route('/lineList/<venue>')
-# def lineList(venue):
-#     if (venue != None):
-#         return lineList_controller.get_venues(venueName = venue)
-#     else:
-#         return lineList_controller.index()
+@app.route('/lineList')
+def lineListHome():
+    return lineList_controller.index()
 
 @app.route('/lineList/<venue>', methods=['POST', 'GET'])
 def lineList(venue):
