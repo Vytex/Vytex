@@ -4,6 +4,7 @@ from flask import request, redirect, url_for
 
 from app import app
 from app.controller.lineList_controller import lineList_controller
+from app.controller.home_controller import home_controller
 from app.models import Venue
 
 @app.route('/lineList', methods=['POST', 'GET'])
@@ -12,7 +13,7 @@ def lineListHome():
         venue = request.form['searchin']
         return redirect(url_for("lineList", venue = venue))
 
-    return lineList_controller.home()
+    return home_controller.index()
 
 @app.route('/lineList/<venue>', methods=['POST', 'GET'])
 def lineList(venue):
