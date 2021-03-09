@@ -17,11 +17,11 @@
         <div id="venueCardShadowbox"></div>
         <div id="venueCardContainer">
             <div id="venueCard">
-                <div id="venueCardImg"></div>
+                <div class="venueImg" id="venueCardImg"></div>
                 <div id="venueCardInfoContainer">
                     <div id="venueCardName">Venue Not Found</div>
                     <div id="venueCardHours">8am - 10pm</div>
-                    <div id="venueCardLink"><a href="">Check Out Their Website for more info</a></div>
+                    <div id="venueCardLink"><a id="venueCardLinka" href="">Check Out Their Website for more info</a></div>
                 </div>
             </div>
             <div id="venueCardDescription">Please close this window and select another venue. If this problem continues please reach out and let us know at CustomerService@Vytex.com</div>
@@ -73,9 +73,9 @@
                 <div id="lineListContainer">
                     {% for x in results %}
                     <div class="lineListItemContainer">
-                        <div class="venueImg"></div>
+                        <div class="venueImg"><img src="{{x['venueIconAddress']}}"/></div>
                         <div class="venueName">{{x['venue']}}</div>
-                        <h2 class="venueHours">{{x['mon']}}</h2>
+                        <h2 class="venueHours">{{x['Open']}} - {{x['Close']}}</h2>
                         <form class="lineTimesF">
                             <select class="lineTimes">
                                 {% for y in x[2] %}
@@ -95,7 +95,6 @@
         <script>
             
             venues = JSON.parse('{{ results | tojson | safe}}');
-            console.log(venues);
 
         </script>
 

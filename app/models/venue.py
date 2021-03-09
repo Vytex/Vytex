@@ -2,17 +2,34 @@ from app import db
 import datetime
 
 class Venue(db.Model):
-    
+        
     venueID = db.Column(db.Integer, primary_key=True)
     venue = db.Column(db.NVARCHAR(30))
     description = db.Column(db.NVARCHAR(500))
-    mon = db.Column(db.TIME(4))
-    tue = db.Column(db.TIME(4))
-    wed = db.Column(db.TIME(4))
-    thu = db.Column(db.TIME(4))
-    fri = db.Column(db.TIME(4))
-    sat = db.Column(db.TIME(4))
-    sun = db.Column(db.TIME(4))
+    venueURL = db.Column(db.VARCHAR(2083))
+    venueCity = db.Column(db.NVARCHAR(500))
+    venueIcon = db.Column(db.VARCHAR(500))
+    
+    monOpen = db.Column(db.TIME(4))
+    monClose = db.Column(db.TIME(4))
+
+    tueOpen = db.Column(db.TIME(4))
+    tueClose = db.Column(db.TIME(4))
+
+    wedOpen = db.Column(db.TIME(4))
+    wedClose = db.Column(db.TIME(4))
+
+    thuOpen = db.Column(db.TIME(4))
+    thuClose = db.Column(db.TIME(4))
+
+    friOpen = db.Column(db.TIME(4))
+    friClose = db.Column(db.TIME(4))
+
+    satOpen = db.Column(db.TIME(4))
+    satClose = db.Column(db.TIME(4))
+
+    sunOpen = db.Column(db.TIME(4))
+    sunClose = db.Column(db.TIME(4))
 
     # override python print
     # def __repr__(self):

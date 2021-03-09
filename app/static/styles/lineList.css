@@ -60,6 +60,12 @@ input {
     width: 50%;
     border-radius: 100%;
     margin-left: 2.5vw;
+    overflow: hidden;
+}
+
+img {
+    max-width: 100%;
+    min-height: 100%;
 }
 
 .heroImg {
