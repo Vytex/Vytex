@@ -8,7 +8,7 @@ from app.models import Venue
 
 @app.route('/lineList')
 def lineListHome():
-    return lineList_controller.index()
+    return lineList_controller.home()
 
 @app.route('/lineList/<venue>', methods=['POST', 'GET'])
 def lineList(venue):
