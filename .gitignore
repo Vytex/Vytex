@@ -9,6 +9,13 @@
 !app.py
 !templates
 !app/
+!main.py
+!config.py
+!app.db
+
+# Some more stuff we don't want
+*.DS_Store
+app/.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -19,6 +26,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+.env
 env/
 build/
 develop-eggs/

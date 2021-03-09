@@ -58,8 +58,8 @@
         <main>
             <div id="mainheaderContainer">
                 <h1>LINE-UP NOW:</h1>
-                <form class="searchInputF" id="searchinputid" action="/lineList" method="POST">
-                    <input class="searchInput" id="si" type="text" name="searchin" placeholder="ENTER VENUE NAME OR LOCATION HERE"/>
+                <form>
+                    <input type="text" placeholder="ENTER VENUE NAME OR LOCATION HERE">
                 </form>
                 <div id="lineListHeader">
                     <div></div>
@@ -71,21 +71,8 @@
             </div>
             <div id="topListContainer">
                 <div id="lineListContainer">
-                    {% for x in results %}
-                    <div class="lineListItemContainer">
-                        <div class="venueImg"><img src="{{x['venueIconAddress']}}"/></div>
-                        <div class="venueName">{{x['venue']}}</div>
-                        <h2 class="venueHours">{{x['Open']}} - {{x['Close']}}</h2>
-                        <form class="lineTimesF">
-                            <select class="lineTimes">
-                                {% for y in x[2] %}
-                                <option value={{y}}>{{y}}</option>
-                                {% endfor %}
-                            </select>
-                        </form>
-                        <div class="lineUpButtonContainer"><a class="lineUpButton">LINE UP</a></div>
-                    </div>
-                    {% endfor %}
+                    <h1>OH NO! We didn't find your venue...</h1>
+                    <h3>Please give it another shot, we'll get it right eventually ;)</h3>
                 </div>
             </div>
         </main>
@@ -94,8 +81,6 @@
         
         <script>
             
-                venues = JSON.parse('{{ results | tojson | safe}}');
-
         </script>
 
     </body>

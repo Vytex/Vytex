@@ -3,7 +3,7 @@ const VenueCard = document.getElementById("venueCardContainer");
 const VCName = document.getElementById("venueCardName");
 const VCHours = document.getElementById("venueCardHours");
 const VCIMG = document.getElementById("venueCardImg");
-const VCLink = document.getElementById("venueCardLink");
+const VCLink = document.getElementById("venueCardLinka");
 const VCDescription = document.getElementById("venueCardDescription");
 let Venue = document.getElementsByClassName("venueName");
 
@@ -21,16 +21,19 @@ document.getElementById("venueCardShadowbox").addEventListener("click", function
 
 for (var i = 0 ; i < Venue.length; i++) {
     Venue[i].addEventListener('click', function(){
-        for (var i = 0 ; i < venues.length; i++) {
-            console.log('in new loop')
-            console.log(venues[i]['venue'])
-            if (venues[i]['venue'] == Venue[i].innerHTML) {
-                VCName.innerHTML = Venue[i].innerHTML
-                VCDescription.innerHTML = venues[i]['desc']
+        for (var j = 0 ; j < venues.length; j++) {
+            console.log("iterated")
+            if (venues[j]['venue'] == this.innerHTML) {
+                console.log(Venue[j])
+                VCName.innerHTML = this.innerHTML
+                VCDescription.innerHTML = venues[j]['desc']
+                VCLink.href = venues[j]['venueURL']
+                VenueCard.style.display = "grid";
+                VenueCardSB.style.display = "block";
+                VCIMG.innerHTML = "<img src='" + venues[j]['venueIconAddress'] + "' />"
             }
         }
-        VenueCard.style.display = "grid";
-        VenueCardSB.style.display = "block";
-        console.log("clicked");
+        
+        console.log("clicked " + Venue[i]);
     })
 }
