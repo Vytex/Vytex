@@ -4,8 +4,6 @@ from datetime import time, datetime
 
 from app import db
 
-# as the models file contains all the models, import what you need
-# from app.models import Shoe
 from app.models import Venue
 
 def timeify(timeString):

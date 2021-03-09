@@ -31,23 +31,15 @@ class Venue(db.Model):
     sunOpen = db.Column(db.TIME(4))
     sunClose = db.Column(db.TIME(4))
 
-    # override python print
-    # def __repr__(self):
-    #     return '<Venue {}>'.format(self.model)
-
     #CREATE
     def save(self):
-        # saving shoe
         db.session.add(self)
-        # commit transaction
         db.session.commit()
 
         return self.venueID
 
     #READ
-    # Shoe.query.get()
     def get_all():
-        # get all shoes
         return Venue.query.all()
 
     def get(venueName):

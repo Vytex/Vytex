@@ -13,13 +13,3 @@ def home():
         return redirect(url_for("lineList", venue = venue))
 
     return home_controller.index()
-
-# @app.route('/home-api', methods=['POST', 'GET'])
-# def home_api():
-#     if request.method == "POST":
-#         data = request.json
-#         return redirect(url_for("lineList", results = data['venue']), code=302)
-#     else:
-
-#         # TODO replace with error controller function if they try to do sonmething other than get for example
-#         return home_controller.index()

@@ -61,38 +61,28 @@ class AdminController(object):
                 data["sunClose"] = venue.sunClose.strftime("%H:%M")
 
             output.append(data)
-        print("-------------------------------about to change pages-----------------------------------")
-        # return jsonify(output)
 
         return jsonify(output)
     
-    def save_venue(self, venue):
-        # shoe = Shoe(size=12, brand='reebook', model='n%d' % (randint(0, 100)))
-        # saving shoe
-        venue_id = venue.save()
-        # success or fail page
-        # return render_template("shoe/index.html", shoe_id = shoe_id)
-        data = {
-            "success": True
-        }
+    # def save_venue(self, venue):
+    #         # TODO IMPLEMENT
+    #     venue_id = venue.save()
+    #     data = {
+    #         "success": True
+    #     }
 
-        print("data", data)
-        return jsonify(data)
+    #     print("data", data)
+    #     return jsonify(data)
 
     def create_venue(self, venue, description, venueURL, venueCity, venueIcon, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose, sunOpen, sunClose):
         # create a shoe
         print(venue, description, venueURL, venueCity, venueIcon, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose, sunOpen, sunClose)
         
-        # venue, description, venueURL, venueCity, venueIcon, monOpen, monClose , tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose, sunOpen, sunClose 
         # below is prefix for icon path
         # ../../static/assets/venueIcons/
         venueIconAddress = "../../static/assets/venueIcons/" + venueIcon
         venue = Venue(venue=venue, description=description, venueURL=venueURL, venueCity=venueCity, venueIcon=venueIconAddress, monOpen=timeify(monOpen), monClose=timeify(monClose), tueOpen=timeify(tueOpen), tueClose=timeify(tueClose), wedOpen=timeify(wedOpen), wedClose=timeify(wedClose), thuOpen=timeify(thuOpen), thuClose=timeify(thuClose), friOpen=timeify(friOpen), friClose=timeify(friClose), satOpen=timeify(satOpen), satClose=timeify(satClose), sunOpen=timeify(sunOpen), sunClose=timeify(sunClose))
-        print('--------------------------------------------------->')
-        print('before save')
         venue_id = venue.save()
-        print('--------------------------------------------------->')
-        print('after save')
         # give this object back to the client
         data = {
             "venueID": venue_id

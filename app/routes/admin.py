@@ -9,11 +9,6 @@ from app.controller.admin_controller import admin_controller
 
 @app.route('/admin', methods=['POST', 'GET', 'DELETE'])
 def admin():
-    # if request.method == "DELETE":
-    #     print('------------------------------id is---------------------------------------')
-    #     print(id)
-    #     id = request.form['deleteVenue']
-    #     return admin_controller.delete_Venue(id=id)
     return admin_controller.index()
 
 
@@ -22,7 +17,6 @@ def admin_api():
     if request.method == "GET":
         return admin_controller.get_venues()
     elif request.method == "POST":
-        print('GOT INTO THE POST')
         # get data from client in the form of json ()
         venue = request.form['venueName']
         description = request.form['description']
@@ -50,9 +44,7 @@ def admin_api():
 @app.route('/admin-api/delete', methods=['POST'])
 def admin_api_delete():
     if request.method == "POST":
-        print('------------------------------id is---------------------------------------')
         id = request.form['venueID']
-        print(id)
         return admin_controller.delete_Venue(id=id)
 
     return admin_controller.index()

@@ -24,13 +24,3 @@ def lineList(venue):
         return lineList_controller.get_venues(venueName = venue)
 
     return lineList_controller.index()
-
-# @app.route('/lineList-api', methods=['POST', 'GET'])
-# def lineList_api():
-#     if request.method == "POST":
-#         data = request.json
-#         return redirect(url_for("lineList", results = data['venue']), code=302)
-#     else:
-
-#         # TODO replace with error controller function if they try to do sonmething other than get for example
-#         return lineList_controller.index()
