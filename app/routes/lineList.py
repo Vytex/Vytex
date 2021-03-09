@@ -1,13 +1,17 @@
 from random import randint
 
-from flask import request
+from flask import request, redirect, url_for
 
 from app import app
 from app.controller.lineList_controller import lineList_controller
 from app.models import Venue
 
-@app.route('/lineList')
+@app.route('/lineList', methods=['POST', 'GET'])
 def lineListHome():
+    if request.method == 'POST':
+        venue = request.form['searchin']
+        return redirect(url_for("lineList", venue = venue))
+
     return lineList_controller.home()
 
 @app.route('/lineList/<venue>', methods=['POST', 'GET'])
