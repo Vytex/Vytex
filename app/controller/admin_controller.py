@@ -5,7 +5,7 @@ from app import db
 
 # as the models file contains all the models, import what you need
 # from app.models import Shoe
-from app.models import Venue
+from app.models import Venue, Lines
 
 def timeify(timeString):
     x = timeString.partition(':')
@@ -17,8 +17,8 @@ class AdminController(object):
         return render_template("admin/index.html")
 
     def get_venues(self):
-        # TODO change so it retrieves a search result instead of all availible venues
         venues = Venue.get_all()
+        lines = Lines.get_all()
         output = []
         currentDay = datetime.today().weekday()
         # formatting the data for the client 
@@ -62,6 +62,62 @@ class AdminController(object):
 
             output.append(data)
 
+        for line in lines:
+            
+            data = {
+                "venueID" : line.venueID,
+                "date" : line.date,
+                "00:00 - 00:30" : line.x00000030,
+                "00:30 - 01:00" : line.x00300100,
+                "01:00 - 01:30" : line.x01000130,
+                "01:30 - 02:00" : line.x01300200,
+                "02:00 - 02:30" : line.x02000230,
+                "02:30 - 03:00" : line.x02300300,
+                "03:00 - 03:30" : line.x03000330,
+                "03:30 - 04:00" : line.x03300400,
+                "04:00 - 04:30" : line.x04000430,
+                "04:30 - 05:00" : line.x04300500,
+                "05:00 - 05:30" : line.x05000530,
+                "05:30 - 06:00" : line.x05300600,
+                "06:00 - 06:30" : line.x06000630,
+                "06:30 - 07:00" : line.x06300700,
+                "07:00 - 07:30" : line.x07000730,
+                "07:30 - 08:00" : line.x07300800,
+                "08:00 - 08:30" : line.x08000830,
+                "08:30 - 09:00" : line.x08300900,
+                "09:00 - 09:30" : line.x09000930,
+                "09:30 - 10:00" : line.x09301000,
+                "10:00 - 10:30" : line.x10001030,
+                "10:30 - 11:00" : line.x10301100,
+                "11:00 - 11:30" : line.x11001130,
+                "11:30 - 12:00" : line.x11301200,
+                "12:00 - 12:30" : line.x12001230,
+                "12:30 - 13:00" : line.x12301300,
+                "13:00 - 13:30" : line.x13001330,
+                "13:30 - 14:00" : line.x13301400,
+                "14:00 - 14:30" : line.x14001430,
+                "14:30 - 15:00" : line.x14301500,
+                "15:00 - 15:30" : line.x15001530,
+                "15:30 - 16:00" : line.x15301600,
+                "16:00 - 16:30" : line.x16001630,
+                "16:30 - 17:00" : line.x16301700,
+                "17:00 - 17:30" : line.x17001730,
+                "17:30 - 18:00" : line.x17301800,
+                "18:00 - 18:30" : line.x18001830,
+                "18:30 - 19:00" : line.x18301900,
+                "19:00 - 19:30" : line.x19001930,
+                "19:30 - 20:00" : line.x19302000,
+                "20:00 - 20:30" : line.x20002030,
+                "20:30 - 21:00" : line.x20302100,
+                "21:00 - 21:30" : line.x21002130,
+                "21:30 - 22:00" : line.x21302200,
+                "22:00 - 22:30" : line.x22002230,
+                "22:30 - 23:00" : line.x22302300,
+                "23:00 - 23:30" : line.x23002330,
+                "23:30 - 00:00" : line.x23300000
+            }
+            output.append(data)
+
         return jsonify(output)
     
     # def save_venue(self, venue):
@@ -74,10 +130,7 @@ class AdminController(object):
     #     print("data", data)
     #     return jsonify(data)
 
-    def create_venue(self, venue, description, venueURL, venueCity, venueIcon, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose, sunOpen, sunClose):
-        # create a shoe
-        print(venue, description, venueURL, venueCity, venueIcon, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose, sunOpen, sunClose)
-        
+    def create_venue(self, venue, description, venueURL, venueCity, venueIcon, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose, sunOpen, sunClose):        
         # below is prefix for icon path
         # ../../static/assets/venueIcons/
         venueIconAddress = "../../static/assets/venueIcons/" + venueIcon
@@ -86,6 +139,72 @@ class AdminController(object):
         # give this object back to the client
         data = {
             "venueID": venue_id
+        }
+        return jsonify(data)
+    
+    def create_list(self, venueID, capacity):
+        print('--------------------------------Inside create_list------------------------------------------')
+
+        lList = Lines(
+            venueID = venueID, 
+            date = datetime.today(), 
+            x00000030 = capacity,
+            x00300100 = capacity,
+            x01000130 = capacity,
+            x01300200 = capacity,
+            x02000230 = capacity,
+            x02300300 = capacity,
+            x03000330 = capacity,
+            x03300400 = capacity,
+            x04000430 = capacity,
+            x04300500 = capacity,
+            x05000530 = capacity,
+            x05300600 = capacity,
+            x06000630 = capacity,
+            x06300700 = capacity,
+            x07000730 = capacity,
+            x07300800 = capacity,
+            x08000830 = capacity,
+            x08300900 = capacity,
+            x09000930 = capacity,
+            x09301000 = capacity,
+            x10001030 = capacity,
+            x10301100 = capacity,
+            x11001130 = capacity,
+            x11301200 = capacity,
+            x12001230 = capacity,
+            x12301300 = capacity,
+            x13001330 = capacity,
+            x13301400 = capacity,
+            x14001430 = capacity,
+            x14301500 = capacity,
+            x15001530 = capacity,
+            x15301600 = capacity,
+            x16001630 = capacity,
+            x16301700 = capacity,
+            x17001730 = capacity,
+            x17301800 = capacity,
+            x18001830 = capacity,
+            x18301900 = capacity,
+            x19001930 = capacity,
+            x19302000 = capacity,
+            x20002030 = capacity,
+            x20302100 = capacity,
+            x21002130 = capacity,
+            x21302200 = capacity,
+            x22002230 = capacity,
+            x22302300 = capacity,
+            x23002330 = capacity,
+            x23300000 = capacity
+        )
+        print('--------------------------------about to save list------------------------------------------')
+
+        venueName = lList.save()
+        # give this object back to the client
+        print('--------------------------------list saved sending back json------------------------------------------')
+
+        data = {
+            "venueID": venueID
         }
         return jsonify(data)
 

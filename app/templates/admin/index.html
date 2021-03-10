@@ -44,12 +44,17 @@
                 
                 <input type="submit" value="Create New Venue"/>
             </form>
+            <form id="addList" action="/admin-api" method="POST">
+                <input id="venueID" type="text" name="venueID" placeholder="venueID"/>
+                <input id="capacity" type="text" name="capacity" placeholder="capacity"/>
+                <input type="submit" value="Create New Line List for venueID"/>
+            </form>
             <form id="deleteVenue" action="/admin-api/delete" method="POST">
                 <input id="venueID" type="text" name="venueID" placeholder="Venue ID You Want To Delete"/>
                 <input type="submit" value="Delete Above"/>
             </form>
             <form id="returnAll" action="/admin-api" method="GET">
-                <input type="submit" value="Return All"/>
+                <input type="submit" value="Return All Venues and lists"/>
             </form>
         </main>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/admin.js') }}"></script>
