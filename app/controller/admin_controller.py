@@ -143,69 +143,73 @@ class AdminController(object):
         return jsonify(data)
     
     def create_list(self, venueID, capacity):
-        print('--------------------------------Inside create_list------------------------------------------')
+        # creates an instance of a Line. the x00000030 values can be translated as: (x)(00:00)(00:30) 
+        if Venue.getByID(venueID) and Lines.getLine(venueID, datetime.today()):
+            lList = Lines(
+                venueID = venueID, 
+                date = datetime.today(), 
+                x00000030 = capacity,
+                x00300100 = capacity,
+                x01000130 = capacity,
+                x01300200 = capacity,
+                x02000230 = capacity,
+                x02300300 = capacity,
+                x03000330 = capacity,
+                x03300400 = capacity,
+                x04000430 = capacity,
+                x04300500 = capacity,
+                x05000530 = capacity,
+                x05300600 = capacity,
+                x06000630 = capacity,
+                x06300700 = capacity,
+                x07000730 = capacity,
+                x07300800 = capacity,
+                x08000830 = capacity,
+                x08300900 = capacity,
+                x09000930 = capacity,
+                x09301000 = capacity,
+                x10001030 = capacity,
+                x10301100 = capacity,
+                x11001130 = capacity,
+                x11301200 = capacity,
+                x12001230 = capacity,
+                x12301300 = capacity,
+                x13001330 = capacity,
+                x13301400 = capacity,
+                x14001430 = capacity,
+                x14301500 = capacity,
+                x15001530 = capacity,
+                x15301600 = capacity,
+                x16001630 = capacity,
+                x16301700 = capacity,
+                x17001730 = capacity,
+                x17301800 = capacity,
+                x18001830 = capacity,
+                x18301900 = capacity,
+                x19001930 = capacity,
+                x19302000 = capacity,
+                x20002030 = capacity,
+                x20302100 = capacity,
+                x21002130 = capacity,
+                x21302200 = capacity,
+                x22002230 = capacity,
+                x22302300 = capacity,
+                x23002330 = capacity,
+                x23300000 = capacity
+            )
+            print('--------------------------------about to save list------------------------------------------')
 
-        lList = Lines(
-            venueID = venueID, 
-            date = datetime.today(), 
-            x00000030 = capacity,
-            x00300100 = capacity,
-            x01000130 = capacity,
-            x01300200 = capacity,
-            x02000230 = capacity,
-            x02300300 = capacity,
-            x03000330 = capacity,
-            x03300400 = capacity,
-            x04000430 = capacity,
-            x04300500 = capacity,
-            x05000530 = capacity,
-            x05300600 = capacity,
-            x06000630 = capacity,
-            x06300700 = capacity,
-            x07000730 = capacity,
-            x07300800 = capacity,
-            x08000830 = capacity,
-            x08300900 = capacity,
-            x09000930 = capacity,
-            x09301000 = capacity,
-            x10001030 = capacity,
-            x10301100 = capacity,
-            x11001130 = capacity,
-            x11301200 = capacity,
-            x12001230 = capacity,
-            x12301300 = capacity,
-            x13001330 = capacity,
-            x13301400 = capacity,
-            x14001430 = capacity,
-            x14301500 = capacity,
-            x15001530 = capacity,
-            x15301600 = capacity,
-            x16001630 = capacity,
-            x16301700 = capacity,
-            x17001730 = capacity,
-            x17301800 = capacity,
-            x18001830 = capacity,
-            x18301900 = capacity,
-            x19001930 = capacity,
-            x19302000 = capacity,
-            x20002030 = capacity,
-            x20302100 = capacity,
-            x21002130 = capacity,
-            x21302200 = capacity,
-            x22002230 = capacity,
-            x22302300 = capacity,
-            x23002330 = capacity,
-            x23300000 = capacity
-        )
-        print('--------------------------------about to save list------------------------------------------')
+            venueName = lList.save()
+            # give this object back to the client
+            print('--------------------------------list saved sending back json------------------------------------------')
 
-        venueName = lList.save()
-        # give this object back to the client
-        print('--------------------------------list saved sending back json------------------------------------------')
-
-        data = {
-            "venueID": venueID
-        }
+            data = {
+                "venue list created for venue ID": venueID
+            }
+        else:
+            data = {
+                "Sorry The following venue ID does not exist or it already has a line created: ": venueID
+            }
         return jsonify(data)
 
     def delete_Venue(self, id):
