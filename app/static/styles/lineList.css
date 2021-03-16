@@ -32,6 +32,10 @@ input {
     color: var(--vyWhite);
 }
 
+.lineListItemContainer {
+    grid-template-columns: .5fr 1fr 1fr 1fr;
+}
+
 #topListContainer {
     height: calc(100% - 17vw);
     overflow: scroll;

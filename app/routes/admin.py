@@ -17,7 +17,6 @@ def admin_api():
     if request.method == "GET":
         return admin_controller.get_venues()
     elif request.method == "POST" and request.form.get('venueURL'):
-        print('--------' + request.form.get('venueURL') + '------------')
         # get data from client in the form of json ()
         venue = request.form['venueName']
         description = request.form['description']
@@ -38,17 +37,15 @@ def admin_api():
         satClose = request.form['satE']
         sunOpen = request.form['sunS']
         sunClose = request.form['sunE']
-        return admin_controller.create_venue(venue=venue, description=description, venueURL=venueURL, venueCity=venueCity, venueIcon=venueIcon, monOpen=monOpen, monClose=monClose, tueOpen=tueOpen, tueClose=tueClose, wedOpen=wedOpen, wedClose=wedClose, thuOpen=thuOpen, thuClose=thuClose, friOpen=friOpen, friClose=friClose, satOpen=satOpen, satClose=satClose, sunOpen=sunOpen, sunClose=sunClose)
+        lineCapacity = request.form['cap']
+
+        return admin_controller.create_venue(venue=venue, description=description, venueURL=venueURL, venueCity=venueCity, venueIcon=venueIcon, monOpen=monOpen, monClose=monClose, tueOpen=tueOpen, tueClose=tueClose, wedOpen=wedOpen, wedClose=wedClose, thuOpen=thuOpen, thuClose=thuClose, friOpen=friOpen, friClose=friClose, satOpen=satOpen, satClose=satClose, sunOpen=sunOpen, sunClose=sunClose, lineCapacity = lineCapacity)
     elif request.method == "POST" and request.form.get('capacity'):
-        print('--------------------------------Inside line creation------------------------------------------')
         venueID = request.form['venueID']
-        print('--------------------------------between form subs------------------------------------------')
         capacity = request.form['capacity']
-        print('--------------------------------about to call create list from admin controller------------------------------------------')
+
         return admin_controller.create_list(venueID=venueID, capacity=capacity)
 
-    else:
-        print('--------------------------------Admin Command NOT Successful------------------------------------------')
     return admin_controller.index()
 
 @app.route('/admin-api/delete', methods=['POST'])

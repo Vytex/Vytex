@@ -1,5 +1,5 @@
 from flask import render_template, jsonify, redirect, url_for
-from datetime import time, datetime
+from datetime import time, datetime, timedelta
 
 from app import db
 
@@ -27,9 +27,9 @@ class AdminController(object):
             data = {
                 "venueID" : venue.venueID,
                 "venue" : venue.venue,
-                "venueURL": venue.venueURL,
-                "venueCity": venue.venueCity,
-                "venueIconAddress": venue.venueIcon,
+                "venueURL" : venue.venueURL,
+                "venueCity" : venue.venueCity,
+                "venueIconAddress" : venue.venueIcon,
                 "desc" : venue.description,
             }
             if currentDay == 0:
@@ -130,24 +130,14 @@ class AdminController(object):
     #     print("data", data)
     #     return jsonify(data)
 
-    def create_venue(self, venue, description, venueURL, venueCity, venueIcon, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose, sunOpen, sunClose):        
-        # below is prefix for icon path
-        # ../../static/assets/venueIcons/
-        venueIconAddress = "../../static/assets/venueIcons/" + venueIcon
-        venue = Venue(venue=venue, description=description, venueURL=venueURL, venueCity=venueCity, venueIcon=venueIconAddress, monOpen=timeify(monOpen), monClose=timeify(monClose), tueOpen=timeify(tueOpen), tueClose=timeify(tueClose), wedOpen=timeify(wedOpen), wedClose=timeify(wedClose), thuOpen=timeify(thuOpen), thuClose=timeify(thuClose), friOpen=timeify(friOpen), friClose=timeify(friClose), satOpen=timeify(satOpen), satClose=timeify(satClose), sunOpen=timeify(sunOpen), sunClose=timeify(sunClose))
-        venue_id = venue.save()
-        # give this object back to the client
-        data = {
-            "venueID": venue_id
-        }
-        return jsonify(data)
     
-    def create_list(self, venueID, capacity):
+    def create_list(self, venueID, capacity, theDate=datetime.today().strftime('%m/%d/%Y')):
         # creates an instance of a Line. the x00000030 values can be translated as: (x)(00:00)(00:30) 
-        if Venue.getByID(venueID) and Lines.getLine(venueID, datetime.today()):
+        if Venue.getByID(venueID) and Lines.getLine(venueID, theDate) is None:
+            print("--------=============-----------===========---------========")
             lList = Lines(
                 venueID = venueID, 
-                date = datetime.today(), 
+                date = theDate, 
                 x00000030 = capacity,
                 x00300100 = capacity,
                 x01000130 = capacity,
@@ -210,6 +200,22 @@ class AdminController(object):
             data = {
                 "Sorry The following venue ID does not exist or it already has a line created: ": venueID
             }
+        return jsonify(data)
+    
+    def create_venue(self, venue, description, venueURL, venueCity, venueIcon, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose, sunOpen, sunClose, lineCapacity):        
+        # below is prefix for icon path
+        # ../../static/assets/venueIcons/
+        venueIconAddress = "../../static/assets/venueIcons/" + venueIcon
+        venue = Venue(venue=venue, description=description, venueURL=venueURL, venueCity=venueCity, venueIcon=venueIconAddress, monOpen=timeify(monOpen), monClose=timeify(monClose), tueOpen=timeify(tueOpen), tueClose=timeify(tueClose), wedOpen=timeify(wedOpen), wedClose=timeify(wedClose), thuOpen=timeify(thuOpen), thuClose=timeify(thuClose), friOpen=timeify(friOpen), friClose=timeify(friClose), satOpen=timeify(satOpen), satClose=timeify(satClose), sunOpen=timeify(sunOpen), sunClose=timeify(sunClose), lineCapacity=lineCapacity)
+        venue_id = venue.save()
+        self.create_list(venue_id, lineCapacity)
+        tomorrow = datetime.today() + timedelta(days=1)
+        self.create_list(venue_id, lineCapacity, tomorrow.strftime('%m/%d/%Y') )
+
+        # give this object back to the client
+        data = {
+            "venueID": venue_id
+        }
         return jsonify(data)
 
     def delete_Venue(self, id):

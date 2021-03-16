@@ -4,7 +4,7 @@ import datetime
 class Lines(db.Model):
         
     venueID = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DATE, primary_key=True)
+    date = db.Column(db.VARCHAR(8), primary_key=True)
     x00000030 = db.Column(db.Integer)
     x00300100 = db.Column(db.Integer)
     x01000130 = db.Column(db.Integer)
@@ -67,20 +67,30 @@ class Lines(db.Model):
 
     def get(venueID):
         venueID = venueID
-        todaysdate = datetime.today()
+        todaysdate = datetime.today().strftime('%m/%d/%Y')
         return db.session.query(Lines).filter(Lines.venueID == venueID, Lines.date == todaysdate).first()
+   
+    def getByDate(date):
+        # date formate m/d/Y 11/11/11
+        return db.session.query(Lines).filter(Lines.date == date).all()
 
     def getLine(venueID, date):
         # helper method used to return a line that matches a specific venueid and date
+        # date formate m/d/Y 11/11/11
         return db.session.query(Lines).filter(Lines.venueID == venueID, Lines.date == date).first()
 
     #UPDATE
     def update(self):
         # session is th connection with the database
         db.session.commit()
+    
+    def getInLine(self):
+
+        db.session.commit()
 
     #DELETE
     def delete(venueID, date):
+        # date formate m/d/Y 11/11/11
         lList = Lines.getLine(venueID=venueID, date=date)
         db.session.delete(lList)
         db.session.commit()

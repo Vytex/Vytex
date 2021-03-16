@@ -31,6 +31,8 @@ class Venue(db.Model):
     sunOpen = db.Column(db.TIME(4))
     sunClose = db.Column(db.TIME(4))
 
+    lineCapacity = db.Column(db.Integer)
+
     #CREATE
     def save(self):
         db.session.add(self)
