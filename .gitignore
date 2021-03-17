@@ -6,12 +6,12 @@
 !index.html
 !TEMPLATE/
 !static/
-!app.py
 !templates
 !app/
 !main.py
 !config.py
 !app.db
+!migrations/
 
 # Some more stuff we don't want
 *.DS_Store

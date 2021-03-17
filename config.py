@@ -11,6 +11,7 @@ class Config(object):
     MYSQL_PASSWORD = r'3001'
     MYSQL_DB = 'app'
     MYSQL_PORT = 3306
+    SCHEDULER_API_ENABLED = True
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'app.db')
