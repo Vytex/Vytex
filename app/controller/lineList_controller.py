@@ -18,9 +18,10 @@ class LineListController(object):
         return render_template("lineList/home.html")
     
     def lineUp (self, lineTime, venueID, venueClose):
-        #check if venue closes the next day and if the time chosen falls into the early morning
-        #then gets the appropriate days line to change occupency
+        # reduces the occupency of the chosen time if it is no already 0
+        # will determine if the chosen time is today or early morning tomorrow
         
+        #determins if the time chosen is for today or early morning tomorrow
         if int(lineTime[0 : 2 ]) <= int(venueClose[0 : 2 ]) and int(venueClose[0 : 2 ]) < 10:
             tomorrow = datetime.today() + timedelta(days=1)
             theLine = Lines.getLine(venueID, tomorrow.strftime('%m/%d/%Y'))
@@ -129,20 +130,24 @@ class LineListController(object):
                 "did't update the following time slot ": lineTime
             }
             return jsonify(data)
+        # if successful updates the line with reduced value and returns and displays a success message
         theLine.update()
+        # TODO change so it redirects to user lines page if logged in or user login page if not.
         data = {
                 "following time slot reduced by 1 ": lineTime
             }
         return jsonify(data)
 
     def get_venues(self, venueName):
+        # Searches db for venues with names like venueName. then returns venue information and all potential lines. 
         venues = Venue.get(venueName)
         
-
+        # so if any venues were found using venueName to search 
         if len(venues) != 0:
             output = []
             currentDay = datetime.today().weekday()
 
+            # adds all venue information to data object
             for venue in venues:
                 
                 data = {
@@ -182,26 +187,28 @@ class LineListController(object):
                     data["Open"] = venue.sunOpen.strftime("%H:%M")
                     data["Close"] = venue.sunClose.strftime("%H:%M")
 
-                print("---------------venue id-------------------")
-                print(venue.venueID)
-                print("-----------date----------")
-                print(datetime.today())
+                # gets line-list information for that venue. 
+                # ONLY returns line times that are withing opening and closing time and that have a capacity greater than 0
+                # note because the closing time can be on the next day, confirms capacity for tomorrows linelist if necessary
                 linesToday = Lines.getLine(venue.venueID, datetime.today().strftime('%m/%d/%Y'))
                 tomorrow = datetime.today() + timedelta(days=1)
-                print(tomorrow)
                 linesTomorrow = Lines.getLine(venue.venueID, tomorrow.strftime('%m/%d/%Y'))
                 startiter = False
                 startOpen = False
                 endTimes = []
+                # a list of all potenital line times in a day
                 lineTimes = ["00:00 - 00:30", "00:30 - 01:00", "01:00 - 01:30", "01:30 - 02:00", "02:00 - 02:30", "02:30 - 03:00", "03:00 - 03:30", "03:30 - 04:00", "04:00 - 04:30", "04:30 - 05:00", "05:00 - 05:30", "05:30 - 06:00", "06:00 - 06:30", "06:30 - 07:00", "07:00 - 07:30", "07:30 - 08:00", "08:00 - 08:30", "08:30 - 09:00", "09:00 - 09:30", "09:30 - 10:00", "10:00 - 10:30", "10:30 - 11:00", "11:00 - 11:30", "11:30 - 12:00", "12:00 - 12:30", "12:30 - 13:00", "13:00 - 13:30", "13:30 - 14:00", "14:00 - 14:30", "14:30 - 15:00", "15:00 - 15:30", "15:30 - 16:00", "16:00 - 16:30", "16:30 - 17:00", "17:00 - 17:30", "17:30 - 18:00", "18:00 - 18:30", "18:30 - 19:00", "19:00 - 19:30", "19:30 - 20:00", "20:00 - 20:30", "20:30 - 21:00", "21:00 - 21:30", "21:30 - 22:00", "22:00 - 22:30", "22:30 - 23:00", "23:00 - 23:30", "23:30 - 00:00"]
+                # a list of today and tomorrows linetime capacities
                 todaysLineValues = [linesToday.x00000030, linesToday.x00300100, linesToday.x01000130, linesToday.x01300200, linesToday.x02000230, linesToday.x02300300, linesToday.x03000330, linesToday.x03300400, linesToday.x04000430, linesToday.x04300500, linesToday.x05000530, linesToday.x05300600, linesToday.x06000630, linesToday.x06300700, linesToday.x07000730, linesToday.x07300800, linesToday.x08000830, linesToday.x08300900, linesToday.x09000930, linesToday.x09301000, linesToday.x10001030, linesToday.x10301100, linesToday.x11001130, linesToday.x11301200, linesToday.x12001230, linesToday.x12301300, linesToday.x13001330, linesToday.x13301400, linesToday.x14001430, linesToday.x14301500, linesToday.x15001530, linesToday.x15301600, linesToday.x16001630, linesToday.x16301700, linesToday.x17001730, linesToday.x17301800, linesToday.x18001830, linesToday.x18301900, linesToday.x19001930, linesToday.x19302000, linesToday.x20002030, linesToday.x20302100, linesToday.x21002130, linesToday.x21302200, linesToday.x22002230, linesToday.x22302300, linesToday.x23002330, linesToday.x23300000]
                 tomorrowsLineValues = [linesTomorrow.x00000030, linesTomorrow.x00300100, linesTomorrow.x01000130, linesTomorrow.x01300200, linesTomorrow.x02000230, linesTomorrow.x02300300, linesTomorrow.x03000330, linesTomorrow.x03300400, linesTomorrow.x04000430, linesTomorrow.x04300500, linesTomorrow.x05000530, linesTomorrow.x05300600, linesTomorrow.x06000630, linesTomorrow.x06300700, linesTomorrow.x07000730, linesTomorrow.x07300800, linesTomorrow.x08000830, linesTomorrow.x08300900, linesTomorrow.x09000930, linesTomorrow.x09301000, linesTomorrow.x10001030, linesTomorrow.x10301100, linesTomorrow.x11001130, linesTomorrow.x11301200, linesTomorrow.x12001230, linesTomorrow.x12301300, linesTomorrow.x13001330, linesTomorrow.x13301400, linesTomorrow.x14001430, linesTomorrow.x14301500, linesTomorrow.x15001530, linesTomorrow.x15301600, linesTomorrow.x16001630, linesTomorrow.x16301700, linesTomorrow.x17001730, linesTomorrow.x17301800, linesTomorrow.x18001830, linesTomorrow.x18301900, linesTomorrow.x19001930, linesTomorrow.x19302000, linesTomorrow.x20002030, linesTomorrow.x20302100, linesTomorrow.x21002130, linesTomorrow.x21302200, linesTomorrow.x22002230, linesTomorrow.x22302300, linesTomorrow.x23002330, linesTomorrow.x23300000]
                 
                 for i in range(len(lineTimes)):
                     
+                    # is closing time for today actually early morning tomorrow.
                     if int(data["Close"][0:2]) < 12 and lineTimes[i] == "00:00 - 00:30":
                         startiter = True
                     
+                    # if so add every time until closing to the endtimes list
                     if startiter == True and lineTimes[i][ 8 : 13 ] != data["Close"]:
                         if tomorrowsLineValues[i] != 0:
                             endTimes.append(lineTimes[i])
@@ -210,82 +217,22 @@ class LineListController(object):
                             endTimes.append(lineTimes[i])
                         startiter = False
 
-
+                    # does the current linetime match the opening time.
                     if startiter == False and startOpen == False and lineTimes[i][0 : 5] == data["Open"]:
                         startOpen = True
 
+                    # if so start adding times to data["lines"] until you reach the end of the list or the closing time
                     if startOpen == True and lineTimes[i][ 8 : 13 ] != data["Close"]:
                         if todaysLineValues[i] != 0:
                             data["lines"].append(lineTimes[i])
                     elif startOpen == True and lineTimes[i][ 8 : 13 ] == data["Close"]:
                         if todaysLineValues[i] != 0:
                             data["lines"].append(lineTimes[i])
-                            print(data["lines"])
                             break
 
+                # if there were items added to the endTimes list add them to the data["lines"]
                 if len(endTimes) != 0:
                     data["lines"].extend(endTimes)                                    
-
-                
-                    # if len(lines) != 0:
-                    #     print("--------------------------------------staring linelist jimjam-----------------------------------------")
-                    #     print(len(lines))
-                    #     for line in lines:
-                    #         if line.venueID == venue.venueID:
-                    #             print(venue.friOpen.strftime("%H%M"))
-                    #             print(line[0])
-                    #             data = {
-                    #                 "venueID" : line.venueID,
-                    #                 "date" : line.date,
-                    #                 "00:00 - 00:30" : line.x00000030,
-                    #                 "00:30 - 01:00" : line.x00300100,
-                    #                 "01:00 - 01:30" : line.x01000130,
-                    #                 "01:30 - 02:00" : line.x01300200,
-                    #                 "02:00 - 02:30" : line.x02000230,
-                    #                 "02:30 - 03:00" : line.x02300300,
-                    #                 "03:00 - 03:30" : line.x03000330,
-                    #                 "03:30 - 04:00" : line.x03300400,
-                    #                 "04:00 - 04:30" : line.x04000430,
-                    #                 "04:30 - 05:00" : line.x04300500,
-                    #                 "05:00 - 05:30" : line.x05000530,
-                    #                 "05:30 - 06:00" : line.x05300600,
-                    #                 "06:00 - 06:30" : line.x06000630,
-                    #                 "06:30 - 07:00" : line.x06300700,
-                    #                 "07:00 - 07:30" : line.x07000730,
-                    #                 "07:30 - 08:00" : line.x07300800,
-                    #                 "08:00 - 08:30" : line.x08000830,
-                    #                 "08:30 - 09:00" : line.x08300900,
-                    #                 "09:00 - 09:30" : line.x09000930,
-                    #                 "09:30 - 10:00" : line.x09301000,
-                    #                 "10:00 - 10:30" : line.x10001030,
-                    #                 "10:30 - 11:00" : line.x10301100,
-                    #                 "11:00 - 11:30" : line.x11001130,
-                    #                 "11:30 - 12:00" : line.x11301200,
-                    #                 "12:00 - 12:30" : line.x12001230,
-                    #                 "12:30 - 13:00" : line.x12301300,
-                    #                 "13:00 - 13:30" : line.x13001330,
-                    #                 "13:30 - 14:00" : line.x13301400,
-                    #                 "14:00 - 14:30" : line.x14001430,
-                    #                 "14:30 - 15:00" : line.x14301500,
-                    #                 "15:00 - 15:30" : line.x15001530,
-                    #                 "15:30 - 16:00" : line.x15301600,
-                    #                 "16:00 - 16:30" : line.x16001630,
-                    #                 "16:30 - 17:00" : line.x16301700,
-                    #                 "17:00 - 17:30" : line.x17001730,
-                    #                 "17:30 - 18:00" : line.x17301800,
-                    #                 "18:00 - 18:30" : line.x18001830,
-                    #                 "18:30 - 19:00" : line.x18301900,
-                    #                 "19:00 - 19:30" : line.x19001930,
-                    #                 "19:30 - 20:00" : line.x19302000,
-                    #                 "20:00 - 20:30" : line.x20002030,
-                    #                 "20:30 - 21:00" : line.x20302100,
-                    #                 "21:00 - 21:30" : line.x21002130,
-                    #                 "21:30 - 22:00" : line.x21302200,
-                    #                 "22:00 - 22:30" : line.x22002230,
-                    #                 "22:30 - 23:00" : line.x22302300,
-                    #                 "23:00 - 23:30" : line.x23002330,
-                    #                 "23:30 - 00:00" : line.x23300000
-                    #             }
 
                 output.append(data)
 

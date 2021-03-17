@@ -10,11 +10,9 @@ from app.models import Venue
 @app.route('/lineList', methods=['POST', 'GET'])
 def lineListHome():
     if request.method == 'POST' and request.form.get('searchin'):
-        print("====================================================got in other post================================")
         venue = request.form['searchin']
         return redirect(url_for("lineList", venue = venue))
     elif request.method == 'POST' and request.form.get('lineTimesS'):
-        print("====================================================got in post================================")
         lineTime = request.form['lineTimesS']
         venueID = request.form['vID']
         venueClose = request.form['vc']

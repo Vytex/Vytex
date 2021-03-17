@@ -9,4 +9,4 @@ from app.controller.admin_controller import admin_controller
 
 @app.route('/')
 def index():
-    return 'index page'
+    return home_controller.index()

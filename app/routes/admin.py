@@ -17,7 +17,8 @@ def admin_api():
     if request.method == "GET":
         return admin_controller.get_venues()
     elif request.method == "POST" and request.form.get('venueURL'):
-        # get data from client in the form of json ()
+        # get data form client in the form of json ()
+        # old if post contains the venueURL 
         venue = request.form['venueName']
         description = request.form['description']
         venueURL = request.form['venueURL']
@@ -50,7 +51,11 @@ def admin_api():
 
 @app.route('/admin-api/delete', methods=['POST'])
 def admin_api_delete():
-    if request.method == "POST":
+    if request.method == "POST" and request.form.get('date'):
+        id = request.form['venueID']
+        date = request.form['date']
+        return admin_controller.deleteLine(id, date)
+    else:
         id = request.form['venueID']
         return admin_controller.delete_Venue(id=id)
 

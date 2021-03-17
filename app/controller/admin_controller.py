@@ -14,9 +14,11 @@ def timeify(timeString):
 
 class AdminController(object):
     def index(self):
+        # loads admin main page
         return render_template("admin/index.html")
 
     def get_venues(self):
+        # retrieves a list of venues and line lists
         venues = Venue.get_all()
         lines = Lines.get_all()
         output = []
@@ -31,7 +33,9 @@ class AdminController(object):
                 "venueCity" : venue.venueCity,
                 "venueIconAddress" : venue.venueIcon,
                 "desc" : venue.description,
+                "capacity" : venue.lineCapacity,
             }
+            # only retrieve the business hours for today
             if currentDay == 0:
                 data["monOpen"] = venue.monOpen.strftime("%H:%M")
                 data["monClose"] = venue.monClose.strftime("%H:%M")
@@ -63,7 +67,7 @@ class AdminController(object):
             output.append(data)
 
         for line in lines:
-            
+            # retrieves all line times and their current capacity (whether the timeslot is used or not)
             data = {
                 "venueID" : line.venueID,
                 "date" : line.date,
@@ -120,24 +124,17 @@ class AdminController(object):
 
         return jsonify(output)
     
-    # def save_venue(self, venue):
-    #         # TODO IMPLEMENT
-    #     venue_id = venue.save()
-    #     data = {
-    #         "success": True
-    #     }
+    def create_list(self, venueID, capacity, theDate=datetime.today().strftime('%m/%d/%Y'), isTomorrow=False):
+        # creates an instance of a Line list for a venue for a specific date. the x00000030 values can be translated as: (x)(00:00)(00:30)
+        if isTomorrow == True:
+            date = (datetime.today() + timedelta(days=1)).strftime('%m/%d/%Y')
+        else: 
+            date = theDate
 
-    #     print("data", data)
-    #     return jsonify(data)
-
-    
-    def create_list(self, venueID, capacity, theDate=datetime.today().strftime('%m/%d/%Y')):
-        # creates an instance of a Line. the x00000030 values can be translated as: (x)(00:00)(00:30) 
-        if Venue.getByID(venueID) and Lines.getLine(venueID, theDate) is None:
-            print("--------=============-----------===========---------========")
+        if Venue.getByID(venueID) and Lines.getLine(venueID, date) is None:
             lList = Lines(
                 venueID = venueID, 
-                date = theDate, 
+                date = date, 
                 x00000030 = capacity,
                 x00300100 = capacity,
                 x01000130 = capacity,
@@ -187,24 +184,20 @@ class AdminController(object):
                 x23002330 = capacity,
                 x23300000 = capacity
             )
-            print('--------------------------------about to save list------------------------------------------')
-
             venueName = lList.save()
-            # give this object back to the client
-            print('--------------------------------list saved sending back json------------------------------------------')
-
+            # returns and displays the following information if successful
             data = {
                 "venue list created for venue ID": venueID
             }
         else:
+            # returns and displays the following information if NOT successful
             data = {
                 "Sorry The following venue ID does not exist or it already has a line created: ": venueID
             }
         return jsonify(data)
     
     def create_venue(self, venue, description, venueURL, venueCity, venueIcon, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose, sunOpen, sunClose, lineCapacity):        
-        # below is prefix for icon path
-        # ../../static/assets/venueIcons/
+        # Creates a new vanue and a linelist for today and tomorrows date
         venueIconAddress = "../../static/assets/venueIcons/" + venueIcon
         venue = Venue(venue=venue, description=description, venueURL=venueURL, venueCity=venueCity, venueIcon=venueIconAddress, monOpen=timeify(monOpen), monClose=timeify(monClose), tueOpen=timeify(tueOpen), tueClose=timeify(tueClose), wedOpen=timeify(wedOpen), wedClose=timeify(wedClose), thuOpen=timeify(thuOpen), thuClose=timeify(thuClose), friOpen=timeify(friOpen), friClose=timeify(friClose), satOpen=timeify(satOpen), satClose=timeify(satClose), sunOpen=timeify(sunOpen), sunClose=timeify(sunClose), lineCapacity=lineCapacity)
         venue_id = venue.save()
@@ -212,7 +205,7 @@ class AdminController(object):
         tomorrow = datetime.today() + timedelta(days=1)
         self.create_list(venue_id, lineCapacity, tomorrow.strftime('%m/%d/%Y') )
 
-        # give this object back to the client
+        # returns and displays the following information if successful
         data = {
             "venueID": venue_id
         }
@@ -220,8 +213,15 @@ class AdminController(object):
 
     def delete_Venue(self, id):
         Venue.delete(id)
-
+        Lines.deleteByID(id)
         data = {
+            "success": True
+        }
+        return jsonify(data)
+    
+    def deleteLine(self, id, date):
+        Lines.delete(id, date)
+        data = { 
             "success": True
         }
         return jsonify(data)

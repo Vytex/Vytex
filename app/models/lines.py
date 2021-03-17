@@ -2,6 +2,7 @@ from app import db
 import datetime
 
 class Lines(db.Model):
+    # line times x00000030 translates to x(00:00)(00:30)
         
     venueID = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.VARCHAR(8), primary_key=True)
@@ -92,5 +93,10 @@ class Lines(db.Model):
     def delete(venueID, date):
         # date formate m/d/Y 11/11/11
         lList = Lines.getLine(venueID=venueID, date=date)
+        db.session.delete(lList)
+        db.session.commit()
+
+    def deleteByID(venueID):
+        lList = Lines.get(venueID=venueID)
         db.session.delete(lList)
         db.session.commit()
