@@ -19,6 +19,7 @@ document.getElementById("venueCardShadowbox").addEventListener("click", function
     VenueCardSB.style.display = "none";
 })
 
+// generates the venue card using the venue object that i pass in the html.
 for (var i = 0 ; i < Venue.length; i++) {
     Venue[i].addEventListener('click', function(){
         for (var j = 0 ; j < venues.length; j++) {

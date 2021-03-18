@@ -76,14 +76,16 @@
                         <div class="venueImg"><img src="{{x['venueIconAddress']}}"/></div>
                         <div class="venueName">{{x['venue']}}</div>
                         <h2 class="venueHours">{{x['Open']}} - {{x['Close']}}</h2>
-                        <form class="lineTimesF">
-                            <select class="lineTimes">
-                                {% for y in x[2] %}
+                        <form class="lineTimesF" action="/lineList" method="POST">
+                            <input id="vid" type="text" name="vID" value="{{x['venueID']}}" style="display:none"/>
+                            <input id="vc" type="text" name="vc" value="{{x['Close']}}" style="display:none"/>
+                            <select class="lineTimes" name="lineTimesS">
+                                {% for y in x['lines'] %}
                                 <option value={{y}}>{{y}}</option>
                                 {% endfor %}
                             </select>
+                            <input type="submit" value="LINE UP"/>
                         </form>
-                        <div class="lineUpButtonContainer"><a class="lineUpButton">LINE UP</a></div>
                     </div>
                     {% endfor %}
                 </div>

@@ -16,8 +16,9 @@ def admin():
 def admin_api():
     if request.method == "GET":
         return admin_controller.get_venues()
-    elif request.method == "POST":
-        # get data from client in the form of json ()
+    elif request.method == "POST" and request.form.get('venueURL'):
+        # get data form client in the form of json ()
+        # old if post contains the venueURL 
         venue = request.form['venueName']
         description = request.form['description']
         venueURL = request.form['venueURL']
@@ -37,13 +38,24 @@ def admin_api():
         satClose = request.form['satE']
         sunOpen = request.form['sunS']
         sunClose = request.form['sunE']
-        return admin_controller.create_venue(venue=venue, description=description, venueURL=venueURL, venueCity=venueCity, venueIcon=venueIcon, monOpen=monOpen, monClose=monClose, tueOpen=tueOpen, tueClose=tueClose, wedOpen=wedOpen, wedClose=wedClose, thuOpen=thuOpen, thuClose=thuClose, friOpen=friOpen, friClose=friClose, satOpen=satOpen, satClose=satClose, sunOpen=sunOpen, sunClose=sunClose)
-    
+        lineCapacity = request.form['cap']
+
+        return admin_controller.create_venue(venue=venue, description=description, venueURL=venueURL, venueCity=venueCity, venueIcon=venueIcon, monOpen=monOpen, monClose=monClose, tueOpen=tueOpen, tueClose=tueClose, wedOpen=wedOpen, wedClose=wedClose, thuOpen=thuOpen, thuClose=thuClose, friOpen=friOpen, friClose=friClose, satOpen=satOpen, satClose=satClose, sunOpen=sunOpen, sunClose=sunClose, lineCapacity = lineCapacity)
+    elif request.method == "POST" and request.form.get('capacity'):
+        venueID = request.form['venueID']
+        capacity = request.form['capacity']
+
+        return admin_controller.create_list(venueID=venueID, capacity=capacity)
+
     return admin_controller.index()
 
 @app.route('/admin-api/delete', methods=['POST'])
 def admin_api_delete():
-    if request.method == "POST":
+    if request.method == "POST" and request.form.get('date'):
+        id = request.form['venueID']
+        date = request.form['date']
+        return admin_controller.deleteLine(id, date)
+    else:
         id = request.form['venueID']
         return admin_controller.delete_Venue(id=id)
 

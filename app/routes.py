@@ -10,4 +10,4 @@ from app.controller.userLines_controller import userLines_controller
 
 @app.route('/')
 def index():
-    return 'index page'
+    return home_controller.index()
