@@ -1,10 +1,5 @@
+.mainImg {
 
-.mainWall {
-    position: absolute;
-    z-index: -2;
-    width: 100vw;
-    height: 100vh;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: url("..static\assets\neonbar.jpg");
+    background-image: url("../assets/neonbar.jpg");
+
 }
