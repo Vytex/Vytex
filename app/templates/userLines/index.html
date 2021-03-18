@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/userLines.css') }}">
     </head>
     <body>
-        <div class="mainImg"></div>
+        <div class="heroImg"></div>
         <div class="heroImgShadowbox"></div>
         <div id="HamburgerMenu">
             <div id="HMContainer">
@@ -25,6 +25,7 @@
             </div>
             <a id="HMOffscreen"></a>
         </div>
+
         <header>
             <div class="hContainer">
                 <div class="hamburgerMenuBContainer">
@@ -40,8 +41,34 @@
                 </div>
             </div>
         </header>
+
         <main>
-            
+            <div id="bigHeaderContainer">
+                <h1>Your Lines</h1>
+                <div class="userListHeader">
+                    <div class= "item 1"></div>
+                    <div class="item 2">Venue</div>
+                    <div class= "item 3">Time</div>
+                    <div class= "item 4">Status</div>
+                    <div class= "item 5"></div>
+                </div>
+            </div>
+            <div id="lineSpotsContainer">
+                <div id="userSpotContainer">
+                    <table>  
+                        <tr>
+                            <td></td>
+                            <td>POTATO</td>
+                            <td>CAT</td>
+                            <td>JUICE</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                  
+                </div>
+
+    
+            </div>
         </main>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
         
