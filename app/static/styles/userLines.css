@@ -33,3 +33,13 @@ td {
 #content {
     width: 70%;
 }
+
+.mainWall {
+    position: absolute;
+    z-index: -2;
+    width: 100vw;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("C:\Users\Karla\Desktop\1206 Vytex\Vytex\app\static\assets\venueIcons\neonbar.jfif");
+}
