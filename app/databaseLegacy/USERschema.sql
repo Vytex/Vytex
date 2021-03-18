@@ -6,4 +6,5 @@ birthdate date NOT NULL,
 email nvarchar(320) NOT NULL,
 pass nvarchar(25) NOT NULL,
 icon char(1) NOT NULL
+linespot nchar(50),
 );
