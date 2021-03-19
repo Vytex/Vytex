@@ -19,7 +19,6 @@ def lineListHome():
         return lineList_controller.lineUp(lineTime = lineTime, venueID = venueID, venueClose = venueClose)    
     
 
-
     return home_controller.index()
 
 @app.route('/lineList/<venue>', methods=['POST', 'GET'])

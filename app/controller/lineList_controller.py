@@ -3,7 +3,7 @@ from datetime import time, datetime, timedelta
 
 from app import db
 
-from app.models import Venue, Lines
+from app.models import Venue, Lines, userSpot
 
 def timeify(timeString):
     x = timeString.partition(':')
@@ -18,8 +18,9 @@ class LineListController(object):
         return render_template("lineList/home.html")
     
     def lineUp (self, lineTime, venueID, venueClose):
-        # reduces the occupency of the chosen time if it is no already 0
+        # reduces the occupency of the chosen time if it is not already 0
         # will determine if the chosen time is today or early morning tomorrow
+
         
         #determins if the time chosen is for today or early morning tomorrow
         if int(lineTime[0 : 2 ]) <= int(venueClose[0 : 2 ]) and int(venueClose[0 : 2 ]) < 10:
@@ -132,11 +133,8 @@ class LineListController(object):
             return jsonify(data)
         # if successful updates the line with reduced value and returns and displays a success message
         theLine.update()
-        # TODO change so it redirects to user lines page if logged in or user login page if not.
-        data = {
-                "following time slot reduced by 1 ": lineTime
-            }
-        return jsonify(data)
+
+        return render_template("userLines/index.html")
 
     def get_venues(self, venueName):
         # Searches db for venues with names like venueName. then returns venue information and all potential lines. 
