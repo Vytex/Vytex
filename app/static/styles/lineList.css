@@ -28,8 +28,12 @@ input {
 .lineListItemContainer, #lineListHeader {
     display: grid;
     grid-template-columns: .5fr 1fr 1fr 1fr 1fr;
-    height: 5vw;
+    height: 6vw;
     color: var(--vyWhite);
+}
+
+.lineListItemContainer {
+    grid-template-columns: .5fr 1fr 1fr 1.6fr;
 }
 
 #topListContainer {
@@ -60,6 +64,12 @@ input {
     width: 50%;
     border-radius: 100%;
     margin-left: 2.5vw;
+    overflow: hidden;
+}
+
+img {
+    max-width: 100%;
+    min-height: 100%;
 }
 
 .heroImg {
