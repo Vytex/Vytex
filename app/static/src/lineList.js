@@ -9,7 +9,6 @@ let Venue = document.getElementsByClassName("venueName");
 
 const VenueCardSB = document.getElementById("venueCardShadowbox");
 
-
 document.getElementById("CloseWindowXVenue").addEventListener("click", function(){
     VenueCard.style.display = "none";
     VenueCardSB.style.display = "none";
@@ -34,7 +33,5 @@ for (var i = 0 ; i < Venue.length; i++) {
                 VCIMG.innerHTML = "<img src='" + venues[j]['venueIconAddress'] + "' />"
             }
         }
-        
-        console.log("clicked " + Venue[i]);
     })
 }
