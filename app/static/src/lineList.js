@@ -23,11 +23,11 @@ document.getElementById("venueCardShadowbox").addEventListener("click", function
 for (var i = 0 ; i < Venue.length; i++) {
     Venue[i].addEventListener('click', function(){
         for (var j = 0 ; j < venues.length; j++) {
-            console.log("iterated")
             if (venues[j]['venue'] == this.innerHTML) {
                 console.log(Venue[j])
                 VCName.innerHTML = this.innerHTML
                 VCDescription.innerHTML = venues[j]['desc']
+                VCHours.innerHTML = venues[j]['Open'] + " - " + venues[j]['Close']
                 VCLink.href = venues[j]['venueURL']
                 VenueCard.style.display = "grid";
                 VenueCardSB.style.display = "block";
