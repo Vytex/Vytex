@@ -43,7 +43,16 @@ class Spot(db.Model):
                 if latestSpot == None:
                     latestSpot = spot
                 else:
-                    if int(latestSpot.timeSlot[0:2]) < int(spot.timeSlot[0:2]):
+                    if int(latestSpot.timeSlot[0:2]) == int(spot.timeSlot[0:2]):
+                        if int(latestSpot.timeSlot[3:4]) < int(spot.timeSlot[3:4]):
+                            latestSpot = spot
+                    elif int(spot.timeSlot[0:2]) < 5:
+                        if int(latestSpot.timeSlot[0:2]) < 5:
+                            if int(latestSpot.timeSlot[0:2]) < int(spot.timeSlot[0:2]):
+                                latestSpot = spot
+                        else:
+                            latestSpot = spot
+                    elif int(latestSpot.timeSlot[0:2]) >= 5 and int(latestSpot.timeSlot[0:2]) < int(spot.timeSlot[0:2]):
                         latestSpot = spot
 
             return latestSpot
