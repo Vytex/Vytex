@@ -1,0 +1,9 @@
+#lineListContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3vw;
+    font-size: 3vw;
+    color: white;
+}

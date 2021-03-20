@@ -3,13 +3,14 @@
     <head>
         <meta charset='UTF-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <title>Vytex</title>
+        <title>Ooops</title>
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/reset.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/variables.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/breakPoints.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/global.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/header.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/lineList.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/emptySearch.css') }}">
     </head>
     <body>
         <div class="heroImg"></div>
@@ -59,7 +60,7 @@
             <div id="mainheaderContainer">
                 <h1>LINE-UP NOW:</h1>
                 <form class="searchInputF" id="searchinputid" action="/lineList" method="POST">
-                    <input class="searchInput" id="si" type="text" name="searchin" placeholder="ENTER VENUE NAME OR LOCATION HERE"/>
+                    <input class="searchInput" id="si" type="text" name="searchin" placeholder="ENTER VENUE NAME"/>
                 </form>
                 <div id="lineListHeader">
                     <div></div>

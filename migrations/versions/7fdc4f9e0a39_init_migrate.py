@@ -1,8 +1,8 @@
-"""create new migrations folder
+"""init migrate
 
-Revision ID: 5988917b11cc
+Revision ID: 7fdc4f9e0a39
 Revises: 
-Create Date: 2021-03-16 00:38:21.040890
+Create Date: 2021-03-19 00:23:16.958559
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '5988917b11cc'
+revision = '7fdc4f9e0a39'
 down_revision = None
 branch_labels = None
 depends_on = None

@@ -203,16 +203,15 @@ class LineListController(object):
                 tomorrowsLineValues = [linesTomorrow.x00000030, linesTomorrow.x00300100, linesTomorrow.x01000130, linesTomorrow.x01300200, linesTomorrow.x02000230, linesTomorrow.x02300300, linesTomorrow.x03000330, linesTomorrow.x03300400, linesTomorrow.x04000430, linesTomorrow.x04300500, linesTomorrow.x05000530, linesTomorrow.x05300600, linesTomorrow.x06000630, linesTomorrow.x06300700, linesTomorrow.x07000730, linesTomorrow.x07300800, linesTomorrow.x08000830, linesTomorrow.x08300900, linesTomorrow.x09000930, linesTomorrow.x09301000, linesTomorrow.x10001030, linesTomorrow.x10301100, linesTomorrow.x11001130, linesTomorrow.x11301200, linesTomorrow.x12001230, linesTomorrow.x12301300, linesTomorrow.x13001330, linesTomorrow.x13301400, linesTomorrow.x14001430, linesTomorrow.x14301500, linesTomorrow.x15001530, linesTomorrow.x15301600, linesTomorrow.x16001630, linesTomorrow.x16301700, linesTomorrow.x17001730, linesTomorrow.x17301800, linesTomorrow.x18001830, linesTomorrow.x18301900, linesTomorrow.x19001930, linesTomorrow.x19302000, linesTomorrow.x20002030, linesTomorrow.x20302100, linesTomorrow.x21002130, linesTomorrow.x21302200, linesTomorrow.x22002230, linesTomorrow.x22302300, linesTomorrow.x23002330, linesTomorrow.x23300000]
                 
                 for i in range(len(lineTimes)):
-                    
                     # is closing time for today actually early morning tomorrow.
-                    if int(data["Close"][0:2]) < 12 and lineTimes[i] == "00:00 - 00:30":
+                    if int(data["Close"][0:2]) < 10 and lineTimes[i] == "00:00 - 00:30":
                         startiter = True
                     
                     # if so add every time until closing to the endtimes list
                     if startiter == True and lineTimes[i][ 8 : 13 ] != data["Close"]:
                         if tomorrowsLineValues[i] != 0:
                             endTimes.append(lineTimes[i])
-                    elif lineTimes[i][ 8 : 13 ] == data["Close"]:
+                    elif startiter == True and lineTimes[i][ 8 : 13 ] == data["Close"]:
                         if tomorrowsLineValues[i] != 0:
                             endTimes.append(lineTimes[i])
                         startiter = False
@@ -228,7 +227,7 @@ class LineListController(object):
                     elif startOpen == True and lineTimes[i][ 8 : 13 ] == data["Close"]:
                         if todaysLineValues[i] != 0:
                             data["lines"].append(lineTimes[i])
-                            break
+                        break
 
                 # if there were items added to the endTimes list add them to the data["lines"]
                 if len(endTimes) != 0:

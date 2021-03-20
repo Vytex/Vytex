@@ -3,7 +3,7 @@
     <head>
         <meta charset='UTF-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <title>Vytex</title>
+        <title>LINE UP</title>
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/reset.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/variables.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/breakPoints.css') }}">
@@ -20,12 +20,11 @@
                 <div class="venueImg" id="venueCardImg"></div>
                 <div id="venueCardInfoContainer">
                     <div id="venueCardName">Venue Not Found</div>
-                    <div id="venueCardHours">8am - 10pm</div>
+                    <div id="venueCardHours">No Time At All</div>
                     <div id="venueCardLink"><a id="venueCardLinka" href="">Check Out Their Website for more info</a></div>
                 </div>
             </div>
             <div id="venueCardDescription">Please close this window and select another venue. If this problem continues please reach out and let us know at CustomerService@Vytex.com</div>
-            <div id="venueCardButton"><a>Get In Line</a></div>
             <div id="CloseWindowXVenue">X</div>
         </div>
         <div id="HamburgerMenu">
@@ -50,7 +49,7 @@
                 </div>
                 <div class="profileBContainer">
                     <div class="profileB">
-                        <img src="{{ url_for('static',    filename='./assets/profileButtonPlaceholder.jpg') }}">
+                        <img src="{{ url_for('static',    filename='./assets/profileButtonPlaceholder.jpg') }}" alt="Venue Icon">
                     </div>
                 </div>
             </div>
@@ -59,7 +58,7 @@
             <div id="mainheaderContainer">
                 <h1>LINE-UP NOW:</h1>
                 <form class="searchInputF" id="searchinputid" action="/lineList" method="POST">
-                    <input class="searchInput" id="si" type="text" name="searchin" placeholder="ENTER VENUE NAME OR LOCATION HERE"/>
+                    <input class="searchInput" id="si" type="text" name="searchin" placeholder="ENTER VENUE NAME"/>
                 </form>
                 <div id="lineListHeader">
                     <div></div>
@@ -73,7 +72,7 @@
                 <div id="lineListContainer">
                     {% for x in results %}
                     <div class="lineListItemContainer">
-                        <div class="venueImg"><img src="{{x['venueIconAddress']}}"/></div>
+                        <div class="venueImg"><img src="{{x['venueIconAddress']}}" alt="venue icon"/></div>
                         <div class="venueName">{{x['venue']}}</div>
                         <h2 class="venueHours">{{x['Open']}} - {{x['Close']}}</h2>
                         <form class="lineTimesF" action="/lineList" method="POST">
