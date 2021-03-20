@@ -3,7 +3,7 @@
     <head>
         <meta charset='UTF-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <title>Vytex</title>
+        <title>LINE UP</title>
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/reset.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/variables.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/breakPoints.css') }}">
@@ -49,7 +49,7 @@
                 </div>
                 <div class="profileBContainer">
                     <div class="profileB">
-                        <img src="{{ url_for('static',    filename='./assets/profileButtonPlaceholder.jpg') }}">
+                        <img src="{{ url_for('static',    filename='./assets/profileButtonPlaceholder.jpg') }}" alt="Venue Icon">
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                 <div id="lineListContainer">
                     {% for x in results %}
                     <div class="lineListItemContainer">
-                        <div class="venueImg"><img src="{{x['venueIconAddress']}}"/></div>
+                        <div class="venueImg"><img src="{{x['venueIconAddress']}}" alt="venue icon"/></div>
                         <div class="venueName">{{x['venue']}}</div>
                         <h2 class="venueHours">{{x['Open']}} - {{x['Close']}}</h2>
                         <form class="lineTimesF" action="/lineList" method="POST">
