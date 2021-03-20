@@ -205,7 +205,7 @@ class LineListController(object):
                 for i in range(len(lineTimes)):
                     
                     # is closing time for today actually early morning tomorrow.
-                    if int(data["Close"][0:2]) < 12 and lineTimes[i] == "00:00 - 00:30":
+                    if int(data["Close"][0:2]) < 10 and lineTimes[i] == "00:00 - 00:30":
                         startiter = True
                     
                     # if so add every time until closing to the endtimes list

@@ -6,6 +6,6 @@ from app.models import Venue
 
 class HomeController(object):
     def index(self):
-        return render_template("home/index.html")
+        return render_template("Home/index.html")
 
 home_controller = HomeController()
