@@ -4,7 +4,7 @@ from datetime import time, datetime, timedelta
 from app import db
 
 from app.models import Venue, Lines, Spot
-from app.controller.userLines_controller import UserLinesController
+from app.controller.userLines_controller import userLines_controller
 
 def timeify(timeString):
     x = timeString.partition(':')
@@ -15,16 +15,8 @@ class LineListController(object):
 
     def create_Spot(self, venueID, userID, timeSlot):
         # Creates a new vanue and a linelist for today and tomorrows date
-        print("SMEGGINS")
         spot = Spot(venueID = venueID, userID = userID, date = datetime.today().strftime('%m/%d/%Y'), timeSlot = timeSlot, arrived = False)
         spotid = spot.save()
-        print(spotid)
-        print(spot.timeSlot)
-        spots = Spot.get_all()
-        for S in spots:
-            print(S.userID)
-            print(S.timeSlot)
-        print("==============================================================================")
         # returns and displays the following information if successful
         data = {
             "venueID": spotid,
@@ -43,7 +35,6 @@ class LineListController(object):
         # reduces the occupency of the chosen time if it is no already 0
         # will determine if the chosen time is today or early morning tomorrow
         if Spot.getByUserID(datetime.today().strftime('%m/%d/%Y'), 1, lineTime) is None:
-            print("INSIDE lineUP")
 
             #determins if the time chosen is for today or early morning tomorrow
             if int(lineTime[0 : 2 ]) <= int(venueClose[0 : 2 ]) and int(venueClose[0 : 2 ]) < 10:
@@ -151,7 +142,7 @@ class LineListController(object):
                 theLine.x23300000 = theLine.x23300000 - 1 
             else:
                 data = {
-                    "did't update the following time slot ": lineTime
+                    "The following time was not Availible, please go back and try another time: ": lineTime
                 }
                 return jsonify(data)
             # if successful updates the line with reduced value and returns and displays a success message
@@ -160,8 +151,7 @@ class LineListController(object):
             self.create_Spot(venueID, 1, lineTime)
 
         # TODO change so it redirects to user lines page if logged in or user login page if not.
-        print("ABOUT TO RENDER TEMPLATE FOR USERLINES")
-        return UserLinesController().First()
+        return userLines_controller.First()
 
     def get_venues(self, venueName):
         # Searches db for venues with names like venueName. then returns venue information and all potential lines. 
@@ -253,7 +243,7 @@ class LineListController(object):
                     elif startOpen == True and lineTimes[i][ 8 : 13 ] == data["Close"]:
                         if todaysLineValues[i] != 0:
                             data["lines"].append(lineTimes[i])
-                            break
+                        break
 
                 # if there were items added to the endTimes list add them to the data["lines"]
                 if len(endTimes) != 0:

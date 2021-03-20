@@ -1,5 +1,5 @@
 from app import db
-import datetime
+from datetime import time, datetime, timedelta
 
 class Lines(db.Model):
     # line times x00000030 translates to x(00:00)(00:30)

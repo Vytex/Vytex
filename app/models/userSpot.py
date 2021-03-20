@@ -34,17 +34,16 @@ class Spot(db.Model):
 
     def getLatestSpot(userID, date):
         spots = db.session.query(Spot).filter(Spot.userID == userID, Spot.date == date).all()
+        # allSpots = 
         latestSpot = None
-        print("==========================================LIST OF SPOTS===================================================")
         if len(spots) != 0:
 
-            print("==========================================LENGTH OF SPOTS DOES NOT EQUAL 0============================")
             for spot in spots:
 
                 if latestSpot == None:
                     latestSpot = spot
                 else:
-                    if int(latestSpot.timeSlot[0:2]) > int(spot.timeSlot[0:2]):
+                    if int(latestSpot.timeSlot[0:2]) < int(spot.timeSlot[0:2]):
                         latestSpot = spot
 
             return latestSpot

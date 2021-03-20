@@ -7,12 +7,9 @@ from app.models import Venue, Lines, Spot
 
 class UserLinesController(object):
     def First(self):
-        print("Inside UserLinesController")
         # this takes care of the first time slot.
         currentDay = datetime.today().weekday()
         latest = Spot.getLatestSpot(1, datetime.today().strftime('%m/%d/%Y'))
-        print("=======================================================================================")
-        print(latest)
         if latest != -1:
 
             venue = Venue.getByID(latest.venueID)
@@ -139,7 +136,7 @@ class UserLinesController(object):
                     elif startOpen == True and lineTimes[i][ 8 : 13 ] == data["Close"]:
                         if todaysLineValues[i] != 0:
                             data["lines"].append(lineTimes[i])
-                            break
+                        break
 
                 # if there were items added to the endTimes list add them to the data["lines"]
                 if len(endTimes) != 0:
@@ -147,9 +144,6 @@ class UserLinesController(object):
 
                 output.append(data)
 
-            print("=" * 50)
-            print(output)
-            print(latestSpot)
             return render_template("userLines/index.html", results=output, topResult=latestSpot)
 
         return render_template("userLines/index.html")

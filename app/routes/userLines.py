@@ -8,8 +8,6 @@ from app.controller.lineList_controller import lineList_controller
 
 @app.route('/userLines', methods = ['POST', 'GET'])
 def userLines():
-    print("========================================================================================")
-    print("IN ROUTE USERLINES")
     #1 save a spot
     #2 redirect to userLines/index.html with parameters
     venueID = request.form["vID"]

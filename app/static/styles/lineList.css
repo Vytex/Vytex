@@ -30,7 +30,7 @@ input {
     padding-right: 1vw;
 }
 
-.lineListItemContainer, #lineListHeader {
+.lineListItemContainer, #lineListHeader, #lineListHeader2 {
     display: grid;
     grid-template-columns: .5fr 1fr 1fr 1fr 1fr;
     height: 6vw;
@@ -57,7 +57,7 @@ input {
     background-color: rgba(0, 0, 0, .2);
 }
 
-.venueName, .venueHours, .lineTimesF, .lineUpButtonContainer, #lineListHeader h2{
+.venueName, .venueHours, .lineTimesF, .lineUpButtonContainer, #lineListHeader h2, #lineListHeader2 h2, #lineTime{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,7 +81,7 @@ img {
     background-image: url("../assets/453169\ from\ Pixabay.jpg");
 }
 
-#lineListHeader {
+#lineListHeader, #lineListHeader2 {
     background-color: rgba(0, 0, 0, .7);
 }
 
