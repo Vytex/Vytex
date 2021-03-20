@@ -29,14 +29,14 @@
         <header>
             <div class="hContainer">
                 <div class="hamburgerMenuBContainer">
-                    <div id="hamburgerB" style="background-color: green;"></div>
+                    <div id="hamburgerB"><div class=hbm></div><div class=hbm></div><div class=hbm></div></div>
                 </div>
                 <div class="logoBContainer">
                     <h1 class="logoB">Vytex</h1>
                 </div>
                 <div class="profileBContainer">
                     <div class="profileB">
-                        <img src="{{ url_for('static',    filename='./assets/profileButtonPlaceholder.jpg') }}">
+                        <img src="{{ url_for('static',    filename='./assets/profileButtonPlaceholder.jpg') }}" alt="Venue Icon">
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
             <h2 class="buzzwordTitle">It's Your Time</h2>
             <div class="searchInputContainer">
                 {% block content %}
-                <form class="searchInputF" id="searchinputid" action="#" method="POST">
+                <form class="searchInputF" id="searchinputid" action="/home" method="POST">
                     <input class="searchInput" id="si" type="text" name="searchin" placeholder="ENTER VENUE NAME"/>
                     <input type="submit" value="submit"/>
                 </form>
