@@ -2,9 +2,11 @@ from app import db
 import datetime
 
 class Spot(db.Model):
-    spotID =  db.Column(db.Integer, primary_key=True)
-    venueID =  db.Column(db.Integer, primary_key=True)
+    userID =  db.Column(db.Integer, primary_key=True)
+    venueID =  db.Column(db.Integer)
     date = db.Column(db.VARCHAR(8), primary_key=True)
+    timeSlot = db.Column(db.VARCHAR(8), primary_key=True)
+    arrived = db.Column(db.Boolean)
     
 
     def save(self):
@@ -17,17 +19,36 @@ class Spot(db.Model):
     def get_all():
         return Spot.query.all()
 
-    def get(venueID):
-        venueID = venueID
-        todaysdate = datetime.today().strftime('%m/%d/%Y')
-        return db.session.query(Spot).filter(Spot.venueID == venueID, Spot.date == todaysdate).first()
-   
-    def getByDate(date):
-        # date formate m/d/Y 11/11/11
-        return db.session.query(Spot).filter(Spot.date == date).all()
 
-    def getSpot():
-        # helper method used to return a line that matches a specific venueid and date
-        # date formate m/d/Y 11/11/11
-        return db.session.query(Spot).filter(Spot.venueID == venueID, Spot.date == date).first()
+    def getSpotVenue(venueID, date):
+        return db.session.query(Spot).filter(Spot.venueID == venueID, Spot.date == date).all()
+
+    def getSpotUser(userID, date):
+        return db.session.query(Spot).filter(Spot.userID == userID, Spot.date == date).all()
+
+    def getSpotsByID(userID):
+        return db.session.query(Spot).filter(Spot.userID == userID).all()
+
+    def getByUserID(date, userID, timeSlot):
+        return db.session.query(Spot).filter(Spot.userID == userID, Spot.date == date, Spot.timeSlot == timeSlot).first()
+
+    def getLatestSpot(userID, date):
+        spots = db.session.query(Spot).filter(Spot.userID == userID, Spot.date == date).all()
+        latestSpot = None
+        print("==========================================LIST OF SPOTS===================================================")
+        if len(spots) != 0:
+
+            print("==========================================LENGTH OF SPOTS DOES NOT EQUAL 0============================")
+            for spot in spots:
+
+                if latestSpot == None:
+                    latestSpot = spot
+                else:
+                    if int(latestSpot.timeSlot[0:2]) > int(spot.timeSlot[0:2]):
+                        latestSpot = spot
+
+            return latestSpot
+
+        return -1
+
 

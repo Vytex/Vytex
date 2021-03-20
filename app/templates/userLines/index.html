@@ -9,11 +9,27 @@
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/breakPoints.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/global.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/header.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/lineList.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/userLines.css') }}">
+
     </head>
     <body>
         <div class="heroImg"></div>
         <div class="heroImgShadowbox"></div>
+        <div id="venueCardShadowbox"></div>
+        <div id="venueCardContainer">
+            <div id="venueCard">
+                <div class="venueImg" id="venueCardImg"></div>
+                <div id="venueCardInfoContainer">
+                    <div id="venueCardName">Venue Not Found</div>
+                    <div id="venueCardHours">8am - 10pm</div>
+                    <div id="venueCardLink"><a id="venueCardLinka" href="">Check Out Their Website for more info</a></div>
+                </div>
+            </div>
+            <div id="venueCardDescription">Please close this window and select another venue. If this problem continues please reach out and let us know at CustomerService@Vytex.com</div>
+            <div id="venueCardButton"><a>Get In Line</a></div>
+            <div id="CloseWindowXVenue">X</div>
+        </div>
         <div id="HamburgerMenu">
             <div id="HMContainer">
                 <div id="CloseWindowX">X</div>
@@ -25,7 +41,6 @@
             </div>
             <a id="HMOffscreen"></a>
         </div>
-
         <header>
             <div class="hContainer">
                 <div class="hamburgerMenuBContainer">
@@ -41,39 +56,57 @@
                 </div>
             </div>
         </header>
-
         <main>
-            <div id="bigHeaderContainer">
-                <h1>Your Lines</h1>
-                <div class="userListHeader">
-                    <div class= "item 1"></div>
-                    <div class="item 2">Venue</div>
-                    <div class= "item 3">Time</div>
-                    <div class= "item 4">Status</div>
-                    <div class= "item 5"></div>
+            <div id="mainheaderContainer">
+                <h1>LINE-UP NOW:</h1>
+                <form class="searchInputF" id="searchinputid" action="/lineList" method="POST">
+                    <input class="searchInput" id="si" type="text" name="searchin" placeholder="ENTER VENUE NAME OR LOCATION HERE"/>
+                </form>
+                <div id="lineListHeader">
+                    <div></div>
+                    <h2>Venue</h2>
+                    <h2>Time Slot</h2>
+                    <h2>Status</h2>
+                    <div></div>
                 </div>
             </div>
-            <div id="lineSpotsContainer">
-                <div id="userSpotContainer">
-                    <table>  
-                        <tr>
-                            <td></td>
-                            <td>POTATO</td>
-                            <td>CAT</td>
-                            <td>JUICE</td>
-                            <td></td>
-                        </tr>
-                    </table>
-                  
+            <div id="FirstHistoryContainer">
+                <div id="HistoryListContainer">
+                    <div class="lineListItemContainer">
+                        <div class="venueImg"><img src="{{topResult['venueIconAddress']}}"/></div>
+                        <div class="venueName">{{topResult['venue']}}</div>
+                        <h2 class="venueHours">{{topResult['Open']}} - {{topResult['Close']}}</h2>
+                        <h2 id="lineTime">{{topResult['spot']}}</h2>
+                    </div>
                 </div>
-
-    
+            </div>
+            <div id="topListContainer">
+                <div id="lineListContainer">
+                    {% for x in results %}
+                    <div class="lineListItemContainer">
+                        <div class="venueImg"><img src="{{x['venueIconAddress']}}"/></div>
+                        <div class="venueName">{{x['venue']}}</div>
+                        <h2 class="venueHours">{{x['Open']}} - {{x['Close']}}</h2>
+                        <form class="lineTimesF" action="/lineList" method="POST">
+                            <input id="vid" type="text" name="vID" value="{{x['venueID']}}" style="display:none"/>
+                            <input id="vc" type="text" name="vc" value="{{x['Close']}}" style="display:none"/>
+                            <select class="lineTimes" name="lineTimesS">
+                                {% for y in x['lines'] %}
+                                <option value={{y}}>{{y}}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="submit" value="LINE UP"/>
+                        </form>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
         </main>
-
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
-    
-    
+        <!-- <script type='text/javascript' src="{{ url_for('static',    filename='./src/lineList.js') }}"></script> -->
+        
+        <script>
+        </script>
 
     </body>
 </html>
