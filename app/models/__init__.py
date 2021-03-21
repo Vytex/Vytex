@@ -4,5 +4,4 @@ from app import app
 # import the shoe class
 from app.models.venue import *
 from app.models.lines import *
-from app.models.login import *
 from app.models.user import *
