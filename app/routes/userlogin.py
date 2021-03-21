@@ -22,12 +22,23 @@ def login_api():
         print('---------------------------------->\n\n\nin POST BB\n\n\n---------------------------------->')
         data = request.json
         print('---------------------------------->\n\n\nGot DATA\n\n\n---------------------------------->')
-        return redirect(url_for("lineList", results = data['venue']), code=302)
+        return redirect(url_for("UserAccount", results = data['venue']), code=302)
     else:
         print('---------------------------------->\n\n\nin else in routes\n\n\n---------------------------------->')
 
         # TODO replace with error controller function if they try to do sonmething other than get for example
         return login_controller.index()
+
+
+
+#@app.route('/login-api', methods=['POST', 'GET'])
+#def login_api():
+#    request.method == "POST":
+#        print('---------------------------------->\n\n\nin POST BB\n\n\n---------------------------------->')
+#        data = request.json
+#        print('---------------------------------->\n\n\nGot DATA\n\n\n---------------------------------->')
+#        return redirect(url_for("userlogin", results = data['venue']), code=302)
+
 
 
 # BEFORE I CHANGED TO REPRESENT THE FINAL APP
