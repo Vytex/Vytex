@@ -24,10 +24,7 @@ app.config['MYSQL_DATABASE_PORT'] = 3306
 mysql.init_app(app)
 mysql.connect()
 
-print(mysql.get_db())
 cursor = mysql.get_db().cursor()
-
-print("running the main func")
 
 from app import routes
 
