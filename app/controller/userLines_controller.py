@@ -143,6 +143,7 @@ class UserLinesController(object):
                     data["lines"].extend(endTimes)                                    
 
                 output.append(data)
+                output.reverse()
 
             return render_template("userLines/index.html", results=output, topResult=latestSpot)
 

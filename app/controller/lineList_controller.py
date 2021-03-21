@@ -150,7 +150,6 @@ class LineListController(object):
 
             self.create_Spot(venueID, 1, lineTime)
 
-        # TODO change so it redirects to user lines page if logged in or user login page if not.
         return userLines_controller.First()
 
     def get_venues(self, venueName):

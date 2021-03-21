@@ -18,5 +18,9 @@ main {
     height: 100%;
 }
 
+#HistoryListContainer .venueImg{
+    max-height: 100%;
+}
+
 #HistoryListContainer {}
 
