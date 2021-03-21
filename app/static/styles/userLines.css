@@ -1,0 +1,22 @@
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+#FirstHistoryContainer {
+    height: unset;
+    overflow: unset;
+}
+
+#mainheaderContainer {
+
+    height: 6vw;
+}
+
+#topListContainer {
+
+    height: 100%;
+}
+
+#HistoryListContainer {}
+
