@@ -1,13 +1,10 @@
 from flask import render_template, jsonify
-<<<<<<< HEAD
-from flask import render_template, jsonify
 
 from app import db
 
 # as the models file contains all the models, import what you need
 # from app.models import Shoe
 from app.models import Venue
-=======
 from datetime import time, datetime, timedelta
 
 from app import db
@@ -18,13 +15,11 @@ def timeify(timeString):
     x = timeString.partition(':')
 
     return time(int(x[0]), int(x[2]))
->>>>>>> master
 
 class LineListController(object):
     def index(self):
         return render_template("lineList/index.html")
 
-<<<<<<< HEAD
     def get_venues(self, venueName):
     # TODO change so it retrieves a search result instead of all availible venues
         venues = Venue.get(venueName)
@@ -47,7 +42,6 @@ class LineListController(object):
                 }
             )
         return render_template("lineList/index.html", results=output)
-=======
     def home(self):
         return render_template("lineList/home.html")
     
@@ -273,6 +267,5 @@ class LineListController(object):
             return render_template("lineList/index.html", results=output)
         else:
             return render_template("lineList/empty.html")
->>>>>>> master
 
 lineList_controller = LineListController()
