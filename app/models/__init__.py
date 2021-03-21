@@ -5,3 +5,4 @@ from app import app
 from app.models.venue import *
 from app.models.lines import *
 from app.models.login import *
+from app.models.user import *

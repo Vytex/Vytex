@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang='en-us'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>Vytex</title>
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/reset.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/variables.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/breakPoints.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/global.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/header.css') }}">
+    
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/create.css') }}">
+    </head>
+    <body>
+        <div class="heroImg2"></div>
+        <div class="heroImgShadowbox"></div>
+        <div id="HamburgerMenu">
+            <div id="HMContainer">
+                <div id="CloseWindowX">X</div>
+                <div id="LinkContainer">
+                    <a href="/lineList">Join a Line</a>
+                    <a>Check your lines</a>
+                    <a href="/contact">Contact Us</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+            <a id="HMOffscreen"></a>
+        </div>
+        <header>
+            <div class="hContainer">
+                <div class="hamburgerMenuBContainer">
+                    <div id="hamburgerB" style="background-color: green;"></div>
+                </div>
+                <div class="logoBContainer">
+                    <h1 class="logoB">Vytex</h1>
+                </div>
+                <div class="profileBContainer">
+                    <div class="profileB">
+                        <a href="/profile">
+                            <img src="{{ image_file }}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+          <main>
+              <style>
+               .wrapper2{
+                    display:grid;
+                    
+                    grid-template-columns:repeat(1,1fr);
+                    grid-column-gap:4.5em;
+                    justify-content: center;
+                    position: relative;
+                    top:-10px;
+                    height: 300px;
+                    margin: 0 auto;
+                
+                }   
+               .wrapper2 > div{
+                   display:block;
+                   padding:1em
+               }
+
+            .wrapper3{
+                display:grid;
+                
+                grid-template-columns:repeat(1,1fr);
+                grid-column-gap:4.5em;
+                justify-content: center;
+                position: relative;
+                top:-120px;
+                height: 300px;
+                margin: 0 auto;
+            
+                }   
+            .wrapper3 > div{
+                   display:block;
+                   padding:1em
+                   
+                   
+                
+               }
+               .wrapper2> img{
+                   grid-column: 1;
+                   grid-row:1 / -1;
+                   align-self: center;
+                   width: 100px;
+               }
+               
+               
+              </style>
+                <div class="wrapper2">
+                    <h2 class="unruly2">CREATE PROFILE</h2>
+                    <p class="unruly5">Sign Up </p>
+                    <p class="subtitles">Never wait in line again, ever.</p>
+                </div>
+              
+            <div class="wrapper3">
+                <form method="POST" action="/signup">
+                    <div class="searchInputContainer2">
+                        <form class="searchInputF2">
+                            <input class="searchInput2" type="text" name= "username" placeholder="Username">
+                        </form>
+                    
+                    </div>
+                    <div class="searchInputContainer2">
+                        <form class="searchInputF2">
+                            <input class="searchInput2" type="email" name="email" placeholder="Email">
+                        </form>
+                    
+                    </div>
+                    <div class="searchInputContainer2">
+                        <form class="searchInputF2">
+                            <input class="searchInput2" type="password" name="password" placeholder="Password">
+                        </form>
+                    
+                    </div>
+                </form>
+                <button class="searchInputB">Sign Up</button>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <p class="subtitles">By signing up you agree to our Terms & Conditions
+                </p>
+            </div>
+            
+            <div class ="grid-container"></div>
+          </main>
+        <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
+    </div>
+{% endif %}
+{% endwith %}
+<form method="POST" action="/signup">
+{% endblock %}
+    </body>
+</html>
