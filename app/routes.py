@@ -6,8 +6,6 @@ from app.controller.lineList_controller import lineList_controller
 from app.controller.admin_controller import admin_controller
 from app.controller.userLines_controller import userLines_controller
 
-
-
 @app.route('/')
 def index():
     return home_controller.index()

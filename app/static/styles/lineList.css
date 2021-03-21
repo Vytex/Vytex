@@ -42,8 +42,9 @@ input {
 }
 
 #topListContainer {
-    height: calc(100% - 17vw);
+    height: calc(100% - 18vw);
     overflow: scroll;
+    margin-top: 1vw;
 }
 
 .lineListItemContainer {
@@ -67,6 +68,7 @@ input {
 .venueImg {
     background-color: aqua;
     width: 50%;
+    max-height: 85%;
     border-radius: 100%;
     margin-left: 2.5vw;
     overflow: hidden;

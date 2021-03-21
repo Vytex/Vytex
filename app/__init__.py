@@ -20,7 +20,6 @@ scheduler = APScheduler()
 scheduler.init_app(app)
 scheduler.start()
 
-
 # db
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)

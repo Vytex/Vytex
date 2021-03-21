@@ -85,9 +85,8 @@ header {
     position: absolute;
     right: 0px;
     top: 0px;
-    margin: 1vw;
-    padding: .5vw;
-    border: 1px solid black;
+    padding: 1.5vw;
+    font-size: 2vw;
     color: var(--vyWhite);
 }
 
