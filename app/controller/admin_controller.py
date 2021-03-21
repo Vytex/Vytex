@@ -3,11 +3,10 @@ from datetime import time, datetime, timedelta
 
 from app import db
 
-# as the models file contains all the models, import what you need
-# from app.models import Shoe
 from app.models import Venue, Lines
 
 def timeify(timeString):
+    # formats string of 4 numbers   ex. from 1230 to 12:30
     x = timeString.partition(':')
 
     return time(int(x[0]), int(x[2]))

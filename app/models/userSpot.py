@@ -34,7 +34,6 @@ class Spot(db.Model):
 
     def getLatestSpot(userID, date):
         spots = db.session.query(Spot).filter(Spot.userID == userID, Spot.date == date).all()
-        # allSpots = 
         latestSpot = None
         if len(spots) != 0:
 
