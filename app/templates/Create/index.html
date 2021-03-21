@@ -19,10 +19,10 @@
             <div id="HMContainer">
                 <div id="CloseWindowX">X</div>
                 <div id="LinkContainer">
-                    <a>Join a Line</a>
+                    <a href="/lineList">Join a Line</a>
                     <a>Check your lines</a>
-                    <a>Contact Us</a>
-                    <a>Logout</a>
+                    <a href="/contact">Contact Us</a>
+                    <a href="/logout">Logout</a>
                 </div>
             </div>
             <a id="HMOffscreen"></a>
@@ -37,7 +37,9 @@
                 </div>
                 <div class="profileBContainer">
                     <div class="profileB">
-                        <img src="{{ url_for('static',    filename='./assets/profileButtonPlaceholder.jpg') }}">
+                        <a href="/profile">
+                            <img src="{{ image_file }}">
+                        </a>
                     </div>
                 </div>
             </div>
@@ -96,26 +98,26 @@
                 </div>
               
             <div class="wrapper3">
-        
-                <div class="searchInputContainer2">
-                    <form class="searchInputF2">
-                        <input class="searchInput2" type="text" placeholder="Your name">
-                    </form>
-                
-                </div>
-                <div class="searchInputContainer2">
-                    <form class="searchInputF2">
-                        <input class="searchInput2" type="text" placeholder="Email">
-                    </form>
-                
-                </div>
-                <div class="searchInputContainer2">
-                    <form class="searchInputF2">
-                        <input class="searchInput2" type="password" placeholder="Password">
-                    </form>
-                
-                </div>
-               
+                <form method="POST" action="/signup">
+                    <div class="searchInputContainer2">
+                        <form class="searchInputF2">
+                            <input class="searchInput2" type="text" name= "username" placeholder="Username">
+                        </form>
+                    
+                    </div>
+                    <div class="searchInputContainer2">
+                        <form class="searchInputF2">
+                            <input class="searchInput2" type="email" name="email" placeholder="Email">
+                        </form>
+                    
+                    </div>
+                    <div class="searchInputContainer2">
+                        <form class="searchInputF2">
+                            <input class="searchInput2" type="password" name="password" placeholder="Password">
+                        </form>
+                    
+                    </div>
+                </form>
                 <button class="searchInputB">Sign Up</button>
                 <br>
                 <br>
@@ -133,6 +135,14 @@
             <div class ="grid-container"></div>
           </main>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
-
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
+    </div>
+{% endif %}
+{% endwith %}
+<form method="POST" action="/signup">
+{% endblock %}
     </body>
 </html>

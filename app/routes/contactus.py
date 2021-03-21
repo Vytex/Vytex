@@ -1,33 +1,33 @@
 from random import randint
 import datetime
-from flask import Blueprint, request, redirect, url_for,render_template, flash, session, logging
+
 from flask import request, redirect, url_for
-from flask_login import login_user, login_required, current_user, logout_user
+
 from app import app
-from app.controller.home_controller import home_controller
+from app.controller.contactus_controller import contactus_controller
 
 #TODO either alter or remove bellow
 
-@app.route('/home', methods=['POST', 'GET'])
-def home():
+@app.route('/contact', methods=['POST', 'GET'])
+def contactus():
     if request.method == 'POST':
         venue = request.form['searchin']
-        return redirect(url_for("lineList", venue = venue))
+        return redirect(url_for("Home", venue = venue))
 
-    return home_controller.index()
+    return contactus_controller.index()
 
-@app.route('/home-api', methods=['POST', 'GET'])
-def home_api():
-    if request.method == "POST":
-        print('---------------------------------->\n\n\nin POST BB\n\n\n---------------------------------->')
-        data = request.json
-        print('---------------------------------->\n\n\nGot DATA\n\n\n---------------------------------->')
-        return redirect(url_for("lineList", results = data['venue']), code=302)
-    else:
-        print('---------------------------------->\n\n\nin else in routes\n\n\n---------------------------------->')
+#@app.route('/contactus-api', methods=['POST', 'GET'])
+#def contactus_api():
+    #if request.method == "POST":
+        #print('---------------------------------->\n\n\nin POST BB\n\n\n---------------------------------->')
+        #data = request.json
+        #print('---------------------------------->\n\n\nGot DATA\n\n\n---------------------------------->')
+        #return redirect(url_for("lineList", results = data['venue']), code=302)
+    #else:
+        #print('---------------------------------->\n\n\nin else in routes\n\n\n---------------------------------->')
 
         # TODO replace with error controller function if they try to do sonmething other than get for example
-        return home_controller.index()
+        #return contactus_controller.index()
 
 
 # BEFORE I CHANGED TO REPRESENT THE FINAL APP
