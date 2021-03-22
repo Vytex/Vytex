@@ -17,19 +17,11 @@
         <div id="venueCardShadowbox"></div>
         <div id="venueCardContainer">
             <div id="venueCard">
-<<<<<<< HEAD
-                <div id="venueCardImg"></div>
-                <div id="venueCardInfoContainer">
-                    <div id="venueCardName">Venue Not Found</div>
-                    <div id="venueCardHours">8am - 10pm</div>
-                    <div id="venueCardLink"><a href="">Check Out Their Website for more info</a></div>
-=======
                 <div class="venueImg" id="venueCardImg"></div>
                 <div id="venueCardInfoContainer">
                     <div id="venueCardName">Venue Not Found</div>
                     <div id="venueCardHours">8am - 10pm</div>
                     <div id="venueCardLink"><a id="venueCardLinka" href="">Check Out Their Website for more info</a></div>
->>>>>>> master
                 </div>
             </div>
             <div id="venueCardDescription">Please close this window and select another venue. If this problem continues please reach out and let us know at CustomerService@Vytex.com</div>
@@ -58,7 +50,9 @@
                 </div>
                 <div class="profileBContainer">
                     <div class="profileB">
-                        <img src="{{ url_for('static',    filename='./assets/profileButtonPlaceholder.jpg') }}">
+                        <a href="/profile">
+                            <img src="{{ image_file }}">
+                        </a>
                     </div>
                 </div>
             </div>
