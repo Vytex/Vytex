@@ -19,6 +19,9 @@ app = Flask(__name__)
 
 # config
 app.config.from_object(Config)
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
 
 # scheduler
 scheduler = APScheduler()
@@ -27,14 +30,12 @@ scheduler.start()
 
 
 # db
-db = SQLAlchemy(app)
+
 #db
 #db = SQLAlchemy(app)
 #db.init_app(app)
-migrate = Migrate(app, db)
 
 from app.scheduledTasks import *
-from app import routes
 from app import routes
 from app.routes.create import authorization as auth_blueprint
 app.register_blueprint(auth_blueprint)
