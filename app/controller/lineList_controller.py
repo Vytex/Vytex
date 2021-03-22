@@ -1,4 +1,5 @@
-from flask import render_template, jsonify
+from flask import render_template, jsonify, redirect, url_for, Blueprint, request, flash, session, logging
+from flask_login import login_user, login_required, current_user, logout_user
 
 from app import db
 
@@ -18,7 +19,15 @@ def timeify(timeString):
 
 class LineListController(object):
     def index(self):
-        return render_template("lineList/index.html")
+        if current_user != None and current_user.is_authenticated:
+            print(current_user)
+            image_file= url_for('static', filename='assets/' + current_user.image_file)
+            return render_template("lineList/index.html", image_file=image_file)
+        else:
+            image_file= url_for('static', filename='assets/profileButtonPlaceholder.jpg')
+            return render_template("lineList/index.html", image_file=image_file)    
+
+        #return render_template("lineList/index.html")
 
     def get_venues(self, venueName):
     # TODO change so it retrieves a search result instead of all availible venues
