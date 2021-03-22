@@ -7,6 +7,9 @@ from app.controller.home_controller import home_controller
 
 authorization = Blueprint('auth', __name__)
 
+@app.route('/')
+def index():
+    return home_controller.index()
 
 @app.route('/home', methods=['POST', 'GET'])
 def home():

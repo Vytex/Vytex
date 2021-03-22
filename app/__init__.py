@@ -28,7 +28,6 @@ scheduler = APScheduler()
 scheduler.init_app(app)
 scheduler.start()
 
-
 # db
 
 #db

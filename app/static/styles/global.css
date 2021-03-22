@@ -20,6 +20,10 @@ main {
     height: 100%;
 }
 
+a {
+    text-decoration: none;
+}
+
 .heroImg {
     position: absolute;
     z-index: -2;

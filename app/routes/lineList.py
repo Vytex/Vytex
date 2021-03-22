@@ -22,7 +22,6 @@ def lineListHome():
         return lineList_controller.lineUp(lineTime = lineTime, venueID = venueID, venueClose = venueClose)    
     
 
-
     return home_controller.index()
 
 @app.route('/lineList/<venue>', methods=['POST', 'GET'])
@@ -41,3 +40,9 @@ def lineList(venue):
 def profile():
     image_file = url_for('static', filename='assets/' + current_user.image_file)
     return render_template('Profile/profile.html', username=current_user.username, image_file=image_file)
+@app.route('/lineList/lineUp', methods = ['POST'])
+def lineUp():
+    venueID = request.form["vID"]
+    venueClose = request.form["vc"]
+    lineTime = request.form.get("lineTimesS")
+    return lineList_controller.lineUp(lineTime, venueID, venueClose)
