@@ -1,3 +1,14 @@
+.backImg {
+    position: absolute;
+    z-index: -2;
+    width: 100vw;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("../assets/samunsplash.jpg");
+}
+
+
 main {
     display: flex;
     flex-direction: column;

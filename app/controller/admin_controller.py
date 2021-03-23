@@ -22,54 +22,54 @@ class AdminController(object):
         venues = Venue.get_all()
         lines = Lines.get_all()
         output = []
-        currentDay = datetime.today().weekday()
+        current_day = datetime.today().weekday()
         # formatting the data for the client 
         for venue in venues:
             
             data = {
-                "venueID" : venue.venueID,
+                "venue_id" : venue.venue_id,
                 "venue" : venue.venue,
-                "venueURL" : venue.venueURL,
-                "venueCity" : venue.venueCity,
-                "venueIconAddress" : venue.venueIcon,
+                "venue_url" : venue.venue_url,
+                "venue_city" : venue.venue_city,
+                "venue_icon_address" : venue.venue_icon,
                 "desc" : venue.description,
-                "capacity" : venue.lineCapacity,
+                "capacity" : venue.line_capacity,
             }
             # only retrieve the business hours for today
-            if currentDay == 0:
-                data["monOpen"] = venue.monOpen.strftime("%H:%M")
-                data["monClose"] = venue.monClose.strftime("%H:%M")
+            if current_day == 0:
+                data["mon_open"] = venue.mon_open.strftime("%H:%M")
+                data["mon_close"] = venue.mon_close.strftime("%H:%M")
 
-            if currentDay == 1:
-                data["tueOpen"] = venue.tueOpen.strftime("%H:%M")
-                data["tueClose"] = venue.tueClose.strftime("%H:%M")
+            if current_day == 1:
+                data["tue_open"] = venue.tue_open.strftime("%H:%M")
+                data["tue_close"] = venue.tue_close.strftime("%H:%M")
 
-            if currentDay == 2:
-                data["wedOpen"] = venue.wedOpen.strftime("%H:%M")
-                data["wedClose"] = venue.wedClose.strftime("%H:%M")
+            if current_day == 2:
+                data["wed_open"] = venue.wed_open.strftime("%H:%M")
+                data["wed_close"] = venue.wed_close.strftime("%H:%M")
 
-            if currentDay == 3:
-                data["thuOpen"] = venue.thuOpen.strftime("%H:%M")
-                data["thuClose"] = venue.thuClose.strftime("%H:%M")
+            if current_day == 3:
+                data["thu_open"] = venue.thu_open.strftime("%H:%M")
+                data["thu_close"] = venue.thu_close.strftime("%H:%M")
 
-            if currentDay == 4:
-                data["friOpen"] = venue.friOpen.strftime("%H:%M")
-                data["friClose"] = venue.friClose.strftime("%H:%M")
+            if current_day == 4:
+                data["fri_open"] = venue.fri_open.strftime("%H:%M")
+                data["fri_close"] = venue.fri_close.strftime("%H:%M")
 
-            if currentDay == 5:
-                data["satOpen"] = venue.satOpen.strftime("%H:%M")
-                data["satClose"] = venue.satClose.strftime("%H:%M")
+            if current_day == 5:
+                data["sat_open"] = venue.sat_open.strftime("%H:%M")
+                data["sat_close"] = venue.sat_close.strftime("%H:%M")
 
-            if currentDay == 6:
-                data["sunOpen"] = venue.sunOpen.strftime("%H:%M")
-                data["sunClose"] = venue.sunClose.strftime("%H:%M")
+            if current_day == 6:
+                data["sun_open"] = venue.sun_open.strftime("%H:%M")
+                data["sun_close"] = venue.sun_close.strftime("%H:%M")
 
             output.append(data)
 
         for line in lines:
             # retrieves all line times and their current capacity (whether the timeslot is used or not)
             data = {
-                "venueID" : line.venueID,
+                "venue_id" : line.venue_id,
                 "date" : line.date,
                 "00:00 - 00:30" : line.x00000030,
                 "00:30 - 01:00" : line.x00300100,
@@ -124,16 +124,16 @@ class AdminController(object):
 
         return jsonify(output)
     
-    def create_list(self, venueID, capacity, theDate=datetime.today().strftime('%m/%d/%Y'), isTomorrow=False):
+    def create_list(self, venue_id, capacity, the_date=datetime.today().strftime('%m/%d/%Y'), is_tomorrow=False):
         # creates an instance of a Line list for a venue for a specific date. the x00000030 values can be translated as: (x)(00:00)(00:30)
-        if isTomorrow == True:
+        if is_tomorrow == True:
             date = (datetime.today() + timedelta(days=1)).strftime('%m/%d/%Y')
         else: 
-            date = theDate
+            date = the_date
 
-        if Venue.getByID(venueID) and Lines.getLine(venueID, date) is None:
-            lList = Lines(
-                venueID = venueID, 
+        if Venue.get_by_id(venue_id) and Lines.get_line(venue_id, date) is None:
+            l_list = Lines(
+                venue_id = venue_id, 
                 date = date, 
                 x00000030 = capacity,
                 x00300100 = capacity,
@@ -184,42 +184,42 @@ class AdminController(object):
                 x23002330 = capacity,
                 x23300000 = capacity
             )
-            venueName = lList.save()
+            venue_name = l_list.save()
             # returns and displays the following information if successful
             data = {
-                "venue list created for venue ID": venueID
+                "venue list created for venue ID": venue_id
             }
         else:
             # returns and displays the following information if NOT successful
             data = {
-                "Sorry The following venue ID does not exist or it already has a line created: ": venueID
+                "Sorry The following venue ID does not exist or it already has a line created: ": venue_id
             }
         return jsonify(data)
     
-    def create_venue(self, venue, description, venueURL, venueCity, venueIcon, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose, sunOpen, sunClose, lineCapacity):        
+    def create_venue(self, venue, description, venue_url, venue_city, venue_icon, mon_open, mon_close, tue_open, tue_close, wed_open, wed_close, thu_open, thu_close, fri_open, fri_close, sat_open, sat_close, sun_open, sun_close, line_capacity):        
         # Creates a new vanue and a linelist for today and tomorrows date
-        venueIconAddress = "../../static/assets/venueIcons/" + venueIcon
-        venue = Venue(venue=venue, description=description, venueURL=venueURL, venueCity=venueCity, venueIcon=venueIconAddress, monOpen=timeify(monOpen), monClose=timeify(monClose), tueOpen=timeify(tueOpen), tueClose=timeify(tueClose), wedOpen=timeify(wedOpen), wedClose=timeify(wedClose), thuOpen=timeify(thuOpen), thuClose=timeify(thuClose), friOpen=timeify(friOpen), friClose=timeify(friClose), satOpen=timeify(satOpen), satClose=timeify(satClose), sunOpen=timeify(sunOpen), sunClose=timeify(sunClose), lineCapacity=lineCapacity)
+        venue_icon_address = "../../static/assets/venue_icons/" + venue_icon
+        venue = Venue(venue=venue, description=description, venue_url=venue_url, venue_city=venue_city, venue_icon=venue_icon_address, mon_open=timeify(mon_open), mon_close=timeify(mon_close), tue_open=timeify(tue_open), tue_close=timeify(tue_close), wed_open=timeify(wed_open), wed_close=timeify(wed_close), thu_open=timeify(thu_open), thu_close=timeify(thu_close), fri_open=timeify(fri_open), fri_close=timeify(fri_close), sat_open=timeify(sat_open), sat_close=timeify(sat_close), sun_open=timeify(sun_open), sun_close=timeify(sun_close), line_capacity=line_capacity)
         venue_id = venue.save()
-        self.create_list(venue_id, lineCapacity)
+        self.create_list(venue_id, line_capacity)
         tomorrow = datetime.today() + timedelta(days=1)
-        self.create_list(venue_id, lineCapacity, tomorrow.strftime('%m/%d/%Y') )
+        self.create_list(venue_id, line_capacity, tomorrow.strftime('%m/%d/%Y') )
 
         # returns and displays the following information if successful
         data = {
-            "venueID": venue_id
+            "venue_id": venue_id
         }
         return jsonify(data)
 
     def delete_Venue(self, id):
         Venue.delete(id)
-        Lines.deleteByID(id)
+        Lines.delete_by_id(id)
         data = {
             "success": True
         }
         return jsonify(data)
     
-    def deleteLine(self, id, date):
+    def delete_line(self, id, date):
         Lines.delete(id, date)
         data = { 
             "success": True

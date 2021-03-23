@@ -4,7 +4,7 @@ from datetime import time, datetime, timedelta
 class Lines(db.Model):
     # line times x00000030 translates to x(00:00)(00:30)
         
-    venueID = db.Column(db.Integer, primary_key=True)
+    venue_id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.VARCHAR(8), primary_key=True)
     x00000030 = db.Column(db.Integer)
     x00300100 = db.Column(db.Integer)
@@ -60,43 +60,43 @@ class Lines(db.Model):
         db.session.add(self)
         db.session.commit()
 
-        return self.venueID
+        return self.venue_id
 
     #READ
     def get_all():
         return Lines.query.all()
 
-    def get(venueID):
-        venueID = venueID
+    def get(venue_id):
+        venue_id = venue_id
         todaysdate = datetime.today().strftime('%m/%d/%Y')
-        return db.session.query(Lines).filter(Lines.venueID == venueID, Lines.date == todaysdate).first()
+        return db.session.query(Lines).filter(Lines.venue_id == venue_id, Lines.date == todaysdate).first()
    
-    def getByDate(date):
+    def get_by_date(date):
         # date formate m/d/Y 11/11/11
         return db.session.query(Lines).filter(Lines.date == date).all()
 
-    def getLine(venueID, date):
-        # helper method used to return a line that matches a specific venueid and date
+    def get_line(venue_id, date):
+        # helper method used to return a line that matches a specific venue_id and date
         # date formate m/d/Y 11/11/11
-        return db.session.query(Lines).filter(Lines.venueID == venueID, Lines.date == date).first()
+        return db.session.query(Lines).filter(Lines.venue_id == venue_id, Lines.date == date).first()
 
     #UPDATE
     def update(self):
         # session is th connection with the database
         db.session.commit()
     
-    def getInLine(self):
+    def get_in_line(self):
 
         db.session.commit()
 
     #DELETE
-    def delete(venueID, date):
+    def delete(venue_id, date):
         # date formate m/d/Y 11/11/11
-        lList = Lines.getLine(venueID=venueID, date=date)
+        lList = Lines.get_line(venue_id=venue_id, date=date)
         db.session.delete(lList)
         db.session.commit()
 
-    def deleteByID(venueID):
-        lList = Lines.get(venueID=venueID)
+    def delete_by_id(venue_id):
+        lList = Lines.get(venue_id=venue_id)
         db.session.delete(lList)
         db.session.commit()

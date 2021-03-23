@@ -3,42 +3,42 @@ import datetime
 
 class Venue(db.Model):
         
-    venueID = db.Column(db.Integer, primary_key=True)
+    venue_id = db.Column(db.Integer, primary_key=True)
     venue = db.Column(db.NVARCHAR(30))
     description = db.Column(db.NVARCHAR(500))
-    venueURL = db.Column(db.VARCHAR(2083))
-    venueCity = db.Column(db.NVARCHAR(500))
-    venueIcon = db.Column(db.VARCHAR(500))
+    venue_url = db.Column(db.VARCHAR(2083))
+    venue_city = db.Column(db.NVARCHAR(500))
+    venue_icon = db.Column(db.VARCHAR(500))
     
-    monOpen = db.Column(db.TIME(4))
-    monClose = db.Column(db.TIME(4))
+    mon_open = db.Column(db.TIME(4))
+    mon_close = db.Column(db.TIME(4))
 
-    tueOpen = db.Column(db.TIME(4))
-    tueClose = db.Column(db.TIME(4))
+    tue_open = db.Column(db.TIME(4))
+    tue_close = db.Column(db.TIME(4))
 
-    wedOpen = db.Column(db.TIME(4))
-    wedClose = db.Column(db.TIME(4))
+    wed_open = db.Column(db.TIME(4))
+    wed_close = db.Column(db.TIME(4))
 
-    thuOpen = db.Column(db.TIME(4))
-    thuClose = db.Column(db.TIME(4))
+    thu_open = db.Column(db.TIME(4))
+    thu_close = db.Column(db.TIME(4))
 
-    friOpen = db.Column(db.TIME(4))
-    friClose = db.Column(db.TIME(4))
+    fri_open = db.Column(db.TIME(4))
+    fri_close = db.Column(db.TIME(4))
 
-    satOpen = db.Column(db.TIME(4))
-    satClose = db.Column(db.TIME(4))
+    sat_open = db.Column(db.TIME(4))
+    sat_close = db.Column(db.TIME(4))
 
-    sunOpen = db.Column(db.TIME(4))
-    sunClose = db.Column(db.TIME(4))
+    sun_open = db.Column(db.TIME(4))
+    sun_close = db.Column(db.TIME(4))
 
-    lineCapacity = db.Column(db.Integer)
+    line_capacity = db.Column(db.Integer)
 
     #CREATE
     def save(self):
         db.session.add(self)
         db.session.commit()
 
-        return self.venueID
+        return self.venue_id
 
     #READ
     def get_all():
@@ -48,8 +48,8 @@ class Venue(db.Model):
         venueN = '%{}%'.format(venueName)
         return db.session.query(Venue).filter(Venue.venue.like(venueN)).all()
 
-    def getByID(id):
-        return db.session.query(Venue).filter(Venue.venueID == id).first()
+    def get_by_id(id):
+        return db.session.query(Venue).filter(Venue.venue_id == id).first()
 
     #UPDATE
     def update(self):
@@ -58,6 +58,6 @@ class Venue(db.Model):
 
     #DELETE
     def delete(id):
-        venue = Venue.getByID(id=id)
+        venue = Venue.get_by_id(id=id)
         db.session.delete(venue)
         db.session.commit()
