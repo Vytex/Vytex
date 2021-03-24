@@ -71,7 +71,7 @@ class LineListController(object):
     def lineUp (self, lineTime, venueID, venueClose):
         # reduces the occupency of the chosen time if it is no already 0
         # will determine if the chosen time is today or early morning tomorrow
-        if Spot.getByUserID(datetime.today().strftime('%m/%d/%Y'), 1, lineTime) is None:
+        if Spot.getByUserID(datetime.today().strftime('%m/%d/%Y'), current_user.id, lineTime) is None:
 
             #determins if the time chosen is for today or early morning tomorrow
             if int(lineTime[0 : 2 ]) <= int(venueClose[0 : 2 ]) and int(venueClose[0 : 2 ]) < 10:
@@ -185,7 +185,7 @@ class LineListController(object):
             # if successful updates the line with reduced value and returns and displays a success message
             theLine.update()
 
-            self.create_Spot(venueID, 1, lineTime)
+            self.create_Spot(venueID, current_user.id, lineTime)
 
         return userLines_controller.First()
 

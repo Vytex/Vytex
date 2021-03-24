@@ -2,7 +2,8 @@ from random import randint
 import datetime
 #from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.models.user import User 
+from app.models.user import User
+from app.models.userSpot import Spot 
 from app import db
 from flask_login import login_user, login_required, current_user, logout_user
 
@@ -87,3 +88,8 @@ def profile():
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
+
+@authorization.route('/userLines', methods=['GET'])
+@login_required
+def LineHistory():
+    return render_template('userLines/index.html')

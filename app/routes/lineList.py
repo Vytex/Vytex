@@ -42,13 +42,13 @@ def profile():
     return render_template('Profile/profile.html', username=current_user.username, image_file=image_file)
 
 @app.route('/lineList/lineUp', methods = ['POST'])
-def lineUp():
-    venueID = request.form["vID"]
-    venueClose = request.form["vc"]
-    lineTime = request.form.get("lineTimesS")
-    return lineList_controller.lineUp(lineTime, venueID, venueClose)
-
-@authorization.route('/login', method=['GET'])
 @login_required
-def lineUpauth():
-    return render_template('Login/index.html')
+def lineUp():
+    if current_user != None and current_user.is_authenticated:
+        venueID = request.form["vID"]
+        venueClose = request.form["vc"]
+        lineTime = request.form.get("lineTimesS")
+        return lineList_controller.lineUp(lineTime, venueID, venueClose)
+    else:
+        return render_template("Login/index.html")
+

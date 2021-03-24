@@ -21,8 +21,8 @@
             <div id="HMContainer">
                 <div id="CloseWindowX">X</div>
                 <div id="LinkContainer">
-                    <a href="/lineList">Join a Line</a>
-                    <a>Check your lines</a>
+                    <a href="/home">Join a Line</a>
+                    <a href="/userLines">Check your lines</a>
                     <a href="/contact">Contact Us</a>
                     <a href="/logout">Logout</a>
                 </div>
@@ -35,22 +35,17 @@
                 <div id="CloseWindowX1">X</div>
                 <div id="InfoContainer_1">
                     <h2 id="InfoSubmenuFont">{{ current_user.username }}</h2>
-                    <button class="btn edit">Edit</button>
-                    <h2 id="InfoSubmenuFont">(xxx) xxx xxxx</h2>
-                    <button class="btn edit">Edit</button>
                     <h2 id="InfoSubmenuFont">{{ current_user.email}}</h2>
-                    <button class="btn edit">Edit</button>
-                    <h2 id="InfoSubmenuFont">Password</h2>
-                    <button class="btn edit">Edit</button>
                 </div>
                 
             </div>
-        <a id="IMOffscreen"></a>
+            <a id="IMOffscreen"></a>
+        </div>
         </div>
         <header>
             <div class="hContainer">
-                <div class="hamburgerMenuBContainer">
-                    <div id="hamburgerB" style="background-color: green;"></div>
+               <div class="hamburgerMenuBContainer">
+                    <div id="hamburgerB"><div class=hbm></div><div class=hbm></div><div class=hbm></div></div>
                 </div>
                 <div class="logoBContainer">
                     <h1 class="logoB">Vytex</h1>
@@ -86,7 +81,7 @@
                 </div>
                 
                 <div id="content2">
-                        <img src="{{ url_for('static',    filename='./assets/Userprofile.png') }}"> 
+                        <img src="{{ image_file }}"> 
                 </div>
 
                 <div id="content1">
@@ -102,12 +97,14 @@
                 </div>
                 {% endblock %}
                 <div id="content4">
-                    <button class="btn yourLines">Your Lines</button>
+                    <a href="userLines">
+                        <button class="btn yourLines">Your Lines</button>
+                    </a>
                 </div>
 
                 <div id="content5">
-                        <button id="info" class="btn accntInfo">Account Info</button>
-                    </div>
+                    <button id="info" class="btn accntInfo">Account Info</button>
+                </div>
         </main>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/info.js') }}"></script>
