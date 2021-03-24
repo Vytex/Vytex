@@ -46,8 +46,6 @@ def lineUp():
     venueID = request.form["vID"]
     venueClose = request.form["vc"]
     lineTime = request.form.get("lineTimesS")
-    print('!@'*50)
-    print(lineTime)
     # returns as redirect to get search param in html for error handling
     return redirect(url_for("linedUp", name = just_the_argument, venueID = venueID ,lineTime = lineTime, venue_close = venueClose ))
 

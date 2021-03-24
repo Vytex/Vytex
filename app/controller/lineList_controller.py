@@ -32,8 +32,12 @@ class LineListController(object):
         return render_template("lineList/home.html")
 
     def is_line_time_up(self, venueID):
+        #checks to see if the current time has passe the start time for your lates line Spot then returns -1 if you can't line up yet
         curr_hour = int(datetime.today().strftime('%H'))
 
+        #checking if the time is early morning or during the day and getting the appropriate spot
+        # note time is set by the closing time for that day so if its 2 am and the venue closes 
+        # at 3 you actually need yesterdays spot as it is for that days closing time.
         if curr_hour < 6:
             day = datetime.today() - timedelta(days=1)
             the_latest = Spot.getLatestSpot(1, day.strftime('%m/%d/%Y'))
@@ -42,6 +46,7 @@ class LineListController(object):
 
         latest_time_slot_hour = int(the_latest.timeSlot[0:2])
 
+        # actually checking the time against the current time
         if latest_time_slot_hour < 6:
             if curr_hour < 6:
                 if curr_hour > latest_time_slot_hour:
@@ -66,7 +71,6 @@ class LineListController(object):
 
             #determins if the time chosen is for today or early morning tomorrow
             if int(lineTime[0 : 2 ]) <= int(venueClose[0 : 2 ]) and int(venueClose[0 : 2 ]) < 10 and curr_hour > 6:
-                print('in tomorrow')
                 tomorrow = datetime.today() + timedelta(days=1)
                 theLine = Lines.getLine(venueID, tomorrow.strftime('%m/%d/%Y'))
             else:
@@ -322,13 +326,10 @@ class LineListController(object):
         # if there were items added to the endTimes list add them to the start_times
         if len(end_times) != 0:
             start_times.extend(end_times)
-        print(start_times)
         return start_times  
 
 
     def get_venues(self, venueName, error_msg=""):
-        print("3"*50)
-        print(venueName)
         # Searches db for venues with names like venueName. then returns venue information and all potential lines. 
         venues = Venue.get(venueName)
         
@@ -359,7 +360,6 @@ class LineListController(object):
 
             return render_template("lineList/index.html",  results=output)
         else:
-            print("about to render empty")
             return render_template("lineList/empty.html")
 
     def First(self):
