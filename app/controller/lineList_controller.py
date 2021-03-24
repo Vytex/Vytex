@@ -4,7 +4,8 @@ from datetime import time, datetime, timedelta
 from app import db
 
 from app.models import Venue, Lines, Spot
-from app.controller.userLines_controller import userLines_controller
+# import app.controller.userLines_controller import userLines_controller
+from app.controller.admin_controller import admin_controller
 
 def timeify(timeString):
     x = timeString.partition(':')
@@ -30,14 +31,46 @@ class LineListController(object):
     def home(self):
         return render_template("lineList/home.html")
 
+    def is_line_time_up(self, venueID):
+        #checks to see if the current time has passe the start time for your lates line Spot then returns -1 if you can't line up yet
+        curr_hour = int(datetime.today().strftime('%H'))
+
+        #checking if the time is early morning or during the day and getting the appropriate spot
+        # note time is set by the closing time for that day so if its 2 am and the venue closes 
+        # at 3 you actually need yesterdays spot as it is for that days closing time.
+        if curr_hour < 6:
+            day = datetime.today() - timedelta(days=1)
+            the_latest = Spot.getLatestSpot(1, day.strftime('%m/%d/%Y'))
+        else:
+            the_latest = Spot.getLatestSpot(1)
+
+        latest_time_slot_hour = int(the_latest.timeSlot[0:2])
+
+        # actually checking the time against the current time
+        if latest_time_slot_hour < 6:
+            if curr_hour < 6:
+                if curr_hour > latest_time_slot_hour:
+                    return -1
+        else:
+            if curr_hour > latest_time_slot_hour:
+                return -1
+        return 
     
-    def lineUp (self, lineTime, venueID, venueClose):
-        # reduces the occupency of the chosen time if it is no already 0
+    def lineUp (self, lineTime, venueID, venueClose, last_page_search_val):
+
+        if last_page_search_val == 'userLines':
+            return self.get_venues(Venue.getByID(venueID).venue, error_msg="Could not line up at selected time")
+        # reduces the occupency of the chosen time if it is not already 0
         # will determine if the chosen time is today or early morning tomorrow
         if Spot.getByUserID(datetime.today().strftime('%m/%d/%Y'), 1, lineTime) is None:
+            curr_hour = int(datetime.today().strftime('%H'))
+
+
+            if self.is_line_time_up(venueID) == -1:
+                return self.get_venues(Venue.getByID(venueID).venue, error_msg="You must wait for your current line time to finish before getting in another line...")
 
             #determins if the time chosen is for today or early morning tomorrow
-            if int(lineTime[0 : 2 ]) <= int(venueClose[0 : 2 ]) and int(venueClose[0 : 2 ]) < 10:
+            if int(lineTime[0 : 2 ]) <= int(venueClose[0 : 2 ]) and int(venueClose[0 : 2 ]) < 10 and curr_hour > 6:
                 tomorrow = datetime.today() + timedelta(days=1)
                 theLine = Lines.getLine(venueID, tomorrow.strftime('%m/%d/%Y'))
             else:
@@ -141,116 +174,230 @@ class LineListController(object):
             elif lineTime == "23:30" and theLine.x23300000 != 0:
                 theLine.x23300000 = theLine.x23300000 - 1 
             else:
-                data = {
-                    "The following time was not Availible, please go back and try another time: ": lineTime
-                }
-                return jsonify(data)
+                return self.get_venues(last_page_search_val, "Sorry, looks like someone took that timeslot already...")
+
             # if successful updates the line with reduced value and returns and displays a success message
             theLine.update()
 
             self.create_Spot(venueID, 1, lineTime)
+            return self.First()
+        
+        return self.get_venues(last_page_search_val, "looks Like your already lined up for this time...")
 
-        return userLines_controller.First()
+    def build_venue_object(self, venueObj):
+        # builds, formats and returns a venue object from a query result object
+        currentDay = datetime.today().weekday()
 
-    def get_venues(self, venueName):
+        data = {
+            "venueID" : venueObj.venueID,
+            "venue" : venueObj.venue,
+            "venueURL": venueObj.venueURL,
+            "venueCity": venueObj.venueCity,
+            "venueIconAddress": venueObj.venueIcon,
+            "desc" : venueObj.description,
+            "lines" : [],
+        }
+        if currentDay == 0:
+            data["yesterdaysClose"] = venueObj.sunClose.strftime("%H:%M")
+            data["Open"] = venueObj.monOpen.strftime("%H:%M")
+            data["Close"] = venueObj.monClose.strftime("%H:%M")
+
+        if currentDay == 1:
+            data["yesterdaysClose"] = venueObj.monClose.strftime("%H:%M")
+            data["Open"] = venueObj.tueOpen.strftime("%H:%M")
+            data["Close"] = venueObj.tueClose.strftime("%H:%M")
+
+        if currentDay == 2:
+            data["yesterdaysClose"] = venueObj.tueClose.strftime("%H:%M")
+            data["Open"] = venueObj.wedOpen.strftime("%H:%M")
+            data["Close"] = venueObj.wedClose.strftime("%H:%M")
+
+        if currentDay == 3:
+            data["yesterdaysClose"] = venueObj.wedClose.strftime("%H:%M")
+            data["Open"] = venueObj.thuOpen.strftime("%H:%M")
+            data["Close"] = venueObj.thuClose.strftime("%H:%M")
+
+        if currentDay == 4:
+            data["yesterdaysClose"] = venueObj.thuClose.strftime("%H:%M")
+            data["Open"] = venueObj.friOpen.strftime("%H:%M")
+            data["Close"] = venueObj.friClose.strftime("%H:%M")
+
+        if currentDay == 5:
+            data["yesterdaysClose"] = venueObj.friClose.strftime("%H:%M")
+            data["Open"] = venueObj.satOpen.strftime("%H:%M")
+            data["Close"] = venueObj.satClose.strftime("%H:%M")
+
+        if currentDay == 6:
+            data["yesterdaysClose"] = venueObj.satClose.strftime("%H:%M")
+            data["Open"] = venueObj.sunOpen.strftime("%H:%M")
+            data["Close"] = venueObj.sunClose.strftime("%H:%M")
+
+        return data
+
+    def get_venues_line_times_list(self, venueObj, isTomorrow = False, isYesterday = False):
+        # Returns the requested list. if it doesn't exist, create it.
+        day = datetime.today()
+
+        if isYesterday == True:
+            day = day - timedelta(days=1)
+        elif isTomorrow == True:
+            day = day + timedelta(days=1)
+
+        lines = Lines.getLine(venueObj.venueID, day.strftime('%m/%d/%Y'))
+
+        if lines is None:
+            admin_controller.create_list(venueObj.venueID, venueObj.lineCapacity)
+            lines = Lines.getLine(venueObj.venueID, datetime.today().strftime('%m/%d/%Y'))
+        
+        return lines
+
+    def create_list_of_lines(self, open, close, todays_line_list, tomorrows_line_list):
+        # generates a list of availible line times based on the open, close and current time.
+        # ONLY returns line times that are withing opening and closing time and that have a capacity greater than 0
+        # note because the closing time can be on the next day, confirms capacity for tomorrows linelist if necessary
+        # open and close time should be formatted like 9:00
+
+        # helper variables use in for loop below
+        start_iter = False
+        start_open = False
+        # container for early morning times from midnight till closing
+        end_times = []
+        #container for from opening to closing
+        start_times = []
+
+        # a list of all potenital line times in a day
+        line_times = ["00:00 - 00:30", "00:30 - 01:00", "01:00 - 01:30", "01:30 - 02:00", "02:00 - 02:30", "02:30 - 03:00", "03:00 - 03:30", "03:30 - 04:00", "04:00 - 04:30", "04:30 - 05:00", "05:00 - 05:30", "05:30 - 06:00", "06:00 - 06:30", "06:30 - 07:00", "07:00 - 07:30", "07:30 - 08:00", "08:00 - 08:30", "08:30 - 09:00", "09:00 - 09:30", "09:30 - 10:00", "10:00 - 10:30", "10:30 - 11:00", "11:00 - 11:30", "11:30 - 12:00", "12:00 - 12:30", "12:30 - 13:00", "13:00 - 13:30", "13:30 - 14:00", "14:00 - 14:30", "14:30 - 15:00", "15:00 - 15:30", "15:30 - 16:00", "16:00 - 16:30", "16:30 - 17:00", "17:00 - 17:30", "17:30 - 18:00", "18:00 - 18:30", "18:30 - 19:00", "19:00 - 19:30", "19:30 - 20:00", "20:00 - 20:30", "20:30 - 21:00", "21:00 - 21:30", "21:30 - 22:00", "22:00 - 22:30", "22:30 - 23:00", "23:00 - 23:30", "23:30 - 00:00"]
+        
+        # a list of today and tomorrows linetime capacities
+        todays_lineValues = [todays_line_list.x00000030, todays_line_list.x00300100, todays_line_list.x01000130, todays_line_list.x01300200, todays_line_list.x02000230, todays_line_list.x02300300, todays_line_list.x03000330, todays_line_list.x03300400, todays_line_list.x04000430, todays_line_list.x04300500, todays_line_list.x05000530, todays_line_list.x05300600, todays_line_list.x06000630, todays_line_list.x06300700, todays_line_list.x07000730, todays_line_list.x07300800, todays_line_list.x08000830, todays_line_list.x08300900, todays_line_list.x09000930, todays_line_list.x09301000, todays_line_list.x10001030, todays_line_list.x10301100, todays_line_list.x11001130, todays_line_list.x11301200, todays_line_list.x12001230, todays_line_list.x12301300, todays_line_list.x13001330, todays_line_list.x13301400, todays_line_list.x14001430, todays_line_list.x14301500, todays_line_list.x15001530, todays_line_list.x15301600, todays_line_list.x16001630, todays_line_list.x16301700, todays_line_list.x17001730, todays_line_list.x17301800, todays_line_list.x18001830, todays_line_list.x18301900, todays_line_list.x19001930, todays_line_list.x19302000, todays_line_list.x20002030, todays_line_list.x20302100, todays_line_list.x21002130, todays_line_list.x21302200, todays_line_list.x22002230, todays_line_list.x22302300, todays_line_list.x23002330, todays_line_list.x23300000]
+        tomorrows_lineValues = [tomorrows_line_list.x00000030, tomorrows_line_list.x00300100, tomorrows_line_list.x01000130, tomorrows_line_list.x01300200, tomorrows_line_list.x02000230, tomorrows_line_list.x02300300, tomorrows_line_list.x03000330, tomorrows_line_list.x03300400, tomorrows_line_list.x04000430, tomorrows_line_list.x04300500, tomorrows_line_list.x05000530, tomorrows_line_list.x05300600, tomorrows_line_list.x06000630, tomorrows_line_list.x06300700, tomorrows_line_list.x07000730, tomorrows_line_list.x07300800, tomorrows_line_list.x08000830, tomorrows_line_list.x08300900, tomorrows_line_list.x09000930, tomorrows_line_list.x09301000, tomorrows_line_list.x10001030, tomorrows_line_list.x10301100, tomorrows_line_list.x11001130, tomorrows_line_list.x11301200, tomorrows_line_list.x12001230, tomorrows_line_list.x12301300, tomorrows_line_list.x13001330, tomorrows_line_list.x13301400, tomorrows_line_list.x14001430, tomorrows_line_list.x14301500, tomorrows_line_list.x15001530, tomorrows_line_list.x15301600, tomorrows_line_list.x16001630, tomorrows_line_list.x16301700, tomorrows_line_list.x17001730, tomorrows_line_list.x17301800, tomorrows_line_list.x18001830, tomorrows_line_list.x18301900, tomorrows_line_list.x19001930, tomorrows_line_list.x19302000, tomorrows_line_list.x20002030, tomorrows_line_list.x20302100, tomorrows_line_list.x21002130, tomorrows_line_list.x21302200, tomorrows_line_list.x22002230, tomorrows_line_list.x22302300, tomorrows_line_list.x23002330, tomorrows_line_list.x23300000]
+        
+        def is_after_curr_time(line_time):
+            # checks to see if the linetime is past the current time
+            current_hour = datetime.today().strftime('%H')
+            current_minute = datetime.today().strftime('%M')
+            line_hour = line_time[0:2]
+            line_minute = line_time[3:5]
+
+            if int(current_hour) <= int(line_hour):
+
+                if current_hour == line_hour and int(current_minute) < int(line_minute): 
+                    return line_time
+                elif current_hour != line_hour:
+                    return line_time
+            elif int(current_hour) > 10 and int(line_hour) < 6:
+                return line_time
+
+            return -1
+
+        #loops through, adding early moring times to end_times first. then adds 
+        for i in range(len(line_times)):
+
+            # is closing time for today actually early morning tomorrow.
+            if int(close[0:2]) < 10 and line_times[i] == "00:00 - 00:30":
+                startiter = True
+            
+            # if so add every time until closing to the end_times list
+            if startiter == True and line_times[i][ 8 : 13 ] != close:
+                if tomorrows_lineValues[i] != 0:
+                    if is_after_curr_time(line_times[i]) != -1:
+                        end_times.append(line_times[i])
+            elif startiter == True and line_times[i][ 8 : 13 ] == close:
+                if tomorrows_lineValues[i] != 0:
+                    if is_after_curr_time(line_times[i]) != -1:
+                        end_times.append(line_times[i])
+                startiter = False
+
+            # does the current linetime match the opening time.
+            if startiter == False and start_open == False and line_times[i][0 : 5] == open and int(datetime.today().strftime('%H')) > 6:
+                start_open = True
+
+            # if so start adding times to data["lines"] until you reach the end of the list or the closing time
+            if start_open == True and line_times[i][ 8 : 13 ] != close:
+                if todays_lineValues[i] != 0:
+                    if is_after_curr_time(line_times[i]) != -1:
+                        start_times.append(line_times[i])
+            elif start_open == True and line_times[i][ 8 : 13 ] == close:
+                if todays_lineValues[i] != 0:
+                    if is_after_curr_time(line_times[i]) != -1:
+                        start_times.append(line_times[i])
+                break
+
+        # if there were items added to the endTimes list add them to the start_times
+        if len(end_times) != 0:
+            start_times.extend(end_times)
+        return start_times  
+
+
+    def get_venues(self, venueName, error_msg=""):
         # Searches db for venues with names like venueName. then returns venue information and all potential lines. 
         venues = Venue.get(venueName)
         
         # so if any venues were found using venueName to search 
         if len(venues) != 0:
             output = []
-            currentDay = datetime.today().weekday()
 
             # adds all venue information to data object
             for venue in venues:
                 
-                data = {
-                    "venueID" : venue.venueID,
-                    "venue" : venue.venue,
-                    "venueURL": venue.venueURL,
-                    "venueCity": venue.venueCity,
-                    "venueIconAddress": venue.venueIcon,
-                    "desc" : venue.description,
-                    "lines" : [],
-                }
-                if currentDay == 0:
-                    data["Open"] = venue.monOpen.strftime("%H:%M")
-                    data["Close"] = venue.monClose.strftime("%H:%M")
-
-                if currentDay == 1:
-                    data["Open"] = venue.tueOpen.strftime("%H:%M")
-                    data["Close"] = venue.tueClose.strftime("%H:%M")
-
-                if currentDay == 2:
-                    data["Open"] = venue.wedOpen.strftime("%H:%M")
-                    data["Close"] = venue.wedClose.strftime("%H:%M")
-
-                if currentDay == 3:
-                    data["Open"] = venue.thuOpen.strftime("%H:%M")
-                    data["Close"] = venue.thuClose.strftime("%H:%M")
-
-                if currentDay == 4:
-                    data["Open"] = venue.friOpen.strftime("%H:%M")
-                    data["Close"] = venue.friClose.strftime("%H:%M")
-
-                if currentDay == 5:
-                    data["Open"] = venue.satOpen.strftime("%H:%M")
-                    data["Close"] = venue.satClose.strftime("%H:%M")
-
-                if currentDay == 6:
-                    data["Open"] = venue.sunOpen.strftime("%H:%M")
-                    data["Close"] = venue.sunClose.strftime("%H:%M")
-
-                # gets line-list information for that venue. 
-                # ONLY returns line times that are withing opening and closing time and that have a capacity greater than 0
-                # note because the closing time can be on the next day, confirms capacity for tomorrows linelist if necessary
-                linesToday = Lines.getLine(venue.venueID, datetime.today().strftime('%m/%d/%Y'))
-                tomorrow = datetime.today() + timedelta(days=1)
-                linesTomorrow = Lines.getLine(venue.venueID, tomorrow.strftime('%m/%d/%Y'))
-                startiter = False
-                startOpen = False
-                endTimes = []
-                # a list of all potenital line times in a day
-                lineTimes = ["00:00 - 00:30", "00:30 - 01:00", "01:00 - 01:30", "01:30 - 02:00", "02:00 - 02:30", "02:30 - 03:00", "03:00 - 03:30", "03:30 - 04:00", "04:00 - 04:30", "04:30 - 05:00", "05:00 - 05:30", "05:30 - 06:00", "06:00 - 06:30", "06:30 - 07:00", "07:00 - 07:30", "07:30 - 08:00", "08:00 - 08:30", "08:30 - 09:00", "09:00 - 09:30", "09:30 - 10:00", "10:00 - 10:30", "10:30 - 11:00", "11:00 - 11:30", "11:30 - 12:00", "12:00 - 12:30", "12:30 - 13:00", "13:00 - 13:30", "13:30 - 14:00", "14:00 - 14:30", "14:30 - 15:00", "15:00 - 15:30", "15:30 - 16:00", "16:00 - 16:30", "16:30 - 17:00", "17:00 - 17:30", "17:30 - 18:00", "18:00 - 18:30", "18:30 - 19:00", "19:00 - 19:30", "19:30 - 20:00", "20:00 - 20:30", "20:30 - 21:00", "21:00 - 21:30", "21:30 - 22:00", "22:00 - 22:30", "22:30 - 23:00", "23:00 - 23:30", "23:30 - 00:00"]
-                # a list of today and tomorrows linetime capacities
-                todaysLineValues = [linesToday.x00000030, linesToday.x00300100, linesToday.x01000130, linesToday.x01300200, linesToday.x02000230, linesToday.x02300300, linesToday.x03000330, linesToday.x03300400, linesToday.x04000430, linesToday.x04300500, linesToday.x05000530, linesToday.x05300600, linesToday.x06000630, linesToday.x06300700, linesToday.x07000730, linesToday.x07300800, linesToday.x08000830, linesToday.x08300900, linesToday.x09000930, linesToday.x09301000, linesToday.x10001030, linesToday.x10301100, linesToday.x11001130, linesToday.x11301200, linesToday.x12001230, linesToday.x12301300, linesToday.x13001330, linesToday.x13301400, linesToday.x14001430, linesToday.x14301500, linesToday.x15001530, linesToday.x15301600, linesToday.x16001630, linesToday.x16301700, linesToday.x17001730, linesToday.x17301800, linesToday.x18001830, linesToday.x18301900, linesToday.x19001930, linesToday.x19302000, linesToday.x20002030, linesToday.x20302100, linesToday.x21002130, linesToday.x21302200, linesToday.x22002230, linesToday.x22302300, linesToday.x23002330, linesToday.x23300000]
-                tomorrowsLineValues = [linesTomorrow.x00000030, linesTomorrow.x00300100, linesTomorrow.x01000130, linesTomorrow.x01300200, linesTomorrow.x02000230, linesTomorrow.x02300300, linesTomorrow.x03000330, linesTomorrow.x03300400, linesTomorrow.x04000430, linesTomorrow.x04300500, linesTomorrow.x05000530, linesTomorrow.x05300600, linesTomorrow.x06000630, linesTomorrow.x06300700, linesTomorrow.x07000730, linesTomorrow.x07300800, linesTomorrow.x08000830, linesTomorrow.x08300900, linesTomorrow.x09000930, linesTomorrow.x09301000, linesTomorrow.x10001030, linesTomorrow.x10301100, linesTomorrow.x11001130, linesTomorrow.x11301200, linesTomorrow.x12001230, linesTomorrow.x12301300, linesTomorrow.x13001330, linesTomorrow.x13301400, linesTomorrow.x14001430, linesTomorrow.x14301500, linesTomorrow.x15001530, linesTomorrow.x15301600, linesTomorrow.x16001630, linesTomorrow.x16301700, linesTomorrow.x17001730, linesTomorrow.x17301800, linesTomorrow.x18001830, linesTomorrow.x18301900, linesTomorrow.x19001930, linesTomorrow.x19302000, linesTomorrow.x20002030, linesTomorrow.x20302100, linesTomorrow.x21002130, linesTomorrow.x21302200, linesTomorrow.x22002230, linesTomorrow.x22302300, linesTomorrow.x23002330, linesTomorrow.x23300000]
+                data = self.build_venue_object(venue)
+                linesToday = None
+                linesTomorrow = None
                 
-                for i in range(len(lineTimes)):
-                    # is closing time for today actually early morning tomorrow.
-                    if int(data["Close"][0:2]) < 10 and lineTimes[i] == "00:00 - 00:30":
-                        startiter = True
+                # If loads the correct line lists depending on if it's today or tomorrow
+                if int(datetime.today().strftime('%H')) < 4:
+                    linesToday = self.get_venues_line_times_list(venue, isYesterday=True)
+                    linesTomorrow = self.get_venues_line_times_list(venue)
+                else:
+                    linesToday = self.get_venues_line_times_list(venue)
+                    linesTomorrow = self.get_venues_line_times_list(venue, isTomorrow=True)
                     
-                    # if so add every time until closing to the endtimes list
-                    if startiter == True and lineTimes[i][ 8 : 13 ] != data["Close"]:
-                        if tomorrowsLineValues[i] != 0:
-                            endTimes.append(lineTimes[i])
-                    elif startiter == True and lineTimes[i][ 8 : 13 ] == data["Close"]:
-                        if tomorrowsLineValues[i] != 0:
-                            endTimes.append(lineTimes[i])
-                        startiter = False
 
-                    # does the current linetime match the opening time.
-                    if startiter == False and startOpen == False and lineTimes[i][0 : 5] == data["Open"]:
-                        startOpen = True
-
-                    # if so start adding times to data["lines"] until you reach the end of the list or the closing time
-                    if startOpen == True and lineTimes[i][ 8 : 13 ] != data["Close"]:
-                        if todaysLineValues[i] != 0:
-                            data["lines"].append(lineTimes[i])
-                    elif startOpen == True and lineTimes[i][ 8 : 13 ] == data["Close"]:
-                        if todaysLineValues[i] != 0:
-                            data["lines"].append(lineTimes[i])
-                        break
-
-                # if there were items added to the endTimes list add them to the data["lines"]
-                if len(endTimes) != 0:
-                    data["lines"].extend(endTimes)                                    
-
+                data["lines"].extend(self.create_list_of_lines(data["Open"], data["Close"], linesToday, linesTomorrow))
                 output.append(data)
+            if error_msg != "":
+                return render_template("lineList/error.html",  results=output, error=error_msg)
 
             return render_template("lineList/index.html",  results=output)
         else:
             return render_template("lineList/empty.html")
+
+    def First(self):
+        # this takes care of the first time slot.
+        currentDay = datetime.today().weekday()
+        latest = Spot.getLatestSpot(1, datetime.today().strftime('%m/%d/%Y'))
+        if latest != -1:
+
+            venue = Venue.getByID(latest.venueID)
+            latestSpot = lineList_controller.build_venue_object(venue)
+            latestSpot['spot'] = latest.timeSlot
+            # and now the list of venues in order that you last liked up
+            venueHistory = Spot.getSpotsByID(1)
+            output = []
+
+            for VH in venueHistory:
+                
+                venue = Venue.getByID(VH.venueID)
+                    
+                data = lineList_controller.build_venue_object(venue)
+                linesToday = None
+                linesTomorrow = None
+                
+                # If loads the correct line lists depending on if it's today or tomorrow
+                if int(datetime.today().strftime('%H')) < 4:
+                    linesToday = self.get_venues_line_times_list(venue, isYesterday=True)
+                    linesTomorrow = self.get_venues_line_times_list(venue)
+                else:
+                    linesToday = self.get_venues_line_times_list(venue)
+                    linesTomorrow = self.get_venues_line_times_list(venue, isTomorrow=True)
+                    
+
+                data["lines"].extend(self.create_list_of_lines(data["Open"], data["Close"], linesToday, linesTomorrow))
+                output.append(data)
+                output.reverse()
+
+            return render_template("userLines/index.html", results=output, topResult=latestSpot)
+
+        return render_template("userLines/index.html")
 
 lineList_controller = LineListController()

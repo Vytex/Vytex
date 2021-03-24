@@ -65,6 +65,14 @@ input {
     font-size: 1.5vw;
 }
 
+.venueName {
+    padding-right: 38px;}
+
+.venueHours {
+    justify-content: left;
+    padding-left: 4vw;
+}
+
 .venueImg {
     background-color: aqua;
     width: 50%;
@@ -72,6 +80,15 @@ input {
     border-radius: 100%;
     margin-left: 2.5vw;
     overflow: hidden;
+}
+
+#error_msg {
+    position: absolute;
+    left: 74vw;
+    top: 19.45vw;
+    font-size: 1vw;
+    color: darkred;
+    text-shadow: -1px 0px 0px #000000;
 }
 
 img {

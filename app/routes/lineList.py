@@ -13,10 +13,14 @@ def lineListHome():
         venue = request.form['searchin']
         return redirect(url_for("lineList", venue = venue))
     elif request.method == 'POST' and request.form.get('lineTimesS'):
+        previous_HTML = request.referrer
+        arg1 = previous_HTML.rsplit('/', 1)[-1]
+        just_the_argument = arg1.rsplit('?', 1)[0]
+
         lineTime = request.form['lineTimesS']
         venueID = request.form['vID']
         venueClose = request.form['vc']
-        return lineList_controller.lineUp(lineTime = lineTime, venueID = venueID, venueClose = venueClose)    
+        return lineList_controller.lineUp(lineTime = lineTime, venueID = venueID, venueClose = venueClose, name=just_the_argument)    
     
 
     return home_controller.index()
@@ -33,7 +37,21 @@ def lineList(venue):
 
 @app.route('/lineList/lineUp', methods = ['POST'])
 def lineUp():
+    # used to get search value from previous pages html so it can 
+    # run the same search on the error page if routed there
+    previous_HTML = request.referrer
+    arg1 = previous_HTML.rsplit('/', 1)[-1]
+    just_the_argument = arg1.rsplit('?', 1)[0]
+    #the rest of the form values
     venueID = request.form["vID"]
     venueClose = request.form["vc"]
     lineTime = request.form.get("lineTimesS")
-    return lineList_controller.lineUp(lineTime, venueID, venueClose)
+    # returns as redirect to get search param in html for error handling
+    return redirect(url_for("linedUp", name = just_the_argument, venueID = venueID ,lineTime = lineTime, venue_close = venueClose ))
+
+@app.route('/lineList/lineUp/<name>', methods = ['POST', 'GET'])
+def linedUp(name):
+    if request.args.get('lineTime') != None:
+        return lineList_controller.lineUp(request.args.get('lineTime'), request.args.get('venueID'), request.args.get('venue_close'), name)
+    return lineList_controller.get_venues(name, error_msg='No availible times to line up in')
+
