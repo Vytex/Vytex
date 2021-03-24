@@ -16,7 +16,7 @@ def lineListHome():
         previous_HTML = request.referrer
         arg1 = previous_HTML.rsplit('/', 1)[-1]
         just_the_argument = arg1.rsplit('?', 1)[0]
-        
+
         lineTime = request.form['lineTimesS']
         venueID = request.form['vID']
         venueClose = request.form['vc']
@@ -46,10 +46,14 @@ def lineUp():
     venueID = request.form["vID"]
     venueClose = request.form["vc"]
     lineTime = request.form.get("lineTimesS")
+    print('!@'*50)
+    print(lineTime)
     # returns as redirect to get search param in html for error handling
     return redirect(url_for("linedUp", name = just_the_argument, venueID = venueID ,lineTime = lineTime, venue_close = venueClose ))
 
 @app.route('/lineList/lineUp/<name>', methods = ['POST', 'GET'])
 def linedUp(name):
-    return lineList_controller.lineUp(request.args.get('lineTime'), request.args.get('venueID'), request.args.get('venue_close'), name)
+    if request.args.get('lineTime') != None:
+        return lineList_controller.lineUp(request.args.get('lineTime'), request.args.get('venueID'), request.args.get('venue_close'), name)
+    return lineList_controller.get_venues(name, error_msg='No availible times to line up in')
 

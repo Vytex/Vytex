@@ -285,7 +285,7 @@ class LineListController(object):
                 startiter = False
 
             # does the current linetime match the opening time.
-            if startiter == False and start_open == False and line_times[i][0 : 5] == open:
+            if startiter == False and start_open == False and line_times[i][0 : 5] == open and int(datetime.today().strftime('%H')) > 6:
                 start_open = True
 
             # if so start adding times to data["lines"] until you reach the end of the list or the closing time
