@@ -1,4 +1,11 @@
-from flask import render_template, jsonify, redirect, url_for
+from flask import render_template, jsonify, redirect, url_for, Blueprint, request, flash, session, logging
+from flask_login import login_user, login_required, current_user, logout_user
+
+from app import db
+
+# as the models file contains all the models, import what you need
+# from app.models import Shoe
+from app.models import Venue
 from datetime import time, datetime, timedelta
 
 from app import db
@@ -25,8 +32,38 @@ class LineListController(object):
         return jsonify(data)
 
     def index(self):
-        return render_template("lineList/index.html")
+        if current_user != None and current_user.is_authenticated:
+            print(current_user)
+            image_file= url_for('static', filename='assets/' + current_user.image_file)
+            return render_template("lineList/index.html", image_file=image_file)
+        else:
+            image_file= url_for('static', filename='assets/profileButtonPlaceholder.jpg')
+            return render_template("lineList/index.html", image_file=image_file)    
 
+        #return render_template("lineList/index.html")
+
+    def get_venues(self, venueName):
+    # TODO change so it retrieves a search result instead of all availible venues
+        venues = Venue.get(venueName)
+        output = []
+        # formatting the data for the client 
+        for venue in venues:
+            output.append(
+                {
+                    # TODO add relevant Venue info base on table columns
+                    "venue" : venue.venue,
+                    "desc" : venue.description,
+                    "mon" : venue.mon.strftime("%H:%M"),
+                    "tue" : venue.tue.strftime("%H:%M"),
+                    "wed" : venue.wed.strftime("%H:%M"),
+                    "thu" : venue.thu.strftime("%H:%M"),
+                    "fri" : venue.fri.strftime("%H:%M"),
+                    "sat" : venue.sat.strftime("%H:%M"),
+                    "sun" : venue.sun.strftime("%H:%M"),
+                    "venueID" : venue.venueID
+                }
+            )
+        return render_template("lineList/index.html", results=output)
     def home(self):
         return render_template("lineList/home.html")
 
@@ -34,7 +71,7 @@ class LineListController(object):
     def lineUp (self, lineTime, venueID, venueClose):
         # reduces the occupency of the chosen time if it is no already 0
         # will determine if the chosen time is today or early morning tomorrow
-        if Spot.getByUserID(datetime.today().strftime('%m/%d/%Y'), 1, lineTime) is None:
+        if Spot.getByUserID(datetime.today().strftime('%m/%d/%Y'), current_user.id, lineTime) is None:
 
             #determins if the time chosen is for today or early morning tomorrow
             if int(lineTime[0 : 2 ]) <= int(venueClose[0 : 2 ]) and int(venueClose[0 : 2 ]) < 10:
@@ -148,7 +185,7 @@ class LineListController(object):
             # if successful updates the line with reduced value and returns and displays a success message
             theLine.update()
 
-            self.create_Spot(venueID, 1, lineTime)
+            self.create_Spot(venueID, current_user.id, lineTime)
 
         return userLines_controller.First()
 

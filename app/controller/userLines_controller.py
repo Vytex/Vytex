@@ -1,4 +1,6 @@
-from flask import render_template, jsonify, redirect, url_for
+from flask import render_template, jsonify, redirect, url_for, Blueprint, request, flash, session, logging
+from flask_login import login_user, login_required, current_user, logout_user
+
 from datetime import time, datetime, timedelta
 
 from app import db
@@ -6,13 +8,25 @@ from app import db
 from app.models import Venue, Lines, Spot
 
 class UserLinesController(object):
+    def index(self):
+        if current_user != None and current_user.is_authenticated:
+            print(current_user)
+            image_file = url_for('static', filename='assets/' + current_user.image_file)
+            return render_template("userLines/index.html", image_file=image_file)
+        else:
+            image_file = url_for('static', filename='assets/profileButtonPlaceholder.jpg')
+            return render_template("userLines/index.html", image_file=image_file)
+
     def First(self):
         # this takes care of the first time slot.
         currentDay = datetime.today().weekday()
-        latest = Spot.getLatestSpot(1, datetime.today().strftime('%m/%d/%Y'))
+        latest = Spot.getLatestSpot(current_user.id, datetime.today().strftime('%m/%d/%Y'))
+        print(latest)
         if latest != -1:
+            print("latest!=1")
 
             venue = Venue.getByID(latest.venueID)
+            
             latestSpot = {
                         "venueID" : venue.venueID,
                         "venue" : venue.venue,
@@ -51,7 +65,7 @@ class UserLinesController(object):
                 latestSpot["Close"] = venue.sunClose.strftime("%H:%M")
             
             # and now the list of venues in order that you last liked up
-            venueHistory = Spot.getSpotsByID(1)
+            venueHistory = Spot.getSpotsByID(current_user.id)
             output = []
 
             for VH in venueHistory:
@@ -147,6 +161,6 @@ class UserLinesController(object):
 
             return render_template("userLines/index.html", results=output, topResult=latestSpot)
 
-        return render_template("userLines/index.html")
+        return render_template("userLines/empty.html")
 
 userLines_controller = UserLinesController()
