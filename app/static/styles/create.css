@@ -8,7 +8,7 @@ form, input, .searchInput2, .searchInputF2 {
     height: 2vw;
     contain: content;
     justify-content: center;
-    margin-top:auto;
+    margin-top:25px;
     margin-bottom: auto;
     margin-right: auto;
     margin-left: auto;
@@ -28,7 +28,7 @@ form, input, .searchInput2, .searchInputF2 {
     margin-top:auto;
     margin-bottom: auto;
     margin-right: auto;
-    margin-left: auto;
+    margin-left: 25%;
 }
 .searchInput2:focus {
     outline: none;
@@ -50,7 +50,7 @@ form, input, .searchInput2, .searchInputF2 {
 
 .unruly2 {
     margin-bottom: -100px;
-    margin-top: -120px;
+    margin-top: 150px;
     margin-left: auto;
     margin-right: auto;
     color: var(--vyWhite);
