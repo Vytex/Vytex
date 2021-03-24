@@ -203,11 +203,13 @@ class LineListController(object):
 
         return data
 
-    def get_venues_line_times_list(self, venueObj, isTomorrow = False):
+    def get_venues_line_times_list(self, venueObj, isTomorrow = False, isYesterday = False):
         # Returns the requested list. if it doesn't exist, create it.
         day = datetime.today()
 
-        if isTomorrow == True:
+        if isYesterday == True:
+            day = day - timedelta(days=1)
+        elif isTomorrow == True:
             day = day + timedelta(days=1)
 
         lines = Lines.getLine(venueObj.venueID, day.strftime('%m/%d/%Y'))
@@ -304,9 +306,17 @@ class LineListController(object):
             for venue in venues:
                 
                 data = self.build_venue_object(venue)
+                linesToday = None
+                linesTomorrow = None
                 
-                linesToday = self.get_venues_line_times_list(venue)
-                linesTomorrow = self.get_venues_line_times_list(venue, isTomorrow=True)
+                # If loads the correct line lists depending on if it's today or tomorrow
+                if int(datetime.today().strftime('%H')) < 4:
+                    linesToday = self.get_venues_line_times_list(venue, isYesterday=True)
+                    linesTomorrow = self.get_venues_line_times_list(venue)
+                else:
+                    linesToday = self.get_venues_line_times_list(venue)
+                    linesTomorrow = self.get_venues_line_times_list(venue, isTomorrow=True)
+                    
 
                 data["lines"].extend(self.create_list_of_lines(data["Open"], data["Close"], linesToday, linesTomorrow))
                 output.append(data)
