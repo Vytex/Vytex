@@ -1,20 +1,20 @@
 let venues = []
-const venue_card = document.getElementById("venueCardContainer");
-const vc_name = document.getElementById("venueCardName");
-const vc_hours = document.getElementById("venueCardHours");
-const vc_img = document.getElementById("venueCardImg");
-const vc_link = document.getElementById("venueCardLinka");
-const vc_description = document.getElementById("venueCardDescription");
-let Venue = document.getElementsByClassName("venueName");
+const venue_card = document.getElementById("venue-card-container");
+const vc_name = document.getElementById("venue-card-name");
+const vc_hours = document.getElementById("venue-card-hours");
+const vc_img = document.getElementById("venue-card-img");
+const vc_link = document.getElementById("venue-card-link-a");
+const vc_description = document.getElementById("venue-card-description");
+let Venue = document.getElementsByClassName("venue-name");
 
-const VenueCardSB = document.getElementById("venueCardShadowbox");
+const VenueCardSB = document.getElementById("venue-card-shadow-box");
 
 
-document.getElementById("CloseWindowXVenue").addEventListener("click", function(){
+document.getElementById("close-window-x-venue").addEventListener("click", function(){
     venue_card.style.display = "none";
     VenueCardSB.style.display = "none";
 })
-document.getElementById("venueCardShadowbox").addEventListener("click", function(){
+document.getElementById("venue-card-shadow-box").addEventListener("click", function(){
     venue_card.style.display = "none";
     VenueCardSB.style.display = "none";
 })
@@ -28,10 +28,10 @@ for (var i = 0 ; i < Venue.length; i++) {
                 console.log(Venue[j])
                 vc_name.innerHTML = this.innerHTML
                 vc_description.innerHTML = venues[j]['desc']
-                vc_link.href = venues[j]['venueURL']
+                vc_link.href = venues[j]['venue-url']
                 venue_card.style.display = "grid";
                 VenueCardSB.style.display = "block";
-                vc_img.innerHTML = "<img src='" + venues[j]['venueIconAddress'] + "' />"
+                vc_img.innerHTML = "<img src='" + venues[j]['venue-icon-address'] + "' />"
             }
         }
         

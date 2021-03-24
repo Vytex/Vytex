@@ -1,15 +1,15 @@
 
-const HamburgerMenu = document.getElementById("HamburgerMenu");
+const HamburgerMenu = document.getElementById("hamburger-menu");
 
-document.getElementById("CloseWindowX").addEventListener("click", function(){
+document.getElementById("close-window-x").addEventListener("click", function(){
     HamburgerMenu.style.display = "none";
     console.log("Clicked")
 })
-document.getElementById("HMOffscreen").addEventListener("click", function(){
+document.getElementById("hm-offscreen").addEventListener("click", function(){
     HamburgerMenu.style.display = "none";
     console.log("Clicked")
 })
 
-document.getElementById("hamburgerB").addEventListener("click", function(){
+document.getElementById("hamburger-b").addEventListener("click", function(){
     HamburgerMenu.style.display = "flex";
 })
