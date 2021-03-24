@@ -22,8 +22,6 @@ main {
     max-height: 100%;
 }
 
-#HistoryListContainer {}
-
 #lineListHeader h2:last-of-type {
     justify-content: unset;
 }

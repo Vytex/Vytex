@@ -1,5 +1,12 @@
 from random import randint
-from flask import request, redirect, url_for
+
+from flask import Blueprint, request, redirect, url_for, render_template, flash, session, logging
+
+from flask_login import login_user, login_required, current_user, logout_user
+
+authorization = Blueprint('auth', __name__)
+
+
 
 from app import app
 from app.controller.home_controller import home_controller
@@ -26,3 +33,10 @@ def userLines():
 @app.route('/userLines/<name>', methods = ['POST', 'GET'])
 def user_lined_up(name):
     return lineList_controller.lineUp(request.args.get('lineTime'), request.args.get('venueID'), request.args.get('venue_close'), name)
+    
+@authorization.route('/profile', methods=['GET'])
+@login_required
+def profile():
+    image_file = url_for('static', filename='assets/' + current_user.image_file)
+    return render_template('Profile/profile.html', username=current_user.username, image_file=image_file)
+    

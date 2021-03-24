@@ -14,8 +14,11 @@
 !migrations/
 
 # Some more stuff we don't want
+.DS_Store
 *.DS_Store
 app/.DS_Store
+app/static/.DS_Store
+app/static/assets/.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang='en-us'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>VYTEX</title>
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/reset.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/variables.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/breakPoints.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/global.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/header.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/home.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/userinfo.css') }}">
+        
+    </head>
+    <body>
+        <div class="infoImg"></div>
+        <div class="heroImgShadowbox"></div>
+        <div id="HamburgerMenu">
+            <div id="HMContainer">
+                <div id="CloseWindowX">X</div>
+                <div id="LinkContainer">
+                    <a href="/home">Join a Line</a>
+                    <a href="/userLines">Check your lines</a>
+                    <a href="/contact">Contact Us</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+            <a id="HMOffscreen"></a>
+        </div>
+        <div id="InfoMenu">
+            <div id="InfoContainer" class="InfoContainerClass">
+                <img id="Info1" src="{{ image_file }}">
+                <div id="CloseWindowX1">X</div>
+                <div id="InfoContainer_1">
+                    <h2 id="InfoSubmenuFont">{{ current_user.username }}</h2>
+                    <h2 id="InfoSubmenuFont">{{ current_user.email}}</h2>
+                </div>
+                
+            </div>
+            <a id="IMOffscreen"></a>
+        </div>
+        </div>
+        <header>
+            <div class="hContainer">
+               <div class="hamburgerMenuBContainer">
+                    <div id="hamburgerB"><div class=hbm></div><div class=hbm></div><div class=hbm></div></div>
+                </div>
+                <div class="logoBContainer">
+                    <h1 class="logoB">Vytex</h1>
+                </div>
+                <div class="profileBContainer">
+                    <div class="profileB">
+                        <img src="{{ image_file }}">
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="wrapper">
+                <div id="content1">
+                     
+                </div>
+                <div id="content1">
+                     
+                </div>
+                <div id="content1">
+                     
+                </div>
+                <div id="content1">
+                     
+                </div>
+                <div id="content1">
+                     
+                </div>
+                <div id="content1">
+                     
+                </div>
+                <div id="content1">
+                     
+                </div>
+                
+                <div id="content2">
+                        <img src="{{ image_file }}"> 
+                </div>
+
+                <div id="content1">
+                    
+                </div>
+
+                <div id="content1">
+                     
+                    </div>
+                {% block content %}
+                <div id="content3">
+                    <h2 class="usernameInfo"> {{ username }}</h2>
+                </div>
+                {% endblock %}
+                <div id="content4">
+                    <a href="userLines">
+                        <button class="btn yourLines">Your Lines</button>
+                    </a>
+                </div>
+
+                <div id="content5">
+                    <button id="info" class="btn accntInfo">Account Info</button>
+                </div>
+        </main>
+        <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
+        <script type='text/javascript' src="{{ url_for('static',    filename='./src/info.js') }}"></script>
+
+    </body>
+</html>

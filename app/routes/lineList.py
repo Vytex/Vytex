@@ -1,6 +1,9 @@
+from flask_login import login_user, login_required, current_user, logout_user
 from random import randint
 
-from flask import request, redirect, url_for
+from flask import Blueprint, request, redirect, url_for, render_template, flash, session, logging
+authorization = Blueprint('auth', __name__)
+
 
 from app import app
 from app.controller.lineList_controller import lineList_controller
@@ -35,7 +38,15 @@ def lineList(venue):
 
     return lineList_controller.index()
 
+
+@authorization.route('/profile', methods=['GET'])
+@login_required
+def profile():
+    image_file = url_for('static', filename='assets/' + current_user.image_file)
+    return render_template('Profile/profile.html', username=current_user.username, image_file=image_file)
+
 @app.route('/lineList/lineUp', methods = ['POST'])
+@login_required
 def lineUp():
     # used to get search value from previous pages html so it can 
     # run the same search on the error page if routed there

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang='en-us'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>VYTEX</title>
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/reset.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/variables.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/breakPoints.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/global.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/header.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/home.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/userinfo.css') }}">
+        
+    </head>
+    <body>
+        <div class="infoImg"></div>
+        <div class="heroImgShadowbox"></div>
+        <div id="HamburgerMenu">
+            <div id="HMContainer">
+                <div id="CloseWindowX">X</div>
+                <div id="LinkContainer">
+                    <a>Join a Line</a>
+                    <a>Check your lines</a>
+                    <a>Contact Us</a>
+                    <a>Logout</a>
+                </div>
+            </div>
+            <a id="HMOffscreen"></a>
+        </div>
+        <div id="InfoMenu">
+            <div id="InfoContainer" class="InfoContainerClass">
+                <img id="Info1" src="{{ url_for('static',    filename='./assets/Userprofile.png') }}">
+                <div id="CloseWindowX1">X</div>
+                <div id="InfoContainer_1">
+                    <h2 id="InfoSubmenuFont">Sample Name</h2>
+                    <button class="btn edit">Edit</button>
+                    <h2 id="InfoSubmenuFont">(xxx) xxx xxxx</h2>
+                    <button class="btn edit">Edit</button>
+                    <h2 id="InfoSubmenuFont">email@xmple.com</h2>
+                    <button class="btn edit">Edit</button>
+                    <h2 id="InfoSubmenuFont">Password</h2>
+                    <button class="btn edit">Edit</button>
+                </div>
+                
+            </div>
+        <a id="IMOffscreen"></a>
+        </div>
+        <header>
+            <div class="hContainer">
+                <div class="hamburgerMenuBContainer">
+                    <div id="hamburgerB" style="background-color: green;"></div>
+                </div>
+                <div class="logoBContainer">
+                    <h1 class="logoB">Vytex</h1>
+                </div>
+                <div class="profileBContainer">
+                    <div class="profileB">
+                        <img src="{{ image_file }}">
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="wrapper">
+                <div id="content1">
+                     
+                </div>
+                <div id="content1">
+                     
+                </div>
+                <div id="content1">
+                     
+                </div>
+                <div id="content1">
+                     
+                </div>
+                <div id="content1">
+                     
+                </div>
+                <div id="content1">
+                     
+                </div>
+                <div id="content1">
+                     
+                </div>
+                
+                <div id="content2">
+                        <img src="{{ url_for('static',    filename='./assets/Userprofile.png') }}"> 
+                </div>
+
+                <div id="content1">
+                     
+                </div>
+
+                <div id="content1">
+                     
+                    </div>
+
+                <div id="content3">
+                    <h2 class="usernameInfo"> Username</h2>
+                </div>
+
+                <div id="content4">
+                    <button class="btn yourLines">Your Lines</button>
+                </div>
+
+                <div id="content5">
+                        <button id="info" class="btn accntInfo">Account Info</button>
+                    </div>
+        </main>
+        <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
+        <script type='text/javascript' src="{{ url_for('static',    filename='./src/info.js') }}"></script>
+
+    </body>
+</html>
