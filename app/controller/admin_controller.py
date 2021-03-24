@@ -27,11 +27,11 @@ class AdminController(object):
         for venue in venues:
             
             data = {
-                "venue_id" : venue.venue_id,
+                "venue-id" : venue.venue_id,
                 "venue" : venue.venue,
-                "venue_url" : venue.venue_url,
-                "venue_city" : venue.venue_city,
-                "venue_icon_address" : venue.venue_icon,
+                "venue-url" : venue.venue_url,
+                "venue-city" : venue.venue_city,
+                "venue-icon-address" : venue.venue_icon,
                 "desc" : venue.description,
                 "capacity" : venue.line_capacity,
             }
@@ -196,10 +196,14 @@ class AdminController(object):
             }
         return jsonify(data)
     
-    def create_venue(self, venue, description, venue_url, venue_city, venue_icon, mon_open, mon_close, tue_open, tue_close, wed_open, wed_close, thu_open, thu_close, fri_open, fri_close, sat_open, sat_close, sun_open, sun_close, line_capacity):        
+    def create_venue(self, venue, description, venue_url, venue_city, venue_icon, mon_open, mon_close, tue_open, tue_close, 
+    wed_open, wed_close, thu_open, thu_close, fri_open, fri_close, sat_open, sat_close, sun_open, sun_close, line_capacity):        
         # Creates a new vanue and a linelist for today and tomorrows date
         venue_icon_address = "../../static/assets/venue_icons/" + venue_icon
-        venue = Venue(venue=venue, description=description, venue_url=venue_url, venue_city=venue_city, venue_icon=venue_icon_address, mon_open=timeify(mon_open), mon_close=timeify(mon_close), tue_open=timeify(tue_open), tue_close=timeify(tue_close), wed_open=timeify(wed_open), wed_close=timeify(wed_close), thu_open=timeify(thu_open), thu_close=timeify(thu_close), fri_open=timeify(fri_open), fri_close=timeify(fri_close), sat_open=timeify(sat_open), sat_close=timeify(sat_close), sun_open=timeify(sun_open), sun_close=timeify(sun_close), line_capacity=line_capacity)
+        venue = Venue(venue=venue, description=description, venue_url=venue_url, venue_city=venue_city, venue_icon=venue_icon_address, 
+        mon_open=timeify(mon_open), mon_close=timeify(mon_close), tue_open=timeify(tue_open), tue_close=timeify(tue_close), wed_open=timeify(wed_open), 
+        wed_close=timeify(wed_close), thu_open=timeify(thu_open), thu_close=timeify(thu_close), fri_open=timeify(fri_open), fri_close=timeify(fri_close), 
+        sat_open=timeify(sat_open), sat_close=timeify(sat_close), sun_open=timeify(sun_open), sun_close=timeify(sun_close), line_capacity=line_capacity)
         venue_id = venue.save()
         self.create_list(venue_id, line_capacity)
         tomorrow = datetime.today() + timedelta(days=1)
@@ -211,7 +215,7 @@ class AdminController(object):
         }
         return jsonify(data)
 
-    def delete_Venue(self, id):
+    def delete_venue(self, id):
         Venue.delete(id)
         Lines.delete_by_id(id)
         data = {

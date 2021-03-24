@@ -1,4 +1,4 @@
-.backImg {
+.back-img {
     position: absolute;
     z-index: -2;
     width: 100vw;
@@ -14,17 +14,17 @@ main {
     flex-direction: column;
 }
 
-#FirstHistoryContainer {
+#first-history-container {
     height: unset;
     overflow: unset;
 }
 
-#mainheaderContainer {
+#main-header-container {
 
     height: 6vw;
 }
 
-#topListContainer {
+#top-list-container {
 
     height: 100%;
 }

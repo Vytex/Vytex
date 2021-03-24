@@ -105,10 +105,34 @@ class UserLinesController(object):
                 start_open = False
                 end_times = []
                 # a list of all potenital line times in a day
-                line_times = ["00:00 - 00:30", "00:30 - 01:00", "01:00 - 01:30", "01:30 - 02:00", "02:00 - 02:30", "02:30 - 03:00", "03:00 - 03:30", "03:30 - 04:00", "04:00 - 04:30", "04:30 - 05:00", "05:00 - 05:30", "05:30 - 06:00", "06:00 - 06:30", "06:30 - 07:00", "07:00 - 07:30", "07:30 - 08:00", "08:00 - 08:30", "08:30 - 09:00", "09:00 - 09:30", "09:30 - 10:00", "10:00 - 10:30", "10:30 - 11:00", "11:00 - 11:30", "11:30 - 12:00", "12:00 - 12:30", "12:30 - 13:00", "13:00 - 13:30", "13:30 - 14:00", "14:00 - 14:30", "14:30 - 15:00", "15:00 - 15:30", "15:30 - 16:00", "16:00 - 16:30", "16:30 - 17:00", "17:00 - 17:30", "17:30 - 18:00", "18:00 - 18:30", "18:30 - 19:00", "19:00 - 19:30", "19:30 - 20:00", "20:00 - 20:30", "20:30 - 21:00", "21:00 - 21:30", "21:30 - 22:00", "22:00 - 22:30", "22:30 - 23:00", "23:00 - 23:30", "23:30 - 00:00"]
+                line_times = ["00:00 - 00:30", "00:30 - 01:00", "01:00 - 01:30", "01:30 - 02:00", "02:00 - 02:30", "02:30 - 03:00", "03:00 - 03:30", 
+                "03:30 - 04:00", "04:00 - 04:30", "04:30 - 05:00", "05:00 - 05:30", "05:30 - 06:00", "06:00 - 06:30", "06:30 - 07:00", "07:00 - 07:30",
+                 "07:30 - 08:00", "08:00 - 08:30", "08:30 - 09:00", "09:00 - 09:30", "09:30 - 10:00", "10:00 - 10:30", "10:30 - 11:00", "11:00 - 11:30",
+                  "11:30 - 12:00", "12:00 - 12:30", "12:30 - 13:00", "13:00 - 13:30", "13:30 - 14:00", "14:00 - 14:30", "14:30 - 15:00", "15:00 - 15:30",
+                   "15:30 - 16:00", "16:00 - 16:30", "16:30 - 17:00", "17:00 - 17:30", "17:30 - 18:00", "18:00 - 18:30", "18:30 - 19:00", "19:00 - 19:30",
+                    "19:30 - 20:00", "20:00 - 20:30", "20:30 - 21:00", "21:00 - 21:30", "21:30 - 22:00", "22:00 - 22:30", "22:30 - 23:00", "23:00 - 23:30",
+                     "23:30 - 00:00"]
                 # a list of today and tomorrows linetime capacities
-                todays_line_values = [lines_today.x00000030, lines_today.x00300100, lines_today.x01000130, lines_today.x01300200, lines_today.x02000230, lines_today.x02300300, lines_today.x03000330, lines_today.x03300400, lines_today.x04000430, lines_today.x04300500, lines_today.x05000530, lines_today.x05300600, lines_today.x06000630, lines_today.x06300700, lines_today.x07000730, lines_today.x07300800, lines_today.x08000830, lines_today.x08300900, lines_today.x09000930, lines_today.x09301000, lines_today.x10001030, lines_today.x10301100, lines_today.x11001130, lines_today.x11301200, lines_today.x12001230, lines_today.x12301300, lines_today.x13001330, lines_today.x13301400, lines_today.x14001430, lines_today.x14301500, lines_today.x15001530, lines_today.x15301600, lines_today.x16001630, lines_today.x16301700, lines_today.x17001730, lines_today.x17301800, lines_today.x18001830, lines_today.x18301900, lines_today.x19001930, lines_today.x19302000, lines_today.x20002030, lines_today.x20302100, lines_today.x21002130, lines_today.x21302200, lines_today.x22002230, lines_today.x22302300, lines_today.x23002330, lines_today.x23300000]
-                tomorrows_line_values = [lines_tomorrow.x00000030, lines_tomorrow.x00300100, lines_tomorrow.x01000130, lines_tomorrow.x01300200, lines_tomorrow.x02000230, lines_tomorrow.x02300300, lines_tomorrow.x03000330, lines_tomorrow.x03300400, lines_tomorrow.x04000430, lines_tomorrow.x04300500, lines_tomorrow.x05000530, lines_tomorrow.x05300600, lines_tomorrow.x06000630, lines_tomorrow.x06300700, lines_tomorrow.x07000730, lines_tomorrow.x07300800, lines_tomorrow.x08000830, lines_tomorrow.x08300900, lines_tomorrow.x09000930, lines_tomorrow.x09301000, lines_tomorrow.x10001030, lines_tomorrow.x10301100, lines_tomorrow.x11001130, lines_tomorrow.x11301200, lines_tomorrow.x12001230, lines_tomorrow.x12301300, lines_tomorrow.x13001330, lines_tomorrow.x13301400, lines_tomorrow.x14001430, lines_tomorrow.x14301500, lines_tomorrow.x15001530, lines_tomorrow.x15301600, lines_tomorrow.x16001630, lines_tomorrow.x16301700, lines_tomorrow.x17001730, lines_tomorrow.x17301800, lines_tomorrow.x18001830, lines_tomorrow.x18301900, lines_tomorrow.x19001930, lines_tomorrow.x19302000, lines_tomorrow.x20002030, lines_tomorrow.x20302100, lines_tomorrow.x21002130, lines_tomorrow.x21302200, lines_tomorrow.x22002230, lines_tomorrow.x22302300, lines_tomorrow.x23002330, lines_tomorrow.x23300000]
+                todays_line_values = [lines_today.x00000030, lines_today.x00300100, lines_today.x01000130, lines_today.x01300200, lines_today.x02000230, 
+                lines_today.x02300300, lines_today.x03000330, lines_today.x03300400, lines_today.x04000430, lines_today.x04300500, lines_today.x05000530, 
+                lines_today.x05300600, lines_today.x06000630, lines_today.x06300700, lines_today.x07000730, lines_today.x07300800, lines_today.x08000830, 
+                lines_today.x08300900, lines_today.x09000930, lines_today.x09301000, lines_today.x10001030, lines_today.x10301100, lines_today.x11001130, 
+                lines_today.x11301200, lines_today.x12001230, lines_today.x12301300, lines_today.x13001330, lines_today.x13301400, lines_today.x14001430, 
+                lines_today.x14301500, lines_today.x15001530, lines_today.x15301600, lines_today.x16001630, lines_today.x16301700, lines_today.x17001730,
+                 lines_today.x17301800, lines_today.x18001830, lines_today.x18301900, lines_today.x19001930, lines_today.x19302000, lines_today.x20002030, 
+                 lines_today.x20302100, lines_today.x21002130, lines_today.x21302200, lines_today.x22002230, lines_today.x22302300, lines_today.x23002330, 
+                 lines_today.x23300000]
+
+                tomorrows_line_values = [lines_tomorrow.x00000030, lines_tomorrow.x00300100, lines_tomorrow.x01000130, lines_tomorrow.x01300200, 
+                lines_tomorrow.x02000230, lines_tomorrow.x02300300, lines_tomorrow.x03000330, lines_tomorrow.x03300400, lines_tomorrow.x04000430, 
+                lines_tomorrow.x04300500, lines_tomorrow.x05000530, lines_tomorrow.x05300600, lines_tomorrow.x06000630, lines_tomorrow.x06300700, 
+                lines_tomorrow.x07000730, lines_tomorrow.x07300800, lines_tomorrow.x08000830, lines_tomorrow.x08300900, lines_tomorrow.x09000930, 
+                lines_tomorrow.x09301000, lines_tomorrow.x10001030, lines_tomorrow.x10301100, lines_tomorrow.x11001130, lines_tomorrow.x11301200, 
+                lines_tomorrow.x12001230, lines_tomorrow.x12301300, lines_tomorrow.x13001330, lines_tomorrow.x13301400, lines_tomorrow.x14001430, 
+                lines_tomorrow.x14301500, lines_tomorrow.x15001530, lines_tomorrow.x15301600, lines_tomorrow.x16001630, lines_tomorrow.x16301700, 
+                lines_tomorrow.x17001730, lines_tomorrow.x17301800, lines_tomorrow.x18001830, lines_tomorrow.x18301900, lines_tomorrow.x19001930, 
+                lines_tomorrow.x19302000, lines_tomorrow.x20002030, lines_tomorrow.x20302100, lines_tomorrow.x21002130, lines_tomorrow.x21302200, 
+                lines_tomorrow.x22002230, lines_tomorrow.x22302300, lines_tomorrow.x23002330, lines_tomorrow.x23300000]
                 
                 for i in range(len(line_times)):
                     
@@ -148,4 +172,4 @@ class UserLinesController(object):
 
         return render_template("userLines/index.html")
 
-userLines_controller = UserLinesController()
+user_lines_controller = UserLinesController()

@@ -3,7 +3,7 @@ from random import randint
 from flask import request, redirect, url_for
 
 from app import app
-from app.controller.line_list_controller import line_list_controller
+from app.controller.lineList_controller import line_list_controller
 from app.controller.home_controller import home_controller
 from app.models import Venue
 
@@ -12,9 +12,9 @@ def line_list_home():
     if request.method == 'POST' and request.form.get('searchin'):
         venue = request.form['searchin']
         return redirect(url_for("line_list", venue = venue))
-    elif request.method == 'POST' and request.form.get('line_timesS'):
-        line_time = request.form['line_timesS']
-        venue_id = request.form['vID']
+    elif request.method == 'POST' and request.form.get('line-time-s'):
+        line_time = request.form['line-times-s']
+        venue_id = request.form['v-id']
         venue_close = request.form['vc']
         return line_list_controller.line_up(line_time = line_time, venue_id = venue_id, venue_close = venue_close)    
     

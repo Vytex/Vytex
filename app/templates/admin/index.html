@@ -15,52 +15,52 @@
         <header>
         </header>
         <main>
-            <form id="addVenue" action="/admin-api" method="POST">
-                <input id="venueName" type="text" name="venueName" placeholder="venueName"/>
+            <form id="add-venue" action="/admin-api" method="POST">
+                <input id="venue-name" type="text" name="venue-name" placeholder="venue Name"/>
                 <input id="description" type="text" name="description" placeholder="description"/>
-                <input id="venueIcon" type="text" name="venueIcon" placeholder="venue Icon Address"/>
-                <input id="venueCity" type="text" name="venueCity" placeholder="venue City"/>
-                <input id="venueURL" type="text" name="venueURL" placeholder="venueURL"/>
-                <input id="monS" type="text" name="monS" placeholder="Mon Opening Time 9:00"/>
-                <input id="monE" type="text" name="monE" placeholder="mon Closing Time 9:00"/>
+                <input id="venue-icon" type="text" name="venue-icon" placeholder="venue Icon Address"/>
+                <input id="venue-city" type="text" name="venue-city" placeholder="venue City"/>
+                <input id="venue-url" type="text" name="venue-url" placeholder="venue-url"/>
+                <input id="mon-s" type="text" name="mon-s" placeholder="Mon Opening Time 9:00"/>
+                <input id="mon-e" type="text" name="mon-e" placeholder="mon Closing Time 9:00"/>
 
-                <input id="tuesS" type="text" name="tuesS" placeholder="tues Opening Time 9:00"/>
-                <input id="tuesE" type="text" name="tuesE" placeholder="tues Closing Time 9:00"/>
+                <input id="tues-s" type="text" name="tues-s" placeholder="tues Opening Time 9:00"/>
+                <input id="tues-e" type="text" name="tues-e" placeholder="tues Closing Time 9:00"/>
 
-                <input id="wedS" type="text" name="wedS" placeholder="wed Opening Time 9:00"/>
-                <input id="wedE" type="text" name="wedE" placeholder="wed Closing Time 9:00"/>
+                <input id="wed-s" type="text" name="wed-s" placeholder="wed Opening Time 9:00"/>
+                <input id="wed-e" type="text" name="wed-e" placeholder="wed Closing Time 9:00"/>
 
-                <input id="thurS" type="text" name="thurS" placeholder="thur Opening Time 9:00"/>
-                <input id="thurE" type="text" name="thurE" placeholder="thur Closing Time 9:00"/>
+                <input id="thur-s" type="text" name="thur-s" placeholder="thur Opening Time 9:00"/>
+                <input id="thur-e" type="text" name="thur-e" placeholder="thur Closing Time 9:00"/>
 
-                <input id="friS" type="text" name="friS" placeholder="fri Opening Time 9:00"/>
-                <input id="friE" type="text" name="friE" placeholder="fri Closing Time 9:00"/>
+                <input id="fri-s" type="text" name="friS" placeholder="fri Opening Time 9:00"/>
+                <input id="fri-e" type="text" name="friE" placeholder="fri Closing Time 9:00"/>
 
-                <input id="satS" type="text" name="satS" placeholder="sat Opening Time 9:00"/>
-                <input id="satE" type="text" name="satE" placeholder="sat Closing Time 9:00"/>
+                <input id="sat-s" type="text" name="sat-s" placeholder="sat Opening Time 9:00"/>
+                <input id="sat-e" type="text" name="sat-e" placeholder="sat Closing Time 9:00"/>
 
-                <input id="sunS" type="text" name="sunS" placeholder="sun Opening Time 9:00"/>
-                <input id="sunE" type="text" name="sunE" placeholder="sun Closing Time 9:00"/>
+                <input id="sun-s" type="text" name="sun-s" placeholder="sun Opening Time 9:00"/>
+                <input id="sun-e" type="text" name="sun-e" placeholder="sun Closing Time 9:00"/>
 
                 <input id="cap" type="number" name="cap" placeholder="line capacity per timeslot"/>
                 
                 <input type="submit" value="Create New Venue"/>
             </form>
-            <form id="addList" action="/admin-api" method="POST">
-                <input id="venueID" type="text" name="venueID" placeholder="venueID"/>
+            <form id="add-list" action="/admin-api" method="POST">
+                <input id="venue-id" type="text" name="venue-id" placeholder="venue-id"/>
                 <input id="capacity" type="text" name="capacity" placeholder="capacity"/>
-                <input type="submit" value="Create New Line List for venueID"/>
+                <input type="submit" value="Create New Line List for venue-id"/>
             </form>
-            <form id="deleteVenue" action="/admin-api/delete" method="POST">
-                <input id="venueID" type="text" name="venueID" placeholder="Venue ID You Want To Delete"/>
+            <form id="delete-venue" action="/admin-api/delete" method="POST">
+                <input id="venue-id" type="text" name="venue-id" placeholder="Venue ID You Want To Delete"/>
                 <input type="submit" value="Delete Above Venue and all its lines"/>
             </form>
-            <form id="deleteList" action="/admin-api/delete" method="POST">
-                <input id="venueID" type="text" name="venueID" placeholder="Venue ID for the list You Want To Delete"/>
+            <form id="delete-list" action="/admin-api/delete" method="POST">
+                <input id="venue-id" type="text" name="venue-id" placeholder="Venue ID for the list You Want To Delete"/>
                 <input id="date" type="text" name="date" placeholder="date for the list You Want To Delete 11/20/11"/>
                 <input type="submit" value="Delete Above Line"/>
             </form>
-            <form id="returnAll" action="/admin-api" method="GET">
+            <form id="return-all" action="/admin-api" method="GET">
                 <input type="submit" value="Return All Venues and lists"/>
             </form>
         </main>

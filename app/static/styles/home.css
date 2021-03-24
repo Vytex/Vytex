@@ -28,7 +28,7 @@ main {
     outline: none;
 }
 
-.buzzwordTitle {
+.buzzword-title {
     margin-bottom: 2vw;
     color: var(--vyWhite);
     font-size: 4vw;

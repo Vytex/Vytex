@@ -1,21 +1,21 @@
 let venues = []
-const VenueCard = document.getElementById("venueCardContainer");
-const VCName = document.getElementById("venueCardName");
-const VCHours = document.getElementById("venueCardHours");
-const VCIMG = document.getElementById("venueCardImg");
-const VCLink = document.getElementById("venueCardLinka");
-const VCDescription = document.getElementById("venueCardDescription");
+const venue_card = document.getElementById("venueCardContainer");
+const vc_name = document.getElementById("venueCardName");
+const vc_hours = document.getElementById("venueCardHours");
+const vc_img = document.getElementById("venueCardImg");
+const vc_link = document.getElementById("venueCardLinka");
+const vc_description = document.getElementById("venueCardDescription");
 let Venue = document.getElementsByClassName("venueName");
 
 const VenueCardSB = document.getElementById("venueCardShadowbox");
 
 
 document.getElementById("CloseWindowXVenue").addEventListener("click", function(){
-    VenueCard.style.display = "none";
+    venue_card.style.display = "none";
     VenueCardSB.style.display = "none";
 })
 document.getElementById("venueCardShadowbox").addEventListener("click", function(){
-    VenueCard.style.display = "none";
+    venue_card.style.display = "none";
     VenueCardSB.style.display = "none";
 })
 
@@ -26,12 +26,12 @@ for (var i = 0 ; i < Venue.length; i++) {
             console.log("iterated")
             if (venues[j]['venue'] == this.innerHTML) {
                 console.log(Venue[j])
-                VCName.innerHTML = this.innerHTML
-                VCDescription.innerHTML = venues[j]['desc']
-                VCLink.href = venues[j]['venueURL']
-                VenueCard.style.display = "grid";
+                vc_name.innerHTML = this.innerHTML
+                vc_description.innerHTML = venues[j]['desc']
+                vc_link.href = venues[j]['venueURL']
+                venue_card.style.display = "grid";
                 VenueCardSB.style.display = "block";
-                VCIMG.innerHTML = "<img src='" + venues[j]['venueIconAddress'] + "' />"
+                vc_img.innerHTML = "<img src='" + venues[j]['venueIconAddress'] + "' />"
             }
         }
         

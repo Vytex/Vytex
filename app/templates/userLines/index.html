@@ -8,57 +8,57 @@
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/variables.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/breakPoints.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/global.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/header.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/lineList.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/userLines.css') }}">
-
-    </head>
+    </head>  
     <body>
-        <div class="backImg"></div>
-        <div class="heroImgShadowbox"></div>
-        <div id="venueCardShadowbox"></div>
-        <div id="venueCardContainer">
-            <div id="venueCard">
-                <div class="venueImg" id="venueCardImg"></div>
-                <div id="venueCardInfoContainer">
-                    <div id="venueCardName">Venue Not Found</div>
-                    <div id="venueCardHours">8am - 10pm</div>
-                    <div id="venueCardLink"><a id="venueCardLinka" href="">Check Out Their Website for more info</a></div>
+        <div class="back-img"></div>
+        <div class="hero-img-shadow-box"></div>
+        <div id="venue-card-shadow-box"></div>
+        <div id="venue-card-container">
+            <div id="venue-card">
+                <div class="venue-img" id="venue-card-img"></div>
+                <div id="venue-card-info-container">
+                    <div id="venue-card-name">Venue Not Found</div>
+                    <div id="venue-card-hours">8am - 10pm</div>
+                    <div id="venue-card-link"><a id="venue-card-link-a" href="">Check Out Their Website for more info</a></div>
                 </div>
             </div>
-            <div id="venueCardDescription">Please close this window and select another venue. If this problem continues please reach out and let us know at CustomerService@Vytex.com</div>
-            <div id="venueCardButton"><a>Get In Line</a></div>
-            <div id="CloseWindowXVenue">X</div>
+            <div id="venue-card-description">Please close this window and select another venue. If this problem continues 
+                please reach out and let us know at CustomerService@Vytex.com</div>
+            <div id="venue-card-button"><a>Get In Line</a></div>
+            <div id="close-window-x-venue">X</div>
         </div>
-        <div id="HamburgerMenu">
-            <div id="HMContainer">
-                <div id="CloseWindowX">X</div>
-                <div id="LinkContainer">
+        <div id="hamburger-menu">
+            <div id="hm-container">
+                <div id="close-window-x">X</div>
+                <div id="link-container">
                     <a href="/home">Join a Line</a>
+                    <a href="/userLines">Check your lines</a>
                     <a>Contact Us</a>
                     <a>Logout</a>
                 </div>
             </div>
-            <a id="HMOffscreen"></a>
+            <a id="hm-offscreen"></a>
         </div>
         <header>
-            <div class="hContainer">
-                <div class="hamburgerMenuBContainer">
-                    <div id="hamburgerB"><div class=hbm></div><div class=hbm></div><div class=hbm></div></div>
+            <div class="h-container">
+                <div class="hamburger-menu-b-container">
+                    <div id="hamburger-b"><div class=hbm></div><div class=hbm></div><div class=hbm></div></div>
                 </div>
-                <div class="logoBContainer">
-                    <h1 class="logoB">Vytex</h1>
+                <div class="logo-b-container">
+                    <h1 class="logo-b">Vytex</h1>
                 </div>
-                <div class="profileBContainer">
-                    <div class="profileB">
+                <div class="profile-b-container">
+                    <div class="profile-b">
                         <img src="{{ url_for('static',    filename='./assets/profileButtonPlaceholder.jpg') }}">
                     </div>
                 </div>
             </div>
         </header>
         <main>
-            <div id="mainheaderContainer">
-                <div id="lineListHeader">
+            <div id="main-header-container">
+                <div id="line-list-header">
                     <div></div>
                     <h2>Venue</h2>
                     <h2>Hours</h2>
@@ -66,34 +66,34 @@
                     <div></div>
                 </div>
             </div>
-            <div id="FirstHistoryContainer">
-                <div id="HistoryListContainer">
-                    <div class="lineListItemContainer">
-                        <div class="venueImg"><img src="{{top_result['venue_icon_address']}}"/></div>
-                        <div class="venue_name">{{top_result['venue']}}</div>
-                        <h2 class="venue_hours">{{top_result['Open']}} - {{top_result['Close']}}</h2>
-                        <h2 id="lineTime">{{top_result['spot']}}</h2>
+            <div id="first-history-container">
+                <div id="history-list-container">
+                    <div class="line-list-item-container">
+                        <div class="venue-img"><img src="{{top_result['venue_icon_address']}}"/></div>
+                        <div class="venue-name">{{top_result['venue']}}</div>
+                        <h2 class="venue-hours">{{top_result['Open']}} - {{top_result['Close']}}</h2>
+                        <h2 id="line-time">{{top_result['spot']}}</h2>
                     </div>
                 </div>
             </div>
-            <div id="lineListHeader2">
+            <div id="line-list-header-2">
                 <div></div>
                 <h2>Venue</h2>
                 <h2>Todays Hours</h2>
                 <h2>Select Line</h2>
                 <div></div>
             </div>
-            <div id="topListContainer">
-                <div id="lineListContainer">
+            <div id="top-list-container">
+                <div id="line-list-container">
                     {% for x in results %}
-                    <div class="lineListItemContainer">
-                        <div class="venueImg"><img src="{{x['venue_icon_address']}}"/></div>
-                        <div class="venue_name">{{x['venue']}}</div>
-                        <h2 class="venue_hours">{{x['Open']}} - {{x['Close']}}</h2>
-                        <form class="line_timesF" action="/lineList" method="POST">
+                    <div class="line-list-item-container">
+                        <div class="venue-img"><img src="{{x['venue_icon_address']}}"/></div>
+                        <div class="venue-name">{{x['venue']}}</div>
+                        <h2 class="venue-hours">{{x['Open']}} - {{x['Close']}}</h2>
+                        <form class="line-times-f" action="/lineList" method="POST">
                             <input id="vid" type="text" name="vID" value="{{x['venueID']}}" style="display:none"/>
                             <input id="vc" type="text" name="vc" value="{{x['Close']}}" style="display:none"/>
-                            <select class="line_times" name="line_timesS">
+                            <select class="line-times" name="line-times-s">
                                 {% for y in x['lines'] %}
                                 <option value={{y}}>{{y}}</option>
                                 {% endfor %}

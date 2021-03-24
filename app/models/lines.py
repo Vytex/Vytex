@@ -92,11 +92,11 @@ class Lines(db.Model):
     #DELETE
     def delete(venue_id, date):
         # date formate m/d/Y 11/11/11
-        lList = Lines.get_line(venue_id=venue_id, date=date)
-        db.session.delete(lList)
+        l_list = Lines.get_line(venue_id=venue_id, date=date)
+        db.session.delete(l_list)
         db.session.commit()
 
     def delete_by_id(venue_id):
-        lList = Lines.get(venue_id=venue_id)
-        db.session.delete(lList)
+        l_list = Lines.get(venue_id=venue_id)
+        db.session.delete(l_list)
         db.session.commit()

@@ -12,56 +12,56 @@
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/lineList.css') }}">
     </head>
     <body>
-        <div class="heroImg"></div>
-        <div class="heroImgShadowbox"></div>
-        <div id="venueCardShadowbox"></div>
-        <div id="venueCardContainer">
-            <div id="venueCard">
-                <div class="venueImg" id="venueCardImg"></div>
-                <div id="venueCardInfoContainer">
-                    <div id="venueCardName">Venue Not Found</div>
-                    <div id="venueCardHours">8am - 10pm</div>
-                    <div id="venueCardLink"><a id="venueCardLinka" href="">Check Out Their Website for more info</a></div>
+        <div class="hero-img"></div>
+        <div class="hero-img-shadow-box"></div>
+        <div id="venue-card-shadow-box"></div>
+        <div id="venue-card-container">
+            <div id="venue-card">
+                <div class="venue-img" id="venue-card-img"></div>
+                <div id="venue-card-info-container">
+                    <div id="venue-card-name">Venue Not Found</div>
+                    <div id="venue-card-hours">8am - 10pm</div>
+                    <div id="venue-card-link"><a id="venue-card-link-a" href="">Check Out Their Website for more info</a></div>
                 </div>
             </div>
-            <div id="venueCardDescription">Please close this window and select another venue. If this problem continues please reach out and let us know at CustomerService@Vytex.com</div>
-            <div id="venueCardButton"><a>Get In Line</a></div>
-            <div id="CloseWindowXVenue">X</div>
+            <div id="venue-card-description">Please close this window and select another venue. If this problem continues please reach out and let us know at CustomerService@Vytex.com</div>
+            <div id="venue-card-button"><a>Get In Line</a></div>
+            <div id="close-window-x-venue">X</div>
         </div>
-        <div id="HamburgerMenu">
-            <div id="HMContainer">
-                <div id="CloseWindowX">X</div>
-                <div id="LinkContainer">
+        <div id="hamburger-menu">
+            <div id="hm-container">
+                <div id="close-window-x">X</div>
+                <div id="link-container">
                     <a href="/home">Join a Line</a>
                     <a href="/userLines">Check your lines</a>
                     <a>Contact Us</a>
                     <a>Logout</a>
                 </div>
             </div>
-            <a id="HMOffscreen"></a>
+            <a id="hm-offscreen"></a>
         </div>
         <header>
-            <div class="hContainer">
-                <div class="hamburgerMenuBContainer">
-                    <div id="hamburgerB"><div class=hbm></div><div class=hbm></div><div class=hbm></div></div>
+            <div class="h-container">
+                <div class="hamburger-menu-b-container">
+                    <div id="hamburger-b"><div class=hbm></div><div class=hbm></div><div class=hbm></div></div>
                 </div>
-                <div class="logoBContainer">
-                    <h1 class="logoB">Vytex</h1>
+                <div class="logo-b-container">
+                    <h1 class="logo-b">Vytex</h1>
                 </div>
-                <div class="profileBContainer">
-                    <div class="profileB">
+                <div class="profile-b-container">
+                    <div class="profile-b">
                         <img src="{{ url_for('static',    filename='./assets/profileButtonPlaceholder.jpg') }}">
                     </div>
                 </div>
             </div>
         </header>
         <main>
-            <div id="mainheaderContainer">
+            <div id="main-header-container">
                 <h1>LINE-UP NOW:</h1>
-                <form class="searchInputF" id="searchinputid" action="/lineList" method="POST">
-                    <input class="searchInput" id="si" type="text" name="searchin" placeholder="ENTER VENUE NAME OR LOCATION HERE"/>
+                <form class="search-input-f" id="search-input-id" action="/lineList" method="POST">
+                    <input class="search-input" id="si" type="text" name="searchin" placeholder="ENTER VENUE NAME OR LOCATION HERE"/>
                 </form>
-                <div id="lineListHeader">
+                <div id="line-list-header">
                     <div></div>
                     <h2>Venue</h2>
                     <h2>Todays Hours</h2>
@@ -69,17 +69,17 @@
                     <div></div>
                 </div>
             </div>
-            <div id="topListContainer">
-                <div id="lineListContainer">
+            <div id="top-list-container">
+                <div id="line-list-container">
                     {% for x in results %}
-                    <div class="lineListItemContainer">
-                        <div class="venueImg"><img src="{{x['venueIconAddress']}}"/></div>
-                        <div class="venueName">{{x['venue']}}</div>
-                        <h2 class="venueHours">{{x['Open']}} - {{x['Close']}}</h2>
-                        <form class="lineTimesF" action="/lineList/lineUp" method="POST">
-                            <input id="vid" type="text" name="vID" value="{{x['venueID']}}" style="display:none"/>
+                    <div class="line-list-item-container">
+                        <div class="venue-img"><img src="{{x['venue-icon-address']}}"/></div>
+                        <div class="venue-name">{{x['venue']}}</div>
+                        <h2 class="venue-hours">{{x['Open']}} - {{x['Close']}}</h2>
+                        <form class="line-times-f" action="/lineList/lineUp" method="POST">
+                            <input id="v-id" type="text" name="v-id" value="{{x['venue-id']}}" style="display:none"/>
                             <input id="vc" type="text" name="vc" value="{{x['Close']}}" style="display:none"/>
-                            <select class="lineTimes" name="lineTimesS">
+                            <select class="line-times" name="line-times-s">
                                 {% for y in x['lines'] %}
                                 <option value={{y}}>{{y}}</option>
                                 {% endfor %}
@@ -96,7 +96,7 @@
         
         <script>
             
-                venues = JSON.parse('{{ results | tojson | safe}}');
+                venues=JSON.parse('{{ results | tojson | safe}}');
 
         </script>
 

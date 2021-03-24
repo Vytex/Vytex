@@ -4,7 +4,7 @@ from datetime import time, datetime, timedelta
 from app import db
 
 from app.models import Venue, Lines, Spot
-from app.controller.userLines_controller import userLines_controller
+from app.controller.userLines_controller import user_lines_controller
 
 def timeify(timeString):
     x = timeString.partition(':')
@@ -255,4 +255,4 @@ class LineListController(object):
         else:
             return render_template("lineList/empty.html")
 
-lineList_controller = LineListController()
+line_list_controller = LineListController()

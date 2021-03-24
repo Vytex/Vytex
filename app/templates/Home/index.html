@@ -12,45 +12,44 @@
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/home.css') }}">
     </head>
     <body>
-        <div class="heroImg"></div>
-        <div class="heroImgShadowbox"></div>
-        <div id="HamburgerMenu">
-            <div id="HMContainer">
-                <div id="CloseWindowX">X</div>
-                <div id="LinkContainer">
+        <div class="hero-img"></div>
+        <div class="hero-img-shadow-box"></div>
+        <div id="hamburger-menu">
+            <div id="hm-container">
+                <div id="close-window-x">X</div>
+                <div id="link-conatiner">
                     <a href="/lineList">Join a Line</a>
                     <a href= "/userLines">Check your lines</a>
                     <a>Contact Us</a>
                     <a>Logout</a>
                 </div>
             </div>
-            <a id="HMOffscreen"></a>
+            <a id="hm-offscreen"></a>
         </div>
         <header>
-            <div class="hContainer">
-                <div class="hamburgerMenuBContainer">
-                    <div id="hamburgerB" ><div class=hbm></div><div class=hbm></div><div class=hbm></div></div>
+            <div class="h-container">
+                <div class="hamburger-menu-b-container">
+                    <div id="hamburger-b" ><div class=hbm></div><div class=hbm></div><div class=hbm></div></div>
                 </div>
-                <div class="logoBContainer">
-                    <h1 class="logoB">Vytex</h1>
+                <div class="logo-b-container">
+                    <h1 class="logo-b">Vytex</h1>
                 </div>
-                <div class="profileBContainer">
-                    <div class="profileB">
+                <div class="profile-b-container">
+                    <div class="profile-b">
                         <img src="{{ url_for('static',    filename='./assets/profileButtonPlaceholder.jpg') }}">
                     </div>
                 </div>
             </div>
         </header>
         <main>
-            <h2 class="buzzwordTitle">It's Your Time</h2>
-            <div class="searchInputContainer">
+            <h2 class="buzzword-title">It's Your Time</h2>
+            <div class="search-input-container">
                 {% block content %}
-                <form class="searchInputF" id="searchinputid" action="#" method="POST">
-                    <input class="searchInput" id="si" type="text" name="searchin" placeholder="ENTER VENUE NAME OR LOCATION HERE"/>
+                <form class="search-input-f" id="search-input-id" action="#" method="POST">
+                    <input class="search-input" id="si" type="text" name="searchin" placeholder="ENTER VENUE NAME OR LOCATION HERE"/>
                     <input type="submit" value="submit"/>
                 </form>
                 {% endblock %}
-                <!-- <button id="searchInputB"></button> -->
             </div>
         </main>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>

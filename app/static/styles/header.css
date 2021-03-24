@@ -7,7 +7,7 @@ header {
     align-items: center;
 }
 
-.hContainer {
+.h-container {
     box-sizing: border-box;
     width: 95%;
     height: 100%;
@@ -18,50 +18,48 @@ header {
     border-bottom: 3px solid var(--vyGrey);
 }
 
-.hamburgerMenuBContainer {
+.hamburger-menu-b-container {
     display: flex;
     align-items: center;
 }
 
-#hamburgerB {
+#hamburger-b {
     width: 10%;
     height: 100%;
 }
 
-.profileBContainer {
+.profile-b-container {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
-.profileB {
+.profile-b {
     width: 10%;
     height: 100%;
     border-radius: 100%;
     contain: content;
 }
 
-.profileB img {
+.profile-b img {
     width: 100%;
     height: 100%;
 }
 
-.logoBContainer {
+.logo-b-container{
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.logoB {
+.logo-b {
     color: var(--vyWhite);
     font-size: 3vw;
 }
 
 /* Hamburger Menu */
 
-/* HamburgerMenu CloseWindowX LinkContainer */
-
-#HamburgerMenu {
+#hamburger-menu {
     position: absolute;
     display: none;
     flex-direction: row;
@@ -70,7 +68,7 @@ header {
     z-index: 10;
 }
 
-#HMContainer {
+#hm-container {
     position: relative;
     width: 50%;
     height: 100%;
@@ -81,7 +79,7 @@ header {
 
 }
 
-#CloseWindowX {
+#close-window-x {
     position: absolute;
     right: 0px;
     top: 0px;
@@ -91,20 +89,20 @@ header {
     color: var(--vyWhite);
 }
 
-#LinkContainer {
+#link-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-#LinkContainer>a {
+#link-container>a {
     margin: 1.5vw;
     color: var(--vyWhite);
     font-size: 2.5vw;
 }
 
-#HMOffscreen {
+#hm-offscreen {
     width: 50%;
     height: 100%;
 }

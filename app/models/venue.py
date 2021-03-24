@@ -44,9 +44,9 @@ class Venue(db.Model):
     def get_all():
         return Venue.query.all()
 
-    def get(venueName):
-        venueN = '%{}%'.format(venueName)
-        return db.session.query(Venue).filter(Venue.venue.like(venueN)).all()
+    def get(venue_name):
+        venue_n = '%{}%'.format(venue_name)
+        return db.session.query(Venue).filter(Venue.venue.like(venue_n)).all()
 
     def get_by_id(id):
         return db.session.query(Venue).filter(Venue.venue_id == id).first()
