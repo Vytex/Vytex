@@ -16,28 +16,28 @@ def admin():
 def admin_api():
     if request.method == "GET":
         return admin_controller.get_venues()
-    elif request.method == "POST" and request.form.get('venue_url'):
+    elif request.method == "POST" and request.form.get('venue-url'):
         # get data form client in the form of json ()
         # old if post contains the venue_url 
-        venue = request.form['venue_name']
+        venue = request.form['venue-name']
         description = request.form['description']
-        venue_url = request.form['venue_url']
-        venue_city = request.form['venue_city']
-        venue_icon = request.form['venue_icon']
-        mon_open = request.form['mon_s']
-        mon_close = request.form['mon_e']
-        tue_open = request.form['tues_s']
-        tue_close = request.form['tues_e']
-        wed_open = request.form['wed_s']
-        wed_close = request.form['wed_e']
-        thu_open = request.form['thur_s']
-        thu_close = request.form['thur_e']
-        fri_open = request.form['fri_s']
-        fri_close = request.form['fri_e']
-        sat_open = request.form['sat_s']
-        sat_close = request.form['sat_e']
-        sun_open = request.form['sun_s']
-        sun_close = request.form['sun_e']
+        venue_url = request.form['venue-url']
+        venue_city = request.form['venue-city']
+        venue_icon = request.form['venue-icon']
+        mon_open = request.form['mon-s']
+        mon_close = request.form['mon-e']
+        tue_open = request.form['tues-s']
+        tue_close = request.form['tues-e']
+        wed_open = request.form['wed-s']
+        wed_close = request.form['wed-e']
+        thu_open = request.form['thur-s']
+        thu_close = request.form['thur-e']
+        fri_open = request.form['fri-s']
+        fri_close = request.form['fri-e']
+        sat_open = request.form['sat-s']
+        sat_close = request.form['sat-e']
+        sun_open = request.form['sun-s']
+        sun_close = request.form['sun-e']
         line_capacity = request.form['cap']
 
         return admin_controller.create_venue(venue=venue, description=description, venue_url=venue_url, venue_city=venue_city, venue_icon=venue_icon,
@@ -46,7 +46,7 @@ def admin_api():
          line_capacity = line_capacity)
 
     elif request.method == "POST" and request.form.get('capacity'):
-        venue_id = request.form['venue_id']
+        venue_id = request.form['venue-id']
         capacity = request.form['capacity']
 
         return admin_controller.create_list(venue_id=venue_id, capacity=capacity)

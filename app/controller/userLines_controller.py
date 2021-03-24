@@ -14,13 +14,13 @@ class UserLinesController(object):
 
             venue = Venue.get_by_id(latest.venue_id)
             latest_spot = {
-                        "venue_id" : venue.venue_id,
+                        "venue-id" : venue.venue_id,
                         "venue" : venue.venue,
-                        "venue_url": venue.venue_url,
-                        "venue_city": venue.venue_city,
-                        "venue_icon_address": venue.venueIcon,
+                        "venue-url": venue.venue_url,
+                        "venue-city": venue.venue_city,
+                        "venue-icon": venue.venue_icon,
                         "desc" : venue.description,
-                        "spot" : latest.timeSlot,
+                        "spot" : latest.time_slot,
                     }
             if current_day == 0:
                 latest_spot["Open"] = venue.mon_open.strftime("%H:%M")
@@ -59,11 +59,11 @@ class UserLinesController(object):
                 venue = Venue.get_by_id(venue_h.venue_id)
                     
                 data = {
-                    "venue_id" : venue.venue_id,
+                    "venue-id" : venue.venue_id,
                     "venue" : venue.venue,
-                    "venue_url": venue.venue_url,
-                    "venue_city": venue.venue_city,
-                    "venue_icon_address": venue.venueIcon,
+                    "venue-url": venue.venue_url,
+                    "venue-city": venue.venue_city,
+                    "venue-icon-address": venue.venue_icon,
                     "desc" : venue.description,
                     "lines" : [],
                 }
@@ -98,9 +98,9 @@ class UserLinesController(object):
                 # gets line-list information for that venue. 
                 # ONLY returns line times that are withing opening and closing time and that have a capacity greater than 0
                 # note because the closing time can be on the next day, confirms capacity for tomorrows linelist if necessary
-                lines_today = Lines.getLine(venue.venue_id, datetime.today().strftime('%m/%d/%Y'))
+                lines_today = Lines.get_line(venue.venue_id, datetime.today().strftime('%m/%d/%Y'))
                 tomorrow = datetime.today() + timedelta(days=1)
-                lines_tomorrow = Lines.getLine(venue.venue_id, tomorrow.strftime('%m/%d/%Y'))
+                lines_tomorrow = Lines.get_line(venue.venue_id, tomorrow.strftime('%m/%d/%Y'))
                 start_iter = False
                 start_open = False
                 end_times = []

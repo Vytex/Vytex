@@ -10,6 +10,6 @@ from app.controller.home_controller import home_controller
 def home():
     if request.method == 'POST':
         venue = request.form['searchin']
-        return redirect(url_for("lineList", venue = venue))
+        return redirect(url_for("line_list", venue = venue))
 
     return home_controller.index()

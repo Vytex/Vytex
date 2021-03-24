@@ -19,7 +19,7 @@ class LineListController(object):
         spot_id = spot.save()
         # returns and displays the following information if successful
         data = {
-            "venue_id": spot_id,
+            "venue-id": spot_id,
             "time" : spot.time_slot
         }
         return jsonify(data)
@@ -151,7 +151,7 @@ class LineListController(object):
             self.create_Spot(venue_id, 1, line_time)
 
         # TODO change so it redirects to user lines page if logged in or user login page if not.
-        return userLines_controller.First()
+        return user_lines_controller.first()
 
     def get_venues(self, venue_name):
         # Searches db for venues with names like venue_name. then returns venue information and all potential lines. 
@@ -166,11 +166,11 @@ class LineListController(object):
             for venue in venues:
                 
                 data = {
-                    "venue_id" : venue.venue_id,
+                    "venue-id" : venue.venue_id,
                     "venue" : venue.venue,
-                    "venue_url": venue.venue_url,
-                    "venue_city": venue.venue_city,
-                    "venue_icon_address": venue.venueIcon,
+                    "venue-url": venue.venue_url,
+                    "venue-city": venue.venue_city,
+                    "venue-icon-address": venue.venue_icon,
                     "desc" : venue.description,
                     "lines" : [],
                 }
