@@ -33,11 +33,9 @@ class LineListController(object):
 
     
     def lineUp (self, lineTime, venueID, venueClose, last_page_search_val):
-        print('9'*50)
-        print(lineTime)
-        print(venueID)
-        print(venueClose)
-        print(last_page_search_val)
+
+        if last_page_search_val == 'userLines':
+            return self.get_venues(Venue.getByID(venueID).venue, error_msg="Could not line up at selected time")
         # reduces the occupency of the chosen time if it is not already 0
         # will determine if the chosen time is today or early morning tomorrow
         if Spot.getByUserID(datetime.today().strftime('%m/%d/%Y'), 1, lineTime) is None:
@@ -156,8 +154,6 @@ class LineListController(object):
             self.create_Spot(venueID, 1, lineTime)
             return self.First()
         
-        print("%"*50)
-        print("about to go to error page")
         return self.get_venues(last_page_search_val, "looks Like your already lined up for this time...")
 
     def build_venue_object(self, venueObj):
