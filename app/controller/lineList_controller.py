@@ -31,6 +31,25 @@ class LineListController(object):
     def home(self):
         return render_template("lineList/home.html")
 
+    def is_line_time_up(self, venueID):
+        curr_hour = int(datetime.today().strftime('%H'))
+
+        if curr_hour < 6:
+            day = datetime.today() - timedelta(days=1)
+            the_latest = Spot.getLatestSpot(1, day.strftime('%m/%d/%Y'))
+        else:
+            the_latest = Spot.getLatestSpot(1)
+
+        latest_time_slot_hour = int(the_latest.timeSlot[0:2])
+
+        if latest_time_slot_hour < 6:
+            if curr_hour < 6:
+                if curr_hour > latest_time_slot_hour:
+                    return -1
+        else:
+            if curr_hour > latest_time_slot_hour:
+                return -1
+        return 
     
     def lineUp (self, lineTime, venueID, venueClose, last_page_search_val):
 
@@ -39,9 +58,14 @@ class LineListController(object):
         # reduces the occupency of the chosen time if it is not already 0
         # will determine if the chosen time is today or early morning tomorrow
         if Spot.getByUserID(datetime.today().strftime('%m/%d/%Y'), 1, lineTime) is None:
+            curr_hour = int(datetime.today().strftime('%H'))
+
+
+            if self.is_line_time_up(venueID) == -1:
+                return self.get_venues(Venue.getByID(venueID).venue, error_msg="You must wait for your current line time to finish before getting in another line...")
 
             #determins if the time chosen is for today or early morning tomorrow
-            if int(lineTime[0 : 2 ]) <= int(venueClose[0 : 2 ]) and int(venueClose[0 : 2 ]) < 10 and int(datetime.today().strftime('%H')) > 6:
+            if int(lineTime[0 : 2 ]) <= int(venueClose[0 : 2 ]) and int(venueClose[0 : 2 ]) < 10 and curr_hour > 6:
                 print('in tomorrow')
                 tomorrow = datetime.today() + timedelta(days=1)
                 theLine = Lines.getLine(venueID, tomorrow.strftime('%m/%d/%Y'))
