@@ -5,6 +5,8 @@
 
 #main-header-container {
  height: 15vw;
+ cursor: default;
+ align-content: center;
 }
 
 #main-header-container>h1 {
@@ -12,6 +14,7 @@
     margin-left: 2.5vw;
     font-size: 2.5vw;
     color: var(--vyWhite);
+    font-family: 'Pathway Gothic One', cursive;
 }
 
 main {
@@ -28,6 +31,11 @@ input {
     height: 2vw;
     padding-left: 1vw;
     padding-right: 1vw;
+    font-family: 'Pathway Gothic One', cursive;
+}
+
+.search-input {
+    cursor: text;
 }
 
 .line-list-item-container, #line-list-header, #line-list-header-2 {
@@ -39,6 +47,9 @@ input {
 
 .line-list-item-container {
     grid-template-columns: .5fr 1fr 1fr 1.6fr;
+    display: grid;
+    height: 6vw;
+    color: var(--vyWhite);
 }
 
 #top-list-container {
@@ -57,11 +68,19 @@ input {
     background-color: rgba(0, 0, 0, .2);
 }
 
-.venue-name, .venue-hours, .line-times-f, .line-times-button-container, #line-list-header h2, #line-list-header-2 h2, #line-time{
+.venue-name, .venue-hours, .line-times-f, .line-times-button-container, #line-list-header h2, #line-list-header-2 h2, #line-times, #line-time {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5vw;
+    font-size: 2vw;
+    font-family: 'Pathway Gothic One', cursive;
+}
+
+.venue-hours {
+    cursor: default;
+}
+.venue-name, .line-times, .line-times-button-container, input {
+    cursor: pointer;
 }
 
 .venue-img {
@@ -83,6 +102,10 @@ img {
 
 #line-list-header, #line-list-header-2 {
     background-color: rgba(0, 0, 0, .7);
+    align-items: center;
+    
+
+    
 }
 
 #venue-card-container {
@@ -93,6 +116,8 @@ img {
     background-color: var(--vyGrey);
     grid-template-rows: 1fr 1fr .3fr;
     border-radius: 20px;
+    font-family: 'Pathway Gothic One', cursive;
+    
 }
 #venue-card {
     display: flex;

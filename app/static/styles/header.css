@@ -16,6 +16,7 @@ header {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     border-bottom: 3px solid var(--vyGrey);
+    cursor: default;
 }
 
 .hamburger-menu-b-container {
@@ -26,6 +27,7 @@ header {
 #hamburger-b {
     width: 10%;
     height: 100%;
+    cursor: pointer;
 }
 
 .profile-b-container {
@@ -41,7 +43,7 @@ header {
     contain: content;
 }
 
-.profile-b img {
+.profile-b img{
     width: 100%;
     height: 100%;
 }
@@ -55,6 +57,7 @@ header {
 .logo-b {
     color: var(--vyWhite);
     font-size: 3vw;
+    font-family: 'Bree Serif', serif;
 }
 
 /* Hamburger Menu */
@@ -76,6 +79,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Pathway Gothic One', cursive;
 
 }
 
@@ -87,6 +91,7 @@ header {
     padding: .5vw;
     border: 1px solid black;
     color: var(--vyWhite);
+    cursor:default;
 }
 
 #link-container {
