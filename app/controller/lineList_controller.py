@@ -32,7 +32,12 @@ class LineListController(object):
         return render_template("lineList/home.html")
 
     
-    def lineUp (self, lineTime, venueID, venueClose):
+    def lineUp (self, lineTime, venueID, venueClose, last_page_search_val):
+        print('9'*50)
+        print(lineTime)
+        print(venueID)
+        print(venueClose)
+        print(last_page_search_val)
         # reduces the occupency of the chosen time if it is not already 0
         # will determine if the chosen time is today or early morning tomorrow
         if Spot.getByUserID(datetime.today().strftime('%m/%d/%Y'), 1, lineTime) is None:
@@ -142,16 +147,17 @@ class LineListController(object):
             elif lineTime == "23:30" and theLine.x23300000 != 0:
                 theLine.x23300000 = theLine.x23300000 - 1 
             else:
-                data = {
-                    "The following time was not Availible, please go back and try another time: ": lineTime
-                }
-                return jsonify(data)
+                return self.get_venues(last_page_search_val, "Sorry, looks like someone took that timeslot already...")
+
             # if successful updates the line with reduced value and returns and displays a success message
             theLine.update()
 
             self.create_Spot(venueID, 1, lineTime)
-
-        return userLines_controller.First()
+            return userLines_controller.First()
+        
+        print("%"*50)
+        print("about to go to error page")
+        return self.get_venues(last_page_search_val, "looks Like your already lined up for this time...")
 
     def build_venue_object(self, venueObj):
         # builds, formats and returns a venue object from a query result object
@@ -294,7 +300,9 @@ class LineListController(object):
         return start_times  
 
 
-    def get_venues(self, venueName):
+    def get_venues(self, venueName, error_msg=""):
+        print("3"*50)
+        print(venueName)
         # Searches db for venues with names like venueName. then returns venue information and all potential lines. 
         venues = Venue.get(venueName)
         
@@ -320,9 +328,12 @@ class LineListController(object):
 
                 data["lines"].extend(self.create_list_of_lines(data["Open"], data["Close"], linesToday, linesTomorrow))
                 output.append(data)
+            if error_msg != "":
+                return render_template("lineList/error.html",  results=output, error=error_msg)
 
             return render_template("lineList/index.html",  results=output)
         else:
+            print("about to render empty")
             return render_template("lineList/empty.html")
 
 lineList_controller = LineListController()

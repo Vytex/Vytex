@@ -82,6 +82,15 @@ input {
     overflow: hidden;
 }
 
+#error_msg {
+    position: absolute;
+    left: 74vw;
+    top: 19.45vw;
+    font-size: 1vw;
+    color: darkred;
+    text-shadow: -1px 0px 0px #000000;
+}
+
 img {
     max-width: 100%;
     min-height: 100%;

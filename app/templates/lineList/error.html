@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang='en-us'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>LINE UP</title>
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/reset.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/variables.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/breakPoints.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/global.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/header.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/lineList.css') }}">
+    </head>
+    <body>
+        <div class="heroImg"></div>
+        <div class="heroImgShadowbox"></div>
+        <div id="venueCardShadowbox"></div>
+        <div id="venueCardContainer">
+            <div id="venueCard">
+                <div class="venueImg" id="venueCardImg"></div>
+                <div id="venueCardInfoContainer">
+                    <div id="venueCardName">Venue Not Found</div>
+                    <div id="venueCardHours">No Time At All</div>
+                    <div id="venueCardLink"><a id="venueCardLinka" href="">Check Out Their Website for more info</a></div>
+                </div>
+            </div>
+            <div id="venueCardDescription">Please close this window and select another venue. If this problem continues please reach out and let us know at CustomerService@Vytex.com</div>
+            <div id="CloseWindowXVenue">X</div>
+        </div>
+        <div id="HamburgerMenu">
+            <div id="HMContainer">
+                <div id="CloseWindowX">X</div>
+                <div id="LinkContainer">
+                    <a href="/home">Join a Line</a>
+                    <a href="/userLines">Check your lines</a>
+                    <a>Contact Us</a>
+                    <a>Logout</a>
+                </div>
+            </div>
+            <a id="HMOffscreen"></a>
+        </div>
+        <header>
+            <div class="hContainer">
+                <div class="hamburgerMenuBContainer">
+                    <div id="hamburgerB"><div class=hbm></div><div class=hbm></div><div class=hbm></div></div>
+                </div>
+                <div class="logoBContainer">
+                    <h1 class="logoB">Vytex</h1>
+                </div>
+                <div class="profileBContainer">
+                    <div class="profileB">
+                        <img src="{{ url_for('static',    filename='./assets/profileButtonPlaceholder.jpg') }}" alt="Venue Icon">
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div id="mainheaderContainer">
+                <h1>LINE-UP NOW:</h1>
+                <form class="searchInputF" id="searchinputid" action="/lineList" method="POST">
+                    <input class="searchInput" id="si" type="text" name="searchin" placeholder="ENTER VENUE NAME"/>
+                    <h2 id="error_msg">{{error}}</h2>
+                </form>
+                <div id="lineListHeader">
+                    <div></div>
+                    <h2>Venue</h2>
+                    <h2>Todays Hours</h2>
+                    <h2>Select Line</h2>
+                    <div></div>
+                </div>
+            </div>
+            <div id="topListContainer">
+                <div id="lineListContainer">
+                    {% for x in results %}
+                    <div class="lineListItemContainer">
+                        <div class="venueImg"><img src="{{x['venueIconAddress']}}" alt="venue icon"/></div>
+                        <div class="venueName">{{x['venue']}}</div>
+                        <h2 class="venueHours">{{x['Open']}} - {{x['Close']}}</h2>
+                        <form class="lineTimesF" action="/lineList/lineUp" method="POST">
+                            <input id="vid" type="text" name="vID" value="{{x['venueID']}}" style="display:none"/>
+                            <input id="vc" type="text" name="vc" value="{{x['Close']}}" style="display:none"/>
+                            <select class="lineTimes" name="lineTimesS">
+                                {% for y in x['lines'] %}
+                                <option value={{y}}>{{y}}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="submit" value="LINE UP"/>
+                        </form>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </main>
+        <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
+        <!-- <script type='text/javascript' src="{{ url_for('static',    filename='./src/lineList.js') }}"></script> -->
+        
+        <script>
+            
+                // venues = JSON.parse('{{ results | tojson | safe}}');
+
+        </script>
+
+    </body>
+</html>
