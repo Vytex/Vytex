@@ -42,7 +42,7 @@
                 <div class="profileBContainer">
                     <div class="profileB">
                         <a href="/profile">
-                            <img src="{{ image_file }}">
+                            <img class="containerimg" src="{{ image_file }}">
                         </a>
                     </div>
                 </div>
@@ -73,10 +73,11 @@
                 grid-template-columns:repeat(1,1fr);
                 grid-column-gap:4.5em;
                 justify-content: center;
-                position: relative;
-                top:-120px;
+                position: absolute;
                 height: 300px;
                 margin: 0 auto;
+                margin-right: auto;
+                margin-left: 35%;
             
                 }   
             .wrapper3 > div{
@@ -122,12 +123,12 @@
                     
                     </div>
                 </form>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
                 <button class="searchInputB">Sign Up</button>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
                 <br>
                 <br>
                 <br>
@@ -140,11 +141,11 @@
           </main>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
     {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <div class="notification is-danger">
-        {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
-    </div>
-    {% endif %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
+            </div>
+        {% endif %}
     {% endwith %}
 <form method="POST" action="/signup">
 {% endblock %}

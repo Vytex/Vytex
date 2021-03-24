@@ -14,6 +14,7 @@ from app.controller.userLines_controller import userLines_controller
 from app.controller.lineList_controller import lineList_controller
 
 @app.route('/userLines', methods = ['POST', 'GET'])
+@login_required
 def userLines():
     if request.method == 'POST':
         venueID = request.form["vID"]

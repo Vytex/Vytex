@@ -295,6 +295,11 @@ body, main {
     overflow: auto;
 }
 
+.containerimg{
+
+    object-fit:cover;
+}
+
 /*div {
     resize: both;
     

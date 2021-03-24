@@ -184,6 +184,8 @@ form, input, .usernameInput, .usernameInputF, .emailInputF {
     background: #47525E;
     border-color: #fde1be;
     border-radius: 4px;
+    margin-top: -2%;
+    margin-left: 42%;
   }
 
   .login {
@@ -191,6 +193,8 @@ form, input, .usernameInput, .usernameInputF, .emailInputF {
     background: #47525E;
     border-color: #fde1be;
     border-radius: 4px;
+    margin-top: 20%;
+    margin-left: 44%;
   }
 
   .launch{

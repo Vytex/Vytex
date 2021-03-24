@@ -5,7 +5,7 @@ from datetime import time, datetime, timedelta
 
 from app import db
 
-from app.models import Venue, Lines, Spot
+from app.models import Venue, Lines, Spot, User
 
 class UserLinesController(object):
     def index(self):
@@ -15,7 +15,7 @@ class UserLinesController(object):
             return render_template("userLines/index.html", image_file=image_file)
         else:
             image_file = url_for('static', filename='assets/profileButtonPlaceholder.jpg')
-            return render_template("userLines/index.html", image_file=image_file)
+            return render_template("LogIn/index.html", image_file=image_file)
 
     def First(self):
         # this takes care of the first time slot.
@@ -158,9 +158,9 @@ class UserLinesController(object):
 
                 output.append(data)
                 output.reverse()
-
-            return render_template("userLines/index.html", results=output, topResult=latestSpot)
-
-        return render_template("userLines/empty.html")
+            image_file = url_for('static', filename='assets/' + current_user.image_file)
+            return render_template("userLines/index.html", results=output, topResult=latestSpot, image_file=image_file)
+        image_file = url_for('static', filename='assets/' + current_user.image_file)
+        return render_template("userLines/empty.html",image_file=image_file)
 
 userLines_controller = UserLinesController()
