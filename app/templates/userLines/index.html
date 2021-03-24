@@ -3,13 +3,18 @@
     <head>
         <meta charset='UTF-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <title>Vytex</title>
+        <title>Your Lines</title>
+        <link rel="icon" href="{{ url_for('static',    filename='assets/android-chrome-192x192.png') }}" type="image/png" sizes="192x192">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/reset.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/variables.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/breakPoints.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/global.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/header.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/lineList.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/userLines.css') }}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap"> 
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&display=swap"> 
     </head>  
     <body>
         <div class="back-img"></div>
@@ -69,7 +74,7 @@
             <div id="first-history-container">
                 <div id="history-list-container">
                     <div class="line-list-item-container">
-                        <div class="venue-img"><img src="{{top_result['venue_icon_address']}}"/></div>
+                        <div class="venue-img"><img src="{{top_result['venue-icon-address']}}"/></div>
                         <div class="venue-name">{{top_result['venue']}}</div>
                         <h2 class="venue-hours">{{top_result['Open']}} - {{top_result['Close']}}</h2>
                         <h2 id="line-time">{{top_result['spot']}}</h2>
@@ -79,7 +84,7 @@
             <div id="line-list-header-2">
                 <div></div>
                 <h2>Venue</h2>
-                <h2>Todays Hours</h2>
+                <h2>Today's Hours</h2>
                 <h2>Select Line</h2>
                 <div></div>
             </div>
@@ -87,11 +92,11 @@
                 <div id="line-list-container">
                     {% for x in results %}
                     <div class="line-list-item-container">
-                        <div class="venue-img"><img src="{{x['venue_icon_address']}}"/></div>
+                        <div class="venue-img"><img src="{{x['venue-icon-address']}}"/></div>
                         <div class="venue-name">{{x['venue']}}</div>
                         <h2 class="venue-hours">{{x['Open']}} - {{x['Close']}}</h2>
                         <form class="line-times-f" action="/lineList" method="POST">
-                            <input id="vid" type="text" name="vID" value="{{x['venueID']}}" style="display:none"/>
+                            <input id="v-id" type="text" name="v-id" value="{{x['venue-id']}}" style="display:none"/>
                             <input id="vc" type="text" name="vc" value="{{x['Close']}}" style="display:none"/>
                             <select class="line-times" name="line-times-s">
                                 {% for y in x['lines'] %}
@@ -106,5 +111,13 @@
             </div>
         </main>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
+        <script type='text/javascript' src="{{ url_for('static',    filename='./src/lineList.js') }}"></script>
+
+        <script>
+            
+            venues=JSON.parse('{{ results | tojson | safe}}');
+
+        </script>
+
     </body>
 </html>

@@ -3,16 +3,22 @@
     <head>
         <meta charset='UTF-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <title>Vytex</title>
+        <title>Oops!</title>
+        <link rel="icon" href="{{ url_for('static',    filename='assets/android-chrome-192x192.png') }}" type="image/png" sizes="192x192">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/reset.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/variables.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/breakPoints.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/global.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/header.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',    filename='styles/home.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/lineList.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',    filename='styles/userLines.css') }}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap"> 
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&display=swap"> 
     </head>  
     <body>
-        <div class="back-img"></div>
+        <div class="hero-img"></div>
         <div class="hero-img-shadow-box"></div>
         <div id="venue-card-shadow-box"></div>
         <div id="venue-card-container">
@@ -79,10 +85,6 @@
         </main>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/lineList.js') }}"></script>
-        
-        <script>
-            
-        </script>
 
     </body>
 </html>
