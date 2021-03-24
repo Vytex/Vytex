@@ -66,8 +66,8 @@
                     <div></div>
                     <h2>Venue</h2>
                     <h2>Time Slot</h2>
-                    <h2>Status</h2>
                     <div></div>
+                    <h2>lineTime</h2>
                 </div>
             </div>
             <div id="FirstHistoryContainer">
@@ -94,7 +94,7 @@
                         <div class="venueImg"><img src="{{x['venueIconAddress']}}"/></div>
                         <div class="venueName">{{x['venue']}}</div>
                         <h2 class="venueHours">{{x['Open']}} - {{x['Close']}}</h2>
-                        <form class="lineTimesF" action="/lineList" method="POST">
+                        <form class="lineTimesF" action="/lineList/lineUp" method="POST">
                             <input id="vid" type="text" name="vID" value="{{x['venueID']}}" style="display:none"/>
                             <input id="vc" type="text" name="vc" value="{{x['Close']}}" style="display:none"/>
                             <select class="lineTimes" name="lineTimesS">

@@ -4,7 +4,7 @@ from datetime import time, datetime, timedelta
 from app import db
 
 from app.models import Venue, Lines, Spot
-from app.controller.userLines_controller import userLines_controller
+# import app.controller.userLines_controller import userLines_controller
 from app.controller.admin_controller import admin_controller
 
 def timeify(timeString):
@@ -43,7 +43,8 @@ class LineListController(object):
         if Spot.getByUserID(datetime.today().strftime('%m/%d/%Y'), 1, lineTime) is None:
 
             #determins if the time chosen is for today or early morning tomorrow
-            if int(lineTime[0 : 2 ]) <= int(venueClose[0 : 2 ]) and int(venueClose[0 : 2 ]) < 10:
+            if int(lineTime[0 : 2 ]) <= int(venueClose[0 : 2 ]) and int(venueClose[0 : 2 ]) < 10 and int(datetime.today().strftime('%H')) > 6:
+                print('in tomorrow')
                 tomorrow = datetime.today() + timedelta(days=1)
                 theLine = Lines.getLine(venueID, tomorrow.strftime('%m/%d/%Y'))
             else:
@@ -153,7 +154,7 @@ class LineListController(object):
             theLine.update()
 
             self.create_Spot(venueID, 1, lineTime)
-            return userLines_controller.First()
+            return self.First()
         
         print("%"*50)
         print("about to go to error page")
@@ -262,7 +263,7 @@ class LineListController(object):
                     return line_time
             elif int(current_hour) > 10 and int(line_hour) < 6:
                 return line_time
-                
+
             return -1
 
         #loops through, adding early moring times to end_times first. then adds 
@@ -340,5 +341,43 @@ class LineListController(object):
         else:
             print("about to render empty")
             return render_template("lineList/empty.html")
+
+    def First(self):
+        # this takes care of the first time slot.
+        currentDay = datetime.today().weekday()
+        latest = Spot.getLatestSpot(1, datetime.today().strftime('%m/%d/%Y'))
+        if latest != -1:
+
+            venue = Venue.getByID(latest.venueID)
+            latestSpot = lineList_controller.build_venue_object(venue)
+            latestSpot['spot'] = latest.timeSlot
+            # and now the list of venues in order that you last liked up
+            venueHistory = Spot.getSpotsByID(1)
+            output = []
+
+            for VH in venueHistory:
+                
+                venue = Venue.getByID(VH.venueID)
+                    
+                data = lineList_controller.build_venue_object(venue)
+                linesToday = None
+                linesTomorrow = None
+                
+                # If loads the correct line lists depending on if it's today or tomorrow
+                if int(datetime.today().strftime('%H')) < 4:
+                    linesToday = self.get_venues_line_times_list(venue, isYesterday=True)
+                    linesTomorrow = self.get_venues_line_times_list(venue)
+                else:
+                    linesToday = self.get_venues_line_times_list(venue)
+                    linesTomorrow = self.get_venues_line_times_list(venue, isTomorrow=True)
+                    
+
+                data["lines"].extend(self.create_list_of_lines(data["Open"], data["Close"], linesToday, linesTomorrow))
+                output.append(data)
+                output.reverse()
+
+            return render_template("userLines/index.html", results=output, topResult=latestSpot)
+
+        return render_template("userLines/index.html")
 
 lineList_controller = LineListController()

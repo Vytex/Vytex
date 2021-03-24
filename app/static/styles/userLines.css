@@ -24,3 +24,7 @@ main {
 
 #HistoryListContainer {}
 
+#lineListHeader h2:last-of-type {
+    justify-content: unset;
+}
+

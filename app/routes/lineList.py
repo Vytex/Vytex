@@ -13,10 +13,14 @@ def lineListHome():
         venue = request.form['searchin']
         return redirect(url_for("lineList", venue = venue))
     elif request.method == 'POST' and request.form.get('lineTimesS'):
+        previous_HTML = request.referrer
+        arg1 = previous_HTML.rsplit('/', 1)[-1]
+        just_the_argument = arg1.rsplit('?', 1)[0]
+        
         lineTime = request.form['lineTimesS']
         venueID = request.form['vID']
         venueClose = request.form['vc']
-        return lineList_controller.lineUp(lineTime = lineTime, venueID = venueID, venueClose = venueClose)    
+        return lineList_controller.lineUp(lineTime = lineTime, venueID = venueID, venueClose = venueClose, name=just_the_argument)    
     
 
     return home_controller.index()
