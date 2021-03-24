@@ -240,8 +240,6 @@ class LineListController(object):
         #container for from opening to closing
         start_times = []
 
-        print(datetime.today().strftime('%H'))
-
         # a list of all potenital line times in a day
         line_times = ["00:00 - 00:30", "00:30 - 01:00", "01:00 - 01:30", "01:30 - 02:00", "02:00 - 02:30", "02:30 - 03:00", "03:00 - 03:30", "03:30 - 04:00", "04:00 - 04:30", "04:30 - 05:00", "05:00 - 05:30", "05:30 - 06:00", "06:00 - 06:30", "06:30 - 07:00", "07:00 - 07:30", "07:30 - 08:00", "08:00 - 08:30", "08:30 - 09:00", "09:00 - 09:30", "09:30 - 10:00", "10:00 - 10:30", "10:30 - 11:00", "11:00 - 11:30", "11:30 - 12:00", "12:00 - 12:30", "12:30 - 13:00", "13:00 - 13:30", "13:30 - 14:00", "14:00 - 14:30", "14:30 - 15:00", "15:00 - 15:30", "15:30 - 16:00", "16:00 - 16:30", "16:30 - 17:00", "17:00 - 17:30", "17:30 - 18:00", "18:00 - 18:30", "18:30 - 19:00", "19:00 - 19:30", "19:30 - 20:00", "20:00 - 20:30", "20:30 - 21:00", "21:00 - 21:30", "21:30 - 22:00", "22:00 - 22:30", "22:30 - 23:00", "23:00 - 23:30", "23:30 - 00:00"]
         
@@ -251,13 +249,20 @@ class LineListController(object):
         
         def is_after_curr_time(line_time):
             # checks to see if the linetime is past the current time
-            if int(datetime.today().strftime('%H')) <= int(line_time[0:2]):
+            current_hour = datetime.today().strftime('%H')
+            current_minute = datetime.today().strftime('%M')
+            line_hour = line_time[0:2]
+            line_minute = line_time[3:5]
 
-                if datetime.today().strftime('%H') == line_time[0:2] and int(datetime.today().strftime('%M')) < int(line_time[3:5]): 
+            if int(current_hour) <= int(line_hour):
+
+                if current_hour == line_hour and int(current_minute) < int(line_minute): 
                     return line_time
-                elif datetime.today().strftime('%H') != line_time[0:2]:
+                elif current_hour != line_hour:
                     return line_time
-            
+            elif int(current_hour) > 10 and int(line_hour) < 6:
+                return line_time
+                
             return -1
 
         #loops through, adding early moring times to end_times first. then adds 
