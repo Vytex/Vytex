@@ -15,7 +15,7 @@ from app.controller.login_controller import login_controller
 def login():
     if request.method == 'POST':
         user = request.form['authorization']
-        return redirect(url_for("UserAccount", user = profileUser))
+        return redirect(url_for("signup", user = profileUser))
 
     return login_controller.index()
 
