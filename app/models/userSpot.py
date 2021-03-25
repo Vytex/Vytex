@@ -36,9 +36,7 @@ class Spot(db.Model):
         spots = db.session.query(Spot).filter(Spot.userID == userID, Spot.date == date).all()
         latestSpot = None
         if len(spots) != 0:
-
             for spot in spots:
-
                 if latestSpot == None:
                     latestSpot = spot
                 else:
@@ -55,7 +53,7 @@ class Spot(db.Model):
                         latestSpot = spot
 
             return latestSpot
-
+            
         return -1
 
 
