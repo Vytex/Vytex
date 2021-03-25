@@ -126,7 +126,8 @@ form, input, .searchInput2, .searchInputF2 {
 }
 
 .imageSelector {
-    margin-left: 42%;
+    justify-content: center;
+    margin-left: 36%;
     margin-bottom: 10%;
     margin-top: 2vw;
 }

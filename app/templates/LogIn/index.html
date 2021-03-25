@@ -99,14 +99,8 @@
                      
                 </div>
                 <div id="content2">
-                    {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                    <div class="notification is-danger">
-                        {{ messages[0] }}
-                    </div>
-                    {% endif %}
-                    {% endwith %}
-{% block content %}
+                    
+                    {% block content %}
                     <form method="POST" action="/login">
                         
                         <div class="usernameInput">
@@ -125,15 +119,9 @@
                         <button class="btn login">Login</button>
                             
                     </form>
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    <div class="notification is-danger">
-        {{ messages[0] }}
-    </div>
-{% endif %}
-{% endwith %}
+                    {% endblock %}
                     <form method="POST" action="/signup">
-{% endblock %}
+
                         </div>
                         <div id="content1">
                             
@@ -143,7 +131,7 @@
                         </div>
                     
                         <div id="content2">
-                            <a href="/Create/index.html">
+                            <a href="/signup">
                                 <button class="btn signup">Sign Up</button>
                             </a>
                         </div>

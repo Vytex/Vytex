@@ -15,7 +15,7 @@ form, input, .usernameInput, .usernameInputF, .emailInputF {
 .usernameInput {
     position: absolute;
     top: 5%;
-    left: 31%;
+    left: 30%;
     width: 40%;
     height: 2vw;
     contain: content;
@@ -59,7 +59,7 @@ form, input, .usernameInput, .usernameInputF, .emailInputF {
 .passwordInput {
     position: absolute;
     top: 30%;
-    left: 31%;
+    left: 30%;
     width: 40%;
     height: 2vw;
     contain: content;
@@ -185,7 +185,7 @@ form, input, .usernameInput, .usernameInputF, .emailInputF {
     border-color: #fde1be;
     border-radius: 4px;
     margin-top: -2%;
-    margin-left: 42%;
+    margin-left: 39.5%;
   }
 
   .login {
@@ -194,7 +194,7 @@ form, input, .usernameInput, .usernameInputF, .emailInputF {
     border-color: #fde1be;
     border-radius: 4px;
     margin-top: 20%;
-    margin-left: 44%;
+    margin-left: 41%;
   }
 
   .launch{

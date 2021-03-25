@@ -16,7 +16,7 @@
     font-size: 3vw;
     letter-spacing: 0.1vw;
     position: fixed;
-    top: 150px;
+    top: 100px;
 }
 /*.unruly {
     margin-bottom: 1vw;
@@ -32,7 +32,7 @@
     letter-spacing: 0.01vw;
     position: fixed;
     text-align: center;
-    top: 270px;
+    top: 200px;
    
 }
 
@@ -174,10 +174,11 @@
     /*grid-template-columns: 1fr 1fr 1fr;*/
     grid-template-columns:repeat(3,1fr);
     grid-column-gap:4.5em;
+    grid-auto-rows: auto;
     justify-content: center;
     position: relative;
-    top:150px;
     height: 300px;
+    top: 100px;
     margin: 0 auto;
 
 }   
