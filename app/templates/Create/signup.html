@@ -47,99 +47,39 @@
                 </div>
             </div>
         </header>
-          <main>
-              <style>
-               .wrapper2{
-                    display:grid;
-                    
-                    grid-template-columns:repeat(1,1fr);
-                    grid-column-gap:4.5em;
-                    justify-content: center;
-                    position: relative;
-                    top:20px;
-                    margin: 0 auto;
-                
-                }   
-               .wrapper2 > div{
-                   display:block;
-                   padding:1em
-               }
-
-           .wrapper3{
-                display:grid;
-                
-                grid-template-columns:repeat(1,1fr);
-                grid-column-gap:4.5em;
-                justify-content: center;
-                position: absolute;
-                height: 300px;
-                margin: 0 auto;
-                margin-right: auto;
-                margin-left: 35%;
-            
-                }   
-            .wrapper3 > div{
-                   display:block;
-                   padding:1em
-                   
-                   
-                
-               }
-               .wrapper2> img{
-                   grid-column: 1;
-                   grid-row:1 / -1;
-                   align-self: center;
-                   width: 100px;
-               }
-               
-               
-              </style>
+            <main>
                 <div class="wrapper2">
                     <h2 class="unruly2">CREATE PROFILE</h2>
                     <p class="unruly5">Sign Up </p>
                     <p class="subtitles">Never wait in line again, ever.</p>
                 </div>
             {% block content %}
-            <div class="wrapper3">
-                <form method="POST" action="/signup">
-                    <div class="searchInputContainer2">
-                        
+                <div class="wrapper3">
+                    <form method="POST" action="/signup">
+                        <div class="searchInputContainer2">
                             <input class="input is-large" type="email" name= "email" placeholder="Email" autofocus="">
-                       
-                    
-                    </div>
-                    <div class="searchInputContainer2">
-                        
+                        </div>
+                        <div class="searchInputContainer2">
                             <input class="input is-large" type="text" name="username" placeholder="Username" autofocus="">
-                       
-                    
-                    </div>
-                    <div class="searchInputContainer2">
-                       
+                        </div>
+                        <div class="searchInputContainer2">
                             <input class="input is-large" type="password" name="password" placeholder="Password">
-                        
-                    
-                    </div>
-                    <br>
-                    <br>
-                    <select class="imageSelector" name="image2">
-                        <option value="avatar1.png">Avatar One</option>
-                        <option value="avatar2.png">Avatar Two</option>
-                        <option value="avatar3.png">Avatar Three</option>
-                        <option value="avatar4.png">Avatar Four</option>
-                    </select>
-                    <button class="searchInputB">Sign Up</button>
-                </form>
-                <br>
-                <br>
-                <br>
-                <br>
-                <p class="subtitles">By signing up you agree to our Terms & Conditions
-                </p>
-            </div>
+                        </div>
+                        <select class="imageSelector" name="image2">
+                            <option value="avatar1.png">Avatar One</option>
+                            <option value="avatar2.png">Avatar Two</option>
+                            <option value="avatar3.png">Avatar Three</option>
+                            <option value="avatar4.png">Avatar Four</option>
+                        </select>
+                        <button class="searchInputB">Sign Up</button>
+                    </form>
+                    <p class="subtitles">
+                        By signing up you agree to our Terms & Conditions
+                    </p>
+                </div>
             
-            <div class ="grid-container"></div>
-          </main>
+                <div class ="grid-container"></div>
+            </main>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
     {% with messages = get_flashed_messages() %}
         {% if messages %}

@@ -1,3 +1,5 @@
+
+
 form, input, .searchInput2, .searchInputF2 {
     width: 100%;
     height: 100%;
@@ -56,9 +58,6 @@ form, input, .searchInput2, .searchInputF2 {
     color: var(--vyWhite);
     font-size: 3vw;
     letter-spacing: 0.1vw;
-  
-    
-   
 }
 /*.unruly {
     margin-bottom: 1vw;
@@ -78,25 +77,18 @@ form, input, .searchInput2, .searchInputF2 {
     letter-spacing: 0.01vw;
     text-align: center;
 }
-
-
 .unruly3 {
     margin-bottom: 1vw;
     color: var(--vyWhite);
     font-size: 1.5vw;
     letter-spacing: 0.02vw;
     text-align: center;
-    
-    
-    ;
 }
 .center {
     display: block;
     margin-left: auto;
-    margin-right: auto;
-    
-  }
-  
+    margin-right: auto;   
+}
 .subtitles {
     color: var(--vyGrey);
     font-size: 1.2vw;
@@ -104,11 +96,9 @@ form, input, .searchInput2, .searchInputF2 {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top:10px;
+    margin-top:3vw;
     margin-bottom: auto;
-    text-align: right;
-    
-    
+    text-align: right;    
 }
 .email {
     color: var(--vyWhite);
@@ -116,10 +106,7 @@ form, input, .searchInput2, .searchInputF2 {
     letter-spacing: 0.1vw;
     position: absolute;
     top: 150px;
-    
-    text-align: left;
-   
-    
+    text-align: left;    
 }
 .snailmail {
     color: var(--vyWhite);
@@ -128,23 +115,55 @@ form, input, .searchInput2, .searchInputF2 {
     position:  absolute;
     top: 150px;
     right:90px;
-    
     text-align: center;
-    
-    
 }
 
 .notification {
-
     color: var(--vyWhite);
     position: absolute;
     margin-top: 32%;
     z-index: 10;
-
 }
 
 .imageSelector {
-    margin-left: 37%;
+    margin-left: 42%;
     margin-bottom: 10%;
+    margin-top: 2vw;
+}
+.wrapper2{
+    display:grid;
+    
+    grid-template-columns:repeat(1,1fr);
+    grid-column-gap:4.5em;
+    justify-content: center;
+    position: relative;
+    top:20px;
+    margin: 0 auto;
 
+}   
+.wrapper2 > div{
+    display:block;
+    padding:1em
+}
+
+.wrapper3{
+    display:grid;
+    grid-template-columns:repeat(1,1fr);
+    grid-column-gap:4.5em;
+    justify-content: center;
+    position: absolute;
+    height: 300px;
+    margin: 0 auto;
+    margin-right: auto;
+    margin-left: 35%;
+}   
+.wrapper3 > div{
+    display:block;
+    padding:1em
+}
+.wrapper2> img{
+    grid-column: 1;
+    grid-row:1 / -1;
+    align-self: center;
+    width: 100px;
 }

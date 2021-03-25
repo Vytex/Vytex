@@ -48,99 +48,61 @@
                 </div>
             </div>
         </header>
-          <main>
-              <style>
-               .wrapper{
-                    display:grid;
-                    /*grid-template-columns: 1fr 1fr 1fr;*/
-                    grid-template-columns:repeat(3,1fr);
-                    grid-column-gap:4.5em;
-                    justify-content: center;
-                    position: relative;
-                    top:150px;
-                    height: 300px;
-                    margin: 0 auto;
-                
-                }   
-               .wrapper > div{
-                   display:block;
-                   background:#494d52;
-                   padding:1em
-                   
-                   
-                
-               }
-               .wrapper> img{
-                   grid-column: 1;
-                   grid-row:1 / -1;
-                   align-self: center;
-                   width: 100px;
-               }
-               .wrapper2 {
-                   display:grid;
-                   grid-template-columns:repeat(1fr);
-                   grid-column-gap:4.5em;
-                   grid-auto-rows:500px; 
-
-               }
-               
-               .wrapper2 > div{
-                   background:#494d52;
-                   padding:1em}
-               
-              </style>
-              <h2 class="unruly2">Contact Us</h2>
-              <p class="unruly">We'd love to hear from you!
-                <br>
-                We are a small group of developers based out of Vancouver BC,<br>
-                and we are always open to ideas and suggestions to improve the experience for everyone.</p>
-            <div class="wrapper">
-                <div class="unruly3">
-                    <img src="{{ url_for('static',    filename='./assets/phone.jpg') }}" width="90px" height="90px">
-                    <br>
-                    <br>
-                    <div class="callus">
-                        Call Us
+            <main>
+                <h2 class="contacttitle">
+                    Contact Us
+                </h2>
+                <p class="descriptiontext">
+                    We'd love to hear from you!<br>
+                    We are a small group of developers based out of Vancouver BC,<br>
+                    and we are always open to ideas and suggestions to improve the experience for everyone.
+                </p>
+                <div class="wrapper">
+                    <div class="unruly3">
+                        <img class="phoneicon" src="{{ url_for('static',    filename='./assets/phone.jpg') }}">
+                        <div class="callus">
+                            Call Us
+                        </div>
+                        <div class="phonenumber">
+                            604-405-9391
+                        </div>
+                        <div class="phonetext">
+                            Give us a call anytime, We'd <br> 
+                            love to hear from you <br> 
+                        </div>
                     </div>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    Give us a call anytime, We'd <br> 
-                    love to hear from you <br> 
-                </div>
-                <div class="unruly3">
-                    <img src="{{ url_for('static',    filename='./assets/emailicon.png') }}" width="130px" height="130px" >
-                    <div class="email">
-                        Email
+                    <div class="unruly3">
+                        <img class="emailicon" src="{{ url_for('static',    filename='./assets/emailicon.png') }}">
+                        <div class="email">
+                            Email
+                        </div>
+                        <div class="emailaddress">
+                            customer_support@vytex.com
+                        </div>
+                        <div class="emailtext">
+                        Send us an email and let us <br> 
+                        know how we're doing <br> 
+                        </div>
                     </div>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    Send us an email and let us <br> 
-                    know how we're doing <br> 
-                </div>
                 
-                <div class="unruly3">
-                    <img src="{{ url_for('static',    filename='./assets/themail.png') }}" width="130px" height="130px">
-                    <div class="snailmail">
-                        SnailMail
+                    <div class="unruly3">
+                        <img class="mailicon" src="{{ url_for('static',    filename='./assets/themail.png') }}">
+                        <div class="snailmail">
+                            SnailMail
+                        </div>
+                        <div class="snailmailaddress">
+                            4503 Bright St Vancouver BC<br>
+                            V6W 2I4
+                        </div>
+                        <div class="snailmailtext">
+                        Like sending paper letters? We <br> 
+                        love getting them! <br>
+                        </div>
                     </div>
-                    
-                    <br>
-                    <br>
-                    <br> 
-                    <br>
-                    Like sending paper letters? We <br> 
-                    love getting them! <br>
                 </div>
-                
-            
-            </div>
         
             <div class ="grid-container"></div>
-          </main>
+            </main>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
 
     </body>

@@ -11,15 +11,12 @@
 }
 
 
-.unruly2 {
-    margin-bottom: 2vw;
+.contacttitle {
     color: var(--vyWhite);
     font-size: 3vw;
     letter-spacing: 0.1vw;
-  
-    position: absolute;
+    position: fixed;
     top: 150px;
-   
 }
 /*.unruly {
     margin-bottom: 1vw;
@@ -29,20 +26,18 @@
     text-align: center;
     padding-bottom:0.05%;
     */
-.unruly {
-    margin-bottom: 1vw;
+.descriptiontext {
     color: var(--vyWhite);
     font-size: 1.7vw;
     letter-spacing: 0.01vw;
+    position: fixed;
     text-align: center;
+    top: 270px;
    
-    position: absolute;
-    top: 260px;
 }
 
 
 .unruly3 {
-    margin-bottom: 1vw;
     color: var(--vyWhite);
     font-size: 1.5vw;
     letter-spacing: 0.02vw;
@@ -53,6 +48,7 @@
 }
 .unruly3:nth-child(1) > img{
     margin-top: 1vw;
+    margin-bottom: 1vw;
 }
 .center {
     display: block;
@@ -71,9 +67,29 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
-    margin-bottom: auto;
+    margin-bottom: 2vw;
     
     
+}
+.phonenumber {
+    color: var(--vyWhite);
+    font-size: 2vw;
+    letter-spacing: 0.1vw;
+    justify-content: center;
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: 2vw;
+}
+.phonetext {
+    color: var(--vyWhite);
+    font-size: 1.5vw;
+    letter-spacing: 0.1vw;
+    justify-content: center;
+    display: block;
+    text-align: center;
 }
 .email {
     color: var(--vyWhite);
@@ -85,10 +101,30 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
-    margin-bottom: auto;
+    margin-bottom: 2vw;
     
 }
-.snailmail  {
+.emailaddress {
+    color: var(--vyWhite);
+    font-size: 2vw;
+    letter-spacing: 0.1vw;
+    justify-content: center;
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: 2vw;
+}
+.emailtext {
+    color: var(--vyWhite);
+    font-size: 1.5vw;
+    letter-spacing: 0.1vw;
+    justify-content: center;
+    display: block;
+    text-align: center;
+}
+.snailmail {
     color: var(--vyWhite);
     font-size: 2vw;
     letter-spacing: 0.1vw;
@@ -99,6 +135,75 @@
     margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
+}
+.snailmailaddress {
+    color: var(--vyWhite);
+    font-size: 1.5vw;
+    letter-spacing: 0.1vw;
+    justify-content: center;
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+}
+.snailmailtext {
+    color: var(--vyWhite);
+    font-size: 1.5vw;
+    letter-spacing: 0.1vw;
+    justify-content: center;
+    display: block;
+    text-align: center;
+}
+.phoneicon {
+    width: 15%;
+    height: 20%;
+}
+.emailicon {
+    width: 20%;
+    height: 30%;
+}
+.mailicon {
+    width: 20%;
+    height:30%;
+}
+    
+.wrapper {
+    display:grid;
+    /*grid-template-columns: 1fr 1fr 1fr;*/
+    grid-template-columns:repeat(3,1fr);
+    grid-column-gap:4.5em;
+    justify-content: center;
+    position: relative;
+    top:150px;
+    height: 300px;
+    margin: 0 auto;
+
+}   
+.wrapper > div{
+    display:block;
+    background:#494d52;
+    padding:1em
     
     
+
+}
+.wrapper> img{
+    grid-column: 1;
+    grid-row:1 / -1;
+    align-self: center;
+    width: 100px;
+}
+.wrapper2 {
+    display:grid;
+    grid-template-columns:repeat(1fr);
+    grid-column-gap:4.5em;
+    grid-auto-rows:500px; 
+
+}
+
+.wrapper2 > div{
+    background:#494d52;
+    padding:1em;
 }

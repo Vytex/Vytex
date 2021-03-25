@@ -158,8 +158,10 @@ class UserLinesController(object):
 
                 output.append(data)
                 output.reverse()
+            #process to load profile icon if user logged in
             image_file = url_for('static', filename='assets/' + current_user.image_file)
             return render_template("userLines/index.html", results=output, topResult=latestSpot, image_file=image_file)
+        #process to load profile icon if user logged in
         image_file = url_for('static', filename='assets/' + current_user.image_file)
         return render_template("userLines/empty.html",image_file=image_file)
 

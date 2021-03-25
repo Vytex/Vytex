@@ -23,5 +23,6 @@ def home():
 @authorization.route('/profile', methods=['GET'])
 @login_required
 def profile():
+    #returns profile icon if user is logged in 
     image_file = url_for('static', filename='assets/' + current_user.image_file)
     return render_template('Profile/profile.html', username=current_user.username, image_file=image_file)

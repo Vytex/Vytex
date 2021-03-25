@@ -4,14 +4,14 @@ from flask_login import login_user, login_required, current_user, logout_user
 from app import db
 
 # as the models file contains all the models, import what you need
-# from app.models import Shoe
+
 from app.models import Venue
 from datetime import time, datetime, timedelta
 
 from app import db
 
 from app.models import Venue, Lines, Spot
-# import app.controller.userLines_controller import userLines_controller
+
 from app.controller.admin_controller import admin_controller
 
 def timeify(timeString):
@@ -348,7 +348,11 @@ class LineListController(object):
 
     def get_venues(self, venueName, error_msg=""):
         # Assigns current profile picture depending on user selection
-        image_file = url_for('static', filename='assets/' + current_user.image_file)
+        image_file = None
+        if hasattr(current_user, 'image_file'):
+            image_file = url_for('static', filename='assets/' + current_user.image_file)
+        else:
+            image_file = url_for('static', filename='assets/profileButtonPlaceholder.jpg')
         # Searches db for venues with names like venueName. then returns venue information and all potential lines. 
         venues = Venue.get(venueName)
         
@@ -417,7 +421,7 @@ class LineListController(object):
                 
             image_file = url_for('static', filename='assets/' + current_user.image_file)
             return render_template("userLines/index.html", results=output, topResult=latestSpot, image_file=image_file)
-
-        return render_template("userLines/empty.html")
+        image_file = url_for('static', filename='assets/' + current_user.image_file)
+        return render_template("userLines/empty.html", image_file=image_file)
 
 lineList_controller = LineListController()
