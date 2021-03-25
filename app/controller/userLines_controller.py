@@ -115,7 +115,7 @@ class UserLinesController(object):
                 linesToday = Lines.getLine(venue.venueID, datetime.today().strftime('%m/%d/%Y'))
                 tomorrow = datetime.today() + timedelta(days=1)
                 linesTomorrow = Lines.getLine(venue.venueID, tomorrow.strftime('%m/%d/%Y'))
-                startiter = False
+                start_iter = False
                 startOpen = False
                 endTimes = []
                 # a list of all potenital line times in a day
@@ -128,19 +128,19 @@ class UserLinesController(object):
                     
                     # is closing time for today actually early morning tomorrow.
                     if int(data["Close"][0:2]) < 10 and lineTimes[i] == "00:00 - 00:30":
-                        startiter = True
+                        start_iter = True
                     
                     # if so add every time until closing to the endtimes list
-                    if startiter == True and lineTimes[i][ 8 : 13 ] != data["Close"]:
+                    if start_iter == True and lineTimes[i][ 8 : 13 ] != data["Close"]:
                         if tomorrowsLineValues[i] != 0:
                             endTimes.append(lineTimes[i])
                     elif lineTimes[i][ 8 : 13 ] == data["Close"]:
                         if tomorrowsLineValues[i] != 0:
                             endTimes.append(lineTimes[i])
-                        startiter = False
+                        start_iter = False
 
                     # does the current linetime match the opening time.
-                    if startiter == False and startOpen == False and lineTimes[i][0 : 5] == data["Open"]:
+                    if start_iter == False and startOpen == False and lineTimes[i][0 : 5] == data["Open"]:
                         startOpen = True
 
                     # if so start adding times to data["lines"] until you reach the end of the list or the closing time

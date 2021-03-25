@@ -1,14 +1,8 @@
-"""migrate init
+"""initializes database
 
-<<<<<<< HEAD:migrations/versions/ec333f60e0b8_initializes_database.py
-Revision ID: ec333f60e0b8
+Revision ID: 194c9d115534
 Revises: 
-Create Date: 2021-03-24 14:43:17.453721
-=======
-Revision ID: ab94aa3ae17d
-Revises: 
-Create Date: 2021-03-24 02:54:06.702144
->>>>>>> master:migrations/versions/ab94aa3ae17d_migrate_init.py
+Create Date: 2021-03-24 22:02:47.807598
 
 """
 from alembic import op
@@ -16,11 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-<<<<<<< HEAD:migrations/versions/ec333f60e0b8_initializes_database.py
-revision = 'ec333f60e0b8'
-=======
-revision = 'ab94aa3ae17d'
->>>>>>> master:migrations/versions/ab94aa3ae17d_migrate_init.py
+revision = '194c9d115534'
 down_revision = None
 branch_labels = None
 depends_on = None
