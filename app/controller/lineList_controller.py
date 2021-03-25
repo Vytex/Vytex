@@ -336,21 +336,21 @@ class LineListController(object):
 
             # is closing time for today actually early morning tomorrow.
             if int(close[0:2]) < 10 and line_times[i] == "00:00 - 00:30":
-                startiter = True
+                start_iter = True
             
             # if so add every time until closing to the end_times list
-            if startiter == True and line_times[i][ 8 : 13 ] != close:
+            if start_iter == True and line_times[i][ 8 : 13 ] != close:
                 if tomorrows_lineValues[i] != 0:
                     if is_after_curr_time(line_times[i]) != -1:
                         end_times.append(line_times[i])
-            elif startiter == True and line_times[i][ 8 : 13 ] == close:
+            elif start_iter == True and line_times[i][ 8 : 13 ] == close:
                 if tomorrows_lineValues[i] != 0:
                     if is_after_curr_time(line_times[i]) != -1:
                         end_times.append(line_times[i])
-                startiter = False
+                start_iter = False
 
             # does the current linetime match the opening time.
-            if startiter == False and start_open == False and line_times[i][0 : 5] == open and int(datetime.today().strftime('%H')) > 6:
+            if start_iter == False and start_open == False and line_times[i][0 : 5] == open and int(datetime.today().strftime('%H')) > 6:
                 start_open = True
 
             # if so start adding times to data["lines"] until you reach the end of the list or the closing time
@@ -398,8 +398,8 @@ class LineListController(object):
                 output.append(data)
             if error_msg != "":
                 return render_template("lineList/error.html",  results=output, error=error_msg)
-
-            return render_template("lineList/index.html",  results=output)
+            #image_file= url_for('static', filename='assets/' + current_user.image_file)
+            return render_template("lineList/index.html",  results=output)#, image_file=image_file)
         else:
             return render_template("lineList/empty.html")
 
@@ -436,9 +436,10 @@ class LineListController(object):
                 data["lines"].extend(self.create_list_of_lines(data["Open"], data["Close"], linesToday, linesTomorrow))
                 output.append(data)
                 output.reverse()
+                
+            image_file = url_for('static', filename='assets/' + current_user.image_file)
+            return render_template("userLines/index.html", results=output, topResult=latestSpot, image_file=image_file)
 
-            return render_template("userLines/index.html", results=output, topResult=latestSpot)
-
-        return render_template("userLines/index.html")
+        return render_template("userLines/empty.html")
 
 lineList_controller = LineListController()
