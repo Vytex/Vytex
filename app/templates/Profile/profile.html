@@ -33,11 +33,19 @@
             <div id="InfoContainer" class="InfoContainerClass">
                 <img id="Info1" src="{{ image_file }}">
                 <div id="CloseWindowX1">X</div>
+                {% block body %}
                 <div id="InfoContainer_1">
                     <h2 id="InfoSubmenuFont">{{ current_user.username }}</h2>
+                    <a href="/">
+                        <button id="infoEdit" class="btn edit">Edit</button>
+                    </a>
                     <h2 id="InfoSubmenuFont">{{ current_user.email}}</h2>
+                    <a>
+                        <button id="infoEdit" class="btn edit">Edit</button>
+                    </a>
+                    
                 </div>
-                
+                {% end block body %}
             </div>
             <a id="IMOffscreen"></a>
         </div>
@@ -52,7 +60,7 @@
                 </div>
                 <div class="profileBContainer">
                     <div class="profileB">
-                        <img src="{{ image_file }}">
+                        <img class="containerimg" class="containerimg" src="{{ image_file }}">
                     </div>
                 </div>
             </div>

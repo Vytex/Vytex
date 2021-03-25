@@ -38,6 +38,7 @@ def signup():
     email = request.form.get('email')
     username = request.form.get('username')
     password = request.form.get('password')
+    image_file = request.form.get('image2')
 
     user = User.query.filter_by(email=email).first()
 
@@ -45,7 +46,7 @@ def signup():
         flash('Email address already exists')
         return redirect(url_for('auth.signup'))
 
-    new_user = User(email=email, username=username, password=generate_password_hash(password, method='sha256'))
+    new_user = User(email=email, username=username, password=generate_password_hash(password, method='sha256'), image_file=image_file)
 
     db.session.add(new_user)
     db.session.commit()

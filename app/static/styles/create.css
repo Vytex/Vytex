@@ -8,7 +8,7 @@ form, input, .searchInput2, .searchInputF2 {
     height: 2vw;
     contain: content;
     justify-content: center;
-    margin-top:auto;
+    margin-top:25px;
     margin-bottom: auto;
     margin-right: auto;
     margin-left: auto;
@@ -28,7 +28,7 @@ form, input, .searchInput2, .searchInputF2 {
     margin-top:auto;
     margin-bottom: auto;
     margin-right: auto;
-    margin-left: auto;
+    margin-left: 25%;
 }
 .searchInput2:focus {
     outline: none;
@@ -49,8 +49,8 @@ form, input, .searchInput2, .searchInputF2 {
 
 
 .unruly2 {
-    margin-bottom: -100px;
-    margin-top: -120px;
+    margin-bottom: -0px;
+    margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
     color: var(--vyWhite);
@@ -69,7 +69,7 @@ form, input, .searchInput2, .searchInputF2 {
     padding-bottom:0.05%;
     */
 .unruly5 {
-    margin-top: -75px;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom:auto;
@@ -104,7 +104,7 @@ form, input, .searchInput2, .searchInputF2 {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top:-120px;
+    margin-top:10px;
     margin-bottom: auto;
     text-align: right;
     
@@ -132,4 +132,19 @@ form, input, .searchInput2, .searchInputF2 {
     text-align: center;
     
     
+}
+
+.notification {
+
+    color: var(--vyWhite);
+    position: absolute;
+    margin-top: 32%;
+    z-index: 10;
+
+}
+
+.imageSelector {
+    margin-left: 37%;
+    margin-bottom: 10%;
+
 }

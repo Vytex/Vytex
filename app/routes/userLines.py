@@ -13,6 +13,7 @@ from app.controller.home_controller import home_controller
 from app.controller.lineList_controller import lineList_controller
 
 @app.route('/userLines', methods = ['POST', 'GET'])
+@login_required
 def userLines():
     if request.method == 'POST':
          # used to get search value from previous pages html so it can 

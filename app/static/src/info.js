@@ -14,3 +14,4 @@ document.getElementById("info").addEventListener("click", function(){
     InfoMenu.style.display = "flex";
     console.log("ClickedTest")
 })
+

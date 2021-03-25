@@ -59,7 +59,6 @@ body, main {
     border-radius: var(--radius);
     padding-top: var(--padding);
     text-align: center;
-    background: rgb(255, 191, 72);;
     border-radius: 50%;
     resize:both;
     height: 100%;
@@ -71,6 +70,7 @@ body, main {
     resize: both;
     height: 100%;
     width: 100%;
+    object-fit: cover;
 }
 
 #content3 {
@@ -237,14 +237,12 @@ body, main {
 
 #Info1 {
     position: relative;
-    width: 20%;
-    background-color: rgb(255,191,72);
+    width: 40%;
     height: auto;
-    margin-left: 40%;
+    margin-left: 30%;
     margin-top: 3%;
     margin-right: auto;
     border-radius: 50%;
-    resize: both;
 }
 
 #InfoContainer_1 {
@@ -293,6 +291,11 @@ body, main {
     margin-left: 72%;
     margin-top: -31%;
     overflow: auto;
+}
+
+.containerimg{
+
+    object-fit:cover;
 }
 
 /*div {

@@ -79,7 +79,7 @@
                 <div class="profileBContainer">
                     <div class="profileB">
                         <a href="/profile">
-                            <img src="{{ image_file }}">
+                        <img class="containerimg" src="{{ url_for('static',    filename='./assets/profileButtonPlaceholder.jpg') }}">
                         </a>
                     </div>
                 </div>
@@ -99,7 +99,6 @@
                      
                 </div>
                 <div id="content2">
-                    ...
                     {% with messages = get_flashed_messages() %}
                     {% if messages %}
                     <div class="notification is-danger">
@@ -120,22 +119,11 @@
                             <input class="input is-large" type="password" name="password" placeholder="Your Password">
                                
                         </div>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        
                     
-                        <div id="content2">
-                            <div class="Logincontainer">
-                                <button class="btn login">Login</button>
-                            </div>
-                        </div>
+                        
+                        <button class="btn login">Login</button>
+                            
                     </form>
 {% with messages = get_flashed_messages() %}
 {% if messages %}
@@ -155,11 +143,9 @@
                         </div>
                     
                         <div id="content2">
-                            <div class="Signupcontainer">
-                                <a href="/Create/index.html">
-                                    <button class="btn signup">Sign Up</button>
-                                </a>
-                            </div>
+                            <a href="/Create/index.html">
+                                <button class="btn signup">Sign Up</button>
+                            </a>
                         </div>
 
                         <div id="content1">
@@ -169,14 +155,15 @@
                         <div id="content3">
                         
                         </div>
-
+                        
                         <div id="content4">
                         
                         </div>
-
+                        
                         <div id="content5">
                         
                         </div>
+
         </main>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/login.js') }}"></script>

@@ -20,10 +20,10 @@
             <div id="HMContainer">
                 <div id="CloseWindowX">X</div>
                 <div id="LinkContainer">
-                    <a href="/home">Join a Line</a>
-                    <a href="/userLines">Check your lines</a>
-                    <a href="/contact">Contact Us</a>
-                    <a href="/logout">Logout</a>
+                    <a>Join a Line</a>
+                    <a>Check your lines</a>
+                    <a>Contact Us</a>
+                    <a>Logout</a>
                 </div>
             </div>
             <a id="HMOffscreen"></a>
@@ -67,20 +67,14 @@
         <header>
             <div class="hContainer">
                 <div class="hamburgerMenuBContainer">
-                    <div id="hamburgerB">
-                        <div class=hbm></div>
-                        <div class=hbm></div>
-                        <div class=hbm></div>
-                    </div>
+                    <div id="hamburgerB" style="background-color: green;"></div>
                 </div>
                 <div class="logoBContainer">
                     <h1 class="logoB">Vytex</h1>
                 </div>
                 <div class="profileBContainer">
                     <div class="profileB">
-                        <a href="/profile">
-                        <img class="containerimg" src="{{ url_for('static',    filename='./assets/profileButtonPlaceholder.jpg') }}">
-                        </a>
+                        <img src="{{ url_for('static',    filename='./assets/profileButtonPlaceholder.jpg') }}">
                     </div>
                 </div>
             </div>
@@ -99,6 +93,7 @@
                      
                 </div>
                 <div id="content2">
+                    ...
                     {% with messages = get_flashed_messages() %}
                     {% if messages %}
                     <div class="notification is-danger">
@@ -106,64 +101,55 @@
                     </div>
                     {% endif %}
                     {% endwith %}
-{% block content %}
                     <form method="POST" action="/login">
                         
-                        <div class="usernameInput">
-                                
-                            <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="">
-                                
-                        </div>
-                        <div class="passwordInput">
-                                
-                            <input class="input is-large" type="password" name="password" placeholder="Your Password">
-                               
-                        </div>
-                        
-                    
-                        
-                        <button class="btn login">Login</button>
-                            
-                    </form>
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    <div class="notification is-danger">
-        {{ messages[0] }}
-    </div>
-{% endif %}
-{% endwith %}
-                    <form method="POST" action="/signup">
-{% endblock %}
-                        </div>
-                        <div id="content1">
-                            
-                        </div>
-                        <div id="content1">
-                            
-                        </div>
-                    
-                        <div id="content2">
-                            <a href="/Create/index.html">
-                                <button class="btn signup">Sign Up</button>
-                            </a>
-                        </div>
+                    <div class="usernameInput">
+                            <form class="usernameInputF">
+                                <input class="textInput" type="text" placeholder="Email or Phone Number">
+                            </form>
+                    </div>
+                    <div class="passwordInput">
+                            <form class="usernameInputF">
+                                <input class="textInput" type="text" placeholder="Password">
+                            </form>
+                    </div>
+                    <div class="frgtPasscontainer">
+                        <button id="forgot" class="btn frgtpass">Forgot Password?</button>
+                    </div>
+                     
+                </div>
+                <div id="content1">
+                     
+                </div>
+                <div id="content1">
+                     
+                </div>
+            
+                <div id="content2">
+                     <div class="Logincontainer">
+                         <button class="btn login">Login</button>
+                     </div>
 
-                        <div id="content1">
-                            
+                     <div class="Signupcontainer">
+                            <button class="btn signup">Sign Up</button>
                         </div>
+                </div>
 
-                        <div id="content3">
-                        
-                        </div>
-                        
-                        <div id="content4">
-                        
-                        </div>
-                        
-                        <div id="content5">
-                        
-                        </div>
+                <div id="content1">
+                     
+                </div>
 
+                <div id="content3">
+                
+                </div>
+
+                <div id="content4">
+                 
+                </div>
+
+                <div id="content5">
+                 
+                </div>
         </main>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/login.js') }}"></script>

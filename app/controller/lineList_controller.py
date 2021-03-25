@@ -64,7 +64,8 @@ class LineListController(object):
                     "venueID" : venue.venueID
                 }
             )
-        return render_template("lineList/index.html", results=output)
+        image_file = url_for('static', filename='assets/' + current_user.image_file)
+        return render_template("lineList/index.html", results=output, image_file=image_file)
     def home(self):
         return render_template("lineList/home.html")
 
