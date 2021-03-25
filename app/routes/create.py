@@ -29,6 +29,8 @@ def signup():
     if user:
         flash('Email address already exists')
         return redirect(url_for('auth.signup'))
+    if email == '':
+        return redirect(url_for('auth.signup'))
     #adds new user to db
     new_user = User(email=email, username=username, password=generate_password_hash(password, method='sha256'), image_file=image_file)
 
