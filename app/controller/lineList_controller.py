@@ -24,8 +24,10 @@ class LineListController(object):
     def create_Spot(self, venueID, userID, timeSlot):
         # Creates a new vanue and a linelist for today and tomorrows date
         spot = Spot(venueID = venueID, userID = userID, date = datetime.today().strftime('%m/%d/%Y'), timeSlot = timeSlot, arrived = False)
+
         spotid = spot.save()
-        # returns and displays the following information if successful
+
+        # returns the following information if successful
         data = {
             "venueID": spotid,
             "time" : spot.timeSlot
@@ -46,34 +48,32 @@ class LineListController(object):
         return render_template("lineList/home.html")
 
     def is_line_time_up(self, venueID):
-        #checks to see if the current time has passe the start time for your lates line Spot then returns -1 if you can't line up yet
+        #checks to see if the current time has passed the start time for your lates line Spot then returns -1 if you can't line up yet
         curr_hour = int(datetime.today().strftime('%H'))
+        curr_min = int(datetime.today().strftime('%M'))
 
-        #checking if the time is early morning or during the day and getting the appropriate spot
-        # note time is set by the closing time for that day so if its 2 am and the venue closes 
-        # at 3 you actually need yesterdays spot as it is for that days closing time.
-        if curr_hour < 6:
-            day = datetime.today() - timedelta(days=1)
-            the_latest = Spot.getLatestSpot(current_user.id, day.strftime('%m/%d/%Y'))
-        else:
-            the_latest = Spot.getLatestSpot(current_user.id)
-        print(the_latest)
+        #getting the latest spot and making sure it's not empty
+        the_latest = Spot.getLatestSpot(current_user.id)
         if the_latest == -1:
             return
 
         latest_time_slot_hour = int(the_latest.timeSlot[0:2])
+        latest_time_slot_min = int(the_latest.timeSlot[3:5])
 
         # actually checking the time against the current time
         if latest_time_slot_hour < 6:
             if curr_hour < 6:
-                if curr_hour > latest_time_slot_hour:
+                if curr_hour < latest_time_slot_hour:
+                    return -1
+                elif curr_hour == latest_time_slot_hour and curr_min < latest_time_slot_min:
                     return -1
         else:
-            if curr_hour > latest_time_slot_hour:
+            if curr_hour < latest_time_slot_hour:
                 return -1
         return 
     
     def lineUp (self, lineTime, venueID, venueClose, last_page_search_val):
+        # checks if a user can line up then reduces the capacity of the linetime by 1 and creates a line in the Spot model for that user
 
         if last_page_search_val == 'userLines':
             return self.get_venues(Venue.getByID(venueID).venue, error_msg="Could not line up at selected time")
