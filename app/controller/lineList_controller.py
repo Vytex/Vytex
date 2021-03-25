@@ -41,31 +41,7 @@ class LineListController(object):
             image_file= url_for('static', filename='assets/profileButtonPlaceholder.jpg')
             return render_template("lineList/index.html", image_file=image_file)    
 
-        #return render_template("lineList/index.html")
 
-    def get_venues(self, venueName):
-    # TODO change so it retrieves a search result instead of all availible venues
-        venues = Venue.get(venueName)
-        output = []
-        # formatting the data for the client 
-        for venue in venues:
-            output.append(
-                {
-                    # TODO add relevant Venue info base on table columns
-                    "venue" : venue.venue,
-                    "desc" : venue.description,
-                    "mon" : venue.mon.strftime("%H:%M"),
-                    "tue" : venue.tue.strftime("%H:%M"),
-                    "wed" : venue.wed.strftime("%H:%M"),
-                    "thu" : venue.thu.strftime("%H:%M"),
-                    "fri" : venue.fri.strftime("%H:%M"),
-                    "sat" : venue.sat.strftime("%H:%M"),
-                    "sun" : venue.sun.strftime("%H:%M"),
-                    "venueID" : venue.venueID
-                }
-            )
-        image_file = url_for('static', filename='assets/' + current_user.image_file)
-        return render_template("lineList/index.html", results=output, image_file=image_file)
     def home(self):
         return render_template("lineList/home.html")
 
@@ -78,9 +54,9 @@ class LineListController(object):
         # at 3 you actually need yesterdays spot as it is for that days closing time.
         if curr_hour < 6:
             day = datetime.today() - timedelta(days=1)
-            the_latest = Spot.getLatestSpot(1, day.strftime('%m/%d/%Y'))
+            the_latest = Spot.getLatestSpot(current_user.id, day.strftime('%m/%d/%Y'))
         else:
-            the_latest = Spot.getLatestSpot(1)
+            the_latest = Spot.getLatestSpot(current_user.id)
         print(the_latest)
         if the_latest == -1:
             return
@@ -103,7 +79,7 @@ class LineListController(object):
             return self.get_venues(Venue.getByID(venueID).venue, error_msg="Could not line up at selected time")
         # reduces the occupency of the chosen time if it is not already 0
         # will determine if the chosen time is today or early morning tomorrow
-        if Spot.getByUserID(datetime.today().strftime('%m/%d/%Y'), 1, lineTime) is None:
+        if Spot.getByUserID(datetime.today().strftime('%m/%d/%Y'), current_user.id, lineTime) is None:
             curr_hour = int(datetime.today().strftime('%H'))
 
 
@@ -220,7 +196,7 @@ class LineListController(object):
             # if successful updates the line with reduced value and returns and displays a success message
             theLine.update()
 
-            self.create_Spot(venueID, 1, lineTime)
+            self.create_Spot(venueID, current_user.id, lineTime)
             return self.First()
         
         return self.get_venues(last_page_search_val, "looks Like your already lined up for this time...")
@@ -371,6 +347,8 @@ class LineListController(object):
 
 
     def get_venues(self, venueName, error_msg=""):
+        # Assigns current profile picture depending on user selection
+        image_file = url_for('static', filename='assets/' + current_user.image_file)
         # Searches db for venues with names like venueName. then returns venue information and all potential lines. 
         venues = Venue.get(venueName)
         
@@ -397,23 +375,23 @@ class LineListController(object):
                 data["lines"].extend(self.create_list_of_lines(data["Open"], data["Close"], linesToday, linesTomorrow))
                 output.append(data)
             if error_msg != "":
-                return render_template("lineList/error.html",  results=output, error=error_msg)
-            #image_file= url_for('static', filename='assets/' + current_user.image_file)
-            return render_template("lineList/index.html",  results=output)#, image_file=image_file)
+                
+                return render_template("lineList/error.html",  results=output, error=error_msg, image_file=image_file)
+
+            return render_template("lineList/index.html",  results=output, image_file=image_file)
         else:
-            return render_template("lineList/empty.html")
+            return render_template("lineList/empty.html", image_file=image_file)
 
     def First(self):
         # this takes care of the first time slot.
-        currentDay = datetime.today().weekday()
-        latest = Spot.getLatestSpot(1, datetime.today().strftime('%m/%d/%Y'))
+        latest = Spot.getLatestSpot(current_user.id, datetime.today().strftime('%m/%d/%Y'))
         if latest != -1:
 
             venue = Venue.getByID(latest.venueID)
             latestSpot = lineList_controller.build_venue_object(venue)
             latestSpot['spot'] = latest.timeSlot
             # and now the list of venues in order that you last liked up
-            venueHistory = Spot.getSpotsByID(1)
+            venueHistory = Spot.getSpotsByID(current_user.id)
             output = []
 
             for VH in venueHistory:
