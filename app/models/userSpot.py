@@ -20,19 +20,19 @@ class Spot(db.Model):
         return Spot.query.all()
 
 
-    def getSpotVenue(venueID, date):
+    def get_spot_venue(venueID, date):
         return db.session.query(Spot).filter(Spot.venueID == venueID, Spot.date == date).all()
 
-    def getSpotUser(userID, date):
+    def get_spot_user(userID, date):
         return db.session.query(Spot).filter(Spot.userID == userID, Spot.date == date).all()
 
-    def getSpotsByID(userID):
+    def get_spots_by_ID(userID):
         return db.session.query(Spot).filter(Spot.userID == userID).all()
 
-    def getByUserID(date, userID, timeSlot):
+    def get_by_user_ID(date, userID, timeSlot):
         return db.session.query(Spot).filter(Spot.userID == userID, Spot.date == date, Spot.timeSlot == timeSlot).first()
 
-    def getLatestSpot(userID, date=datetime.today().strftime('%m/%d/%Y')):
+    def get_latest_spot(userID, date=datetime.today().strftime('%m/%d/%Y')):
         spots = db.session.query(Spot).filter(Spot.userID == userID, Spot.date == date).all()
         latestSpot = None
         if len(spots) != 0:

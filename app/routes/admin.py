@@ -54,7 +54,7 @@ def admin_api_delete():
     if request.method == "POST" and request.form.get('date'):
         id = request.form['venueID']
         date = request.form['date']
-        return admin_controller.deleteLine(id, date)
+        return admin_controller.delete_line(id, date)
     else:
         id = request.form['venueID']
         return admin_controller.delete_Venue(id=id)

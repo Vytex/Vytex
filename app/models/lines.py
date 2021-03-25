@@ -71,11 +71,11 @@ class Lines(db.Model):
         todaysdate = datetime.today().strftime('%m/%d/%Y')
         return db.session.query(Lines).filter(Lines.venueID == venueID, Lines.date == todaysdate).first()
    
-    def getByDate(date):
+    def get_by_date(date):
         # date formate m/d/Y 11/11/11
         return db.session.query(Lines).filter(Lines.date == date).all()
 
-    def getLine(venueID, date):
+    def get_line(venueID, date):
         # helper method used to return a line that matches a specific venueid and date
         # date formate m/d/Y 11/11/11
         return db.session.query(Lines).filter(Lines.venueID == venueID, Lines.date == date).first()
@@ -92,11 +92,11 @@ class Lines(db.Model):
     #DELETE
     def delete(venueID, date):
         # date formate m/d/Y 11/11/11
-        lList = Lines.getLine(venueID=venueID, date=date)
+        lList = Lines.get_line(venueID=venueID, date=date)
         db.session.delete(lList)
         db.session.commit()
 
-    def deleteByID(venueID):
+    def delete_by_ID(venueID):
         lList = Lines.get(venueID=venueID)
         db.session.delete(lList)
         db.session.commit()

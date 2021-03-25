@@ -130,7 +130,7 @@ class AdminController(object):
         else: 
             date = theDate
 
-        if Venue.getByID(venueID) and Lines.getLine(venueID, date) is None:
+        if Venue.getByID(venueID) and Lines.get_line(venueID, date) is None:
             lList = Lines(
                 venueID = venueID, 
                 date = date, 
@@ -212,13 +212,13 @@ class AdminController(object):
 
     def delete_Venue(self, id):
         Venue.delete(id)
-        Lines.deleteByID(id)
+        Lines.delete_by_ID(id)
         data = {
             "success": True
         }
         return jsonify(data)
     
-    def deleteLine(self, id, date):
+    def delete_line(self, id, date):
         Lines.delete(id, date)
         data = { 
             "success": True

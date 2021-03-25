@@ -23,7 +23,7 @@ def lineListHome():
         lineTime = request.form['lineTimesS']
         venueID = request.form['vID']
         venueClose = request.form['vc']
-        return lineList_controller.lineUp(lineTime = lineTime, venueID = venueID, venueClose = venueClose, name=just_the_argument)    
+        return lineList_controller.line_up(lineTime = lineTime, venueID = venueID, venueClose = venueClose, name=just_the_argument)    
     
 
     return home_controller.index()
@@ -45,9 +45,9 @@ def profile():
     image_file = url_for('static', filename='assets/' + current_user.image_file)
     return render_template('Profile/profile.html', username=current_user.username, image_file=image_file)
 
-@app.route('/lineList/lineUp', methods = ['POST'])
+@app.route('/lineList/line_up', methods = ['POST'])
 @login_required
-def lineUp():
+def line_up():
     # used to get search value from previous pages html so it can 
     # run the same search on the error page if routed there
     previous_HTML = request.referrer
@@ -60,9 +60,9 @@ def lineUp():
     # returns as redirect to get search param in html for error handling
     return redirect(url_for("linedUp", name = just_the_argument, venueID = venueID ,lineTime = lineTime, venue_close = venueClose ))
 
-@app.route('/lineList/lineUp/<name>', methods = ['POST', 'GET'])
+@app.route('/lineList/line_up/<name>', methods = ['POST', 'GET'])
 def linedUp(name):
     if request.args.get('lineTime') != None:
-        return lineList_controller.lineUp(request.args.get('lineTime'), request.args.get('venueID'), request.args.get('venue_close'), name)
+        return lineList_controller.line_up(request.args.get('lineTime'), request.args.get('venueID'), request.args.get('venue_close'), name)
     return lineList_controller.get_venues(name, error_msg='No availible times to line up in')
 

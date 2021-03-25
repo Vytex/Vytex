@@ -77,7 +77,7 @@
                         <div class="venueImg"><img src="{{x['venueIconAddress']}}" alt="venue icon"/></div>
                         <div class="venueName">{{x['venue']}}</div>
                         <h2 class="venueHours">{{x['Open']}} - {{x['Close']}}</h2>
-                        <form class="lineTimesF" action="/lineList/lineUp" method="POST">
+                        <form class="lineTimesF" action="/lineList/line_up" method="POST">
                             <input id="vid" type="text" name="vID" value="{{x['venueID']}}" style="display:none"/>
                             <input id="vc" type="text" name="vc" value="{{x['Close']}}" style="display:none"/>
                             <select class="lineTimes" name="lineTimesS">

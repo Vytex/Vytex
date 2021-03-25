@@ -33,7 +33,7 @@ def userLines():
 
 @app.route('/userLines/<name>', methods = ['POST', 'GET'])
 def user_lined_up(name):
-    return lineList_controller.lineUp(request.args.get('lineTime'), request.args.get('venueID'), request.args.get('venue_close'), name)
+    return lineList_controller.line_up(request.args.get('lineTime'), request.args.get('venueID'), request.args.get('venue_close'), name)
     
 @authorization.route('/profile', methods=['GET'])
 @login_required

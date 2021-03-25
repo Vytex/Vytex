@@ -53,7 +53,7 @@ class LineListController(object):
         curr_min = int(datetime.today().strftime('%M'))
 
         #getting the latest spot and making sure it's not empty
-        the_latest = Spot.getLatestSpot(current_user.id)
+        the_latest = Spot.get_latest_spot(current_user.id)
         if the_latest == -1:
             return
 
@@ -72,14 +72,14 @@ class LineListController(object):
                 return -1
         return 
     
-    def lineUp (self, lineTime, venueID, venueClose, last_page_search_val):
+    def line_up (self, lineTime, venueID, venueClose, last_page_search_val):
         # checks if a user can line up then reduces the capacity of the linetime by 1 and creates a line in the Spot model for that user
 
         if last_page_search_val == 'userLines':
             return self.get_venues(Venue.getByID(venueID).venue, error_msg="Could not line up at selected time")
         # reduces the occupency of the chosen time if it is not already 0
         # will determine if the chosen time is today or early morning tomorrow
-        if Spot.getByUserID(datetime.today().strftime('%m/%d/%Y'), current_user.id, lineTime) is None:
+        if Spot.get_by_user_ID(datetime.today().strftime('%m/%d/%Y'), current_user.id, lineTime) is None:
             curr_hour = int(datetime.today().strftime('%H'))
 
 
@@ -89,9 +89,9 @@ class LineListController(object):
             #determins if the time chosen is for today or early morning tomorrow
             if int(lineTime[0 : 2 ]) <= int(venueClose[0 : 2 ]) and int(venueClose[0 : 2 ]) < 10 and curr_hour > 6:
                 tomorrow = datetime.today() + timedelta(days=1)
-                theLine = Lines.getLine(venueID, tomorrow.strftime('%m/%d/%Y'))
+                theLine = Lines.get_line(venueID, tomorrow.strftime('%m/%d/%Y'))
             else:
-                theLine = Lines.getLine(venueID, datetime.today().strftime('%m/%d/%Y'))
+                theLine = Lines.get_line(venueID, datetime.today().strftime('%m/%d/%Y'))
             
             # then reduced the occupancy of that time by 1 if it is not already 0
             if lineTime == "00:00" and theLine.x00000030 != 0:
@@ -260,11 +260,11 @@ class LineListController(object):
         elif isTomorrow == True:
             day = day + timedelta(days=1)
 
-        lines = Lines.getLine(venueObj.venueID, day.strftime('%m/%d/%Y'))
+        lines = Lines.get_line(venueObj.venueID, day.strftime('%m/%d/%Y'))
 
         if lines is None:
             admin_controller.create_list(venueObj.venueID, venueObj.lineCapacity)
-            lines = Lines.getLine(venueObj.venueID, datetime.today().strftime('%m/%d/%Y'))
+            lines = Lines.get_line(venueObj.venueID, datetime.today().strftime('%m/%d/%Y'))
         
         return lines
 
@@ -388,14 +388,14 @@ class LineListController(object):
 
     def First(self):
         # this takes care of the first time slot.
-        latest = Spot.getLatestSpot(current_user.id, datetime.today().strftime('%m/%d/%Y'))
+        latest = Spot.get_latest_spot(current_user.id, datetime.today().strftime('%m/%d/%Y'))
         if latest != -1:
 
             venue = Venue.getByID(latest.venueID)
             latestSpot = lineList_controller.build_venue_object(venue)
             latestSpot['spot'] = latest.timeSlot
             # and now the list of venues in order that you last liked up
-            venueHistory = Spot.getSpotsByID(current_user.id)
+            venueHistory = Spot.get_spots_by_ID(current_user.id)
             output = []
 
             for VH in venueHistory:
