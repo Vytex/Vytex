@@ -1,5 +1,5 @@
 from app import db
-import datetime
+from datetime import datetime
 
 class Spot(db.Model):
     userID =  db.Column(db.Integer, primary_key=True)
@@ -32,7 +32,7 @@ class Spot(db.Model):
     def getByUserID(date, userID, timeSlot):
         return db.session.query(Spot).filter(Spot.userID == userID, Spot.date == date, Spot.timeSlot == timeSlot).first()
 
-    def getLatestSpot(userID, date):
+    def getLatestSpot(userID, date=datetime.today().strftime('%m/%d/%Y')):
         spots = db.session.query(Spot).filter(Spot.userID == userID, Spot.date == date).all()
         latestSpot = None
         if len(spots) != 0:

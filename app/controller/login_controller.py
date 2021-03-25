@@ -20,7 +20,4 @@ class LoginController(object):
             image_file = url_for('static', filename='assets/profileButtonPlaceholder.jpg')
             return render_template("LogIn/index.html", image_file=image_file)
 
-
-  
-
 login_controller = LoginController()
