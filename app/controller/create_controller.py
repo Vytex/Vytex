@@ -4,8 +4,6 @@ from flask_login import login_user, login_required, current_user, logout_user
 
 from app import db
 from app.models import User
-# as the models file contains all the models, import what you need
-
 
 class CreateController(object):
     def index(self):
@@ -16,8 +14,6 @@ class CreateController(object):
         #process to load profile icon if user not logged in
         else:
             image_file= url_for('static', filename='assets/profileButtonPlaceholder.jpg')
-            return render_template("create/signup.html", image_file=image_file)   
-
-    
+            return render_template("create/signup.html", image_file=image_file)      
 
 create_controller = CreateController()

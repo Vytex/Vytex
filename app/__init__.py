@@ -28,12 +28,6 @@ scheduler = APScheduler()
 scheduler.init_app(app)
 scheduler.start()
 
-# db
-
-#db
-#db = SQLAlchemy(app)
-#db.init_app(app)
-
 from app.scheduledTasks import *
 from app import routes
 from app.routes.create import authorization as auth_blueprint

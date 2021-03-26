@@ -94,11 +94,8 @@
         </main>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/index.js') }}"></script>
         <script type='text/javascript' src="{{ url_for('static',    filename='./src/lineList.js') }}"></script>
-        
         <script>
-            
                 venues = JSON.parse('{{ results | tojson | safe}}');
-
         </script>
 
     </body>
