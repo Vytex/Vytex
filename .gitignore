@@ -12,6 +12,7 @@
 !config.py
 !app.db
 !migrations/
+!requirements.txt
 
 # Some more stuff we don't want
 .DS_Store
