@@ -5,11 +5,8 @@ from flask import Blueprint, request, redirect, url_for, render_template, flash,
 from flask_login import login_user, login_required, current_user, logout_user
 authorization = Blueprint('auth', __name__)
 
-
 from app import app
 from app.controller.login_controller import login_controller
-
-#TODO either alter or remove bellow
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -18,7 +15,6 @@ def login():
         return redirect(url_for("signup", user = profileUser))
 
     return login_controller.index()
-
 
 @authorization.route('/profile', methods=['GET'])
 @login_required

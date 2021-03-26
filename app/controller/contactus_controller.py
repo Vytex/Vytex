@@ -4,10 +4,6 @@ from app.models import User
 
 from app import db
 
-# as the models file contains all the models, import what you need
-
-
-
 class ContactUsController(object):
     def index(self):
         #process to load profile icon if user logged in

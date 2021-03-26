@@ -38,7 +38,6 @@ def lineList(venue):
 
     return lineList_controller.index()
 
-
 @authorization.route('/profile', methods=['GET'])
 @login_required
 def profile():

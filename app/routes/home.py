@@ -19,7 +19,6 @@ def home():
 
     return home_controller.index()
 
-
 @authorization.route('/profile', methods=['GET'])
 @login_required
 def profile():
